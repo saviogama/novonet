@@ -1,9 +1,10 @@
 import React from 'react';
+import Login from './pages/login'
 import './global.css'
 function App() {
   return (
     <div className="App">
-      <h1>Hellow World</h1>
+      <Login/>
     </div>
   );
 }
