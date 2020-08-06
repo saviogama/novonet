@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import Logo_Verde from '../../assets/Logo_Verde.png'
 import './styles.css';
 
 export default () => {
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function handleSubmit(e){
         e.preventDefault();
-        
+        history.push('/admin');
     }
 
     return(

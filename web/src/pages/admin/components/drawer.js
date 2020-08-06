@@ -129,9 +129,15 @@ export default function PersistentDrawerLeft(props) {
   const handleListItemSelection = (event, index) => {
     setItemSelected(index);
     if(index === 1){
-      history.push('/admin');
+        history.push('/admin');
     }else if(index === 2){
-      history.push('/admin/clientes');
+        history.push('/admin/clientes');
+    }else if(index === 3){
+        history.push('/admin/registrar_cliente');
+    }else if(index === 4){
+        history.push('/admin/parceiros');
+    }else{
+        history.push('/admin/registrar_parceiro');
     }
   }
 
@@ -210,7 +216,7 @@ export default function PersistentDrawerLeft(props) {
                 <ListItemText primary="Vizualizar" className={classes.text}/>
               </ListItem>
 
-              <ListItem button className={classes.nested}>
+              <ListItem button selected={itemSelected === 3} onClick = {(event) => handleListItemSelection(event, 3)} className={classes.nested}>
                 <ListItemIcon>
                   <Assignment className={classes.icons}/>
                 </ListItemIcon>
@@ -233,14 +239,14 @@ export default function PersistentDrawerLeft(props) {
           <Collapse in={openParceiros} timeout="auto" unmountOnExit>
 
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem button selected={itemSelected === 4} onClick = {(event) => handleListItemSelection(event, 4)} className={classes.nested}>
                 <ListItemIcon>
                   <Search className={classes.icons}/>
                 </ListItemIcon>
                 <ListItemText primary="Vizualizar" className={classes.text}/>
               </ListItem>
 
-              <ListItem button className={classes.nested}>
+              <ListItem button selected={itemSelected === 5} onClick = {(event) => handleListItemSelection(event, 5)} className={classes.nested}>
                 <ListItemIcon>
                   <Assignment className={classes.icons}/>
                 </ListItemIcon>
