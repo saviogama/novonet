@@ -7,6 +7,28 @@
     outline: 0;
 }
 
+
+input{
+    padding: 10px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #E6E6E6;
+    border: none;
+    border-radius: 18px;
+
+}
+
+.button{
+    background-color: #018071;
+    border: none;
+    border-radius: 18px;
+    margin-top: 10px;
+    height: 40px;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
 input, a{
     font: 400 16px Roboto, sans-serif;
 }
@@ -14,6 +36,12 @@ input, a{
 button{
     font: 400 20px Roboto, sans-serif;
 }
+
+button:hover{
+    background-color: #00524a;
+    color: #ffffff;
+}
+
 
 h2{
     font: 400 22px Roboto, sans-serif;

@@ -8,27 +8,17 @@
     align-items: center;
 }
 
-.form-container{
+.form-container-login{
     width: 100%;
     max-width: 330px;
 }
+
 .form{
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.form input{
-    padding: 10px;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
-    background-color: #E6E6E6;
-    border: none;
-    border-radius: 18px;
-
-}
 
 .form a{
     display: block;
@@ -41,23 +31,9 @@
     color: rgb(91, 144, 206);
 }
 .form button{
-    background-color: #018071;
-    border: none;
-    border-radius: 18px;
-    margin-top: 10px;
     width: 100%;
-    height: 40px;
-    color: #ffffff;
-    transition: 0.3s;
 }
-
-.form button:hover{
-    background-color: #00524a;
-    color: #ffffff;
-}
-
 .logo{
     width: 300px;
     margin-bottom: 25px;
 }
-

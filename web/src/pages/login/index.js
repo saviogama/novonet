@@ -18,7 +18,7 @@ export default () => {
 
             <img src={Logo_Verde} className="logo" alt="NovoNet"/>
 
-            <div className="form-container">
+            <div className="form-container-login">
 
                 <form className="form" onSubmit={handleSubmit}>
 
@@ -26,7 +26,7 @@ export default () => {
 
                     <input className="input-password" type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)}/>
 
-                    <button className="button-log" type="submit">Entrar</button>
+                    <button className="button" type="submit">Entrar</button>
                     <a className="link-forgot" href="/?">Esqueci a senha</a>
 
                 </form>
