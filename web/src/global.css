@@ -30,11 +30,11 @@ input{
 }
 
 input, a{
-    font: 400 16px Roboto, sans-serif;
+    font: 400 1rem Roboto, sans-serif;
 }
 
 button{
-    font: 400 20px Roboto, sans-serif;
+    font: 400 1.25rem Roboto, sans-serif;
 }
 
 button:hover{
@@ -44,9 +44,9 @@ button:hover{
 
 
 h2{
-    font: 400 22px Roboto, sans-serif;
+    font: 400 1.375rem Roboto, sans-serif;
 }
 
 body{
-    font: 400 20px Roboto, sans-serif;
+    font: 400 1.25rem Roboto, sans-serif;
 }
