@@ -65,7 +65,7 @@ export default () => {
                         
                         <div className="links-container">
                             <a className="link-forgot">Esqueci a senha</a>
-                            <a className="sep">|</a> 
+                            <a>|</a> 
                             <a className="link-client" onClick={e => setClientLogin(false)}>Voltar</a>
                         </div>
     
