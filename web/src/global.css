@@ -27,10 +27,15 @@ input{
     height: 40px;
     color: #ffffff;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 input, a{
     font: 400 1rem Roboto, sans-serif;
+}
+
+a{
+    cursor: default;
 }
 
 button{

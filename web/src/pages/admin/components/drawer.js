@@ -109,7 +109,7 @@ export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
-  const [statusDrawer, setStatusDrawer] = React.useState(false); //Status => open/closed
+  const [statusDrawer, setStatusDrawer] = React.useState(true); //Status => open/closed
   const [openClientes, setOpenClientes] = React.useState(false);
   const [openParceiros, setOpenParceiros] = React.useState(false);
   const [itemSelected, setItemSelected] = React.useState(1);

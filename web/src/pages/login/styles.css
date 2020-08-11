@@ -13,6 +13,12 @@
     max-width: 330px;
 }
 
+.links-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .form{
     display: flex;
     flex-direction: column;
@@ -25,6 +31,10 @@
     margin-top: 10px;
     text-decoration: none;
     color: rgb(91, 144, 206);
+}
+
+.form a:hover{
+    color: rgb(56, 97, 143);
 }
 
 .form a:visited{
