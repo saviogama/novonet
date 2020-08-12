@@ -50,7 +50,7 @@ export default function PartnerLogin() {
             </TouchableOpacity>
             <Image
                 style={styles.footer}
-                source={require('../../assets/footer.png')}
+                source={require('../../assets/loginFooter.png')}
             />
         </View>
     )

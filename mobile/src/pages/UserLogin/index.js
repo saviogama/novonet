@@ -33,7 +33,7 @@ export default function UserLogin() {
             </View>
             <Image
                 style={styles.footer}
-                source={require('../../assets/footer.png')}
+                source={require('../../assets/loginFooter.png')}
             />
         </View>
     )
