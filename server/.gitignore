@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# production
+build/
+
+# testing
+coverage/
+
+# misc
+.env
+
+# readmen
+README.md
