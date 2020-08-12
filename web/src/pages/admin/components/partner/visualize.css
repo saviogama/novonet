@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: row;
     align-self: flex-start;
-    margin-left: calc(var(--widthTotal) - 95%);
 }
 
 
@@ -27,14 +26,19 @@
     margin-right: 15px;
 }
 
+.input-edit-row{
+    margin-bottom: 0px;
+}
+
 .table-container{
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .table-clients{
-    width: 90%;
+    width:100%;
+    align-self: center;
 }
 
 .header-table-partner{
@@ -42,7 +46,7 @@
     border-top: 1px solid #d3d3d3;
     height: 50px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr repeat(2, 50px);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr repeat(2, 56px);
     color: rgb(134, 134, 134);
 }
 
@@ -78,7 +82,6 @@ td{
 .MuiIconButton-root:hover{
     color: #000;
 }
-
 
 @media only screen and (max-width: 400px){
     *{

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Create, Delete, Done, Close} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
+import {AutoSizer, List} from 'react-virtualized';
 
 import './visualize.css'
 
@@ -103,6 +104,84 @@ export default () => {
         }
     }
 
+    function renderFullList({
+        key, // Unique key within array of rows
+        index, // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible, // This row is visible within the List (eg it is not an overscanned row)
+        style, // Style object to be applied to row (to position it)
+    }) {
+        return (
+            <tr key={index} style={style} className="data-row-client">
+                <td>{clients[index].nome}</td>
+                <td>{clients[index].codigo}</td>
+                <td>{clients[index].status}</td>
+                <td className="icon">
+                    <IconButton onClick={() => openEditTablesIndex(index)}>
+                        <Create/>
+                    </IconButton>
+                </td>
+                <td className="icon">
+                    <IconButton onClick={() => deleteTablesIndex()}>
+                        <Delete/>
+                    </IconButton>
+                </td>
+            </tr>
+        );
+    }
+
+    
+    function renderListWithEditRow({
+        key, // Unique key within array of rows
+        index, // Index of row within collection
+        isScrolling, // The List is currently being scrolled
+        isVisible, // This row is visible within the List (eg it is not an overscanned row)
+        style, // Style object to be applied to row (to position it)
+    }){
+        if(index === indexTableEdit){
+            return(
+                <tr key={key} style={style} className="data-row-client">
+                    <td><input className="input-edit-row"type="text"  value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
+                    <td>{clients[index].codigo}</td>
+                    <td>{clients[index].status}</td>
+
+                    <td className="icon">
+                        <IconButton>
+                            <Done/>
+                        </IconButton>
+                    </td>
+                    <td className="icon">
+                        <IconButton onClick={() => cancelEdit()}>
+                            <Close/>
+                        </IconButton>
+                    </td>
+                </tr>
+            );
+        }else{
+            return(
+                <tr key={key} style={style} className="data-row-client">
+                    <td>{clients[index].nome}</td>
+                    <td>{clients[index].codigo}</td>
+                    <td>{clients[index].status}</td>
+                    <td className="icon">
+                        <IconButton onClick={() => openEditTablesIndex(index)}>
+                            <Create/>
+                        </IconButton>
+                    </td>
+                    <td className="icon">
+                        <IconButton>
+                            <Delete/>
+                        </IconButton>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
+
+
+
+
     if(!edit){
         return(
             <div className="container-visualize">
@@ -121,29 +200,18 @@ export default () => {
                                 <th>Status</th>
                             </tr>
                         </thead>
-    
-                        <tbody>
-                            {
-                                clients.map((client, index) => (
-                                    <tr key={index} className="data-row-client">
-                                        <td>{client.nome}</td>
-                                        <td>{client.codigo}</td>
-                                        <td>{client.status}</td>
-                                        <td className="icon">
-                                            <IconButton onClick={() => openEditTablesIndex(index)}>
-                                                <Create/>
-                                            </IconButton>
-                                        </td>
-                                        <td className="icon">
-                                            <IconButton onClick={() => deleteTablesIndex()}>
-                                                <Delete/>
-                                            </IconButton>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
                     </table>
+                    <AutoSizer>
+                        {({height, width}) => (
+                            <List
+                            width={width}
+                            height={400}
+                            rowCount={clients.length}
+                            rowHeight={50}
+                            rowRenderer={renderFullList}
+                        />
+                        )}
+                    </AutoSizer>
                 </div>
             </div>
         );
@@ -165,51 +233,18 @@ export default () => {
                                 <th>Status</th>
                             </tr>
                         </thead>
-    
-                        <tbody>
-                            {
-                                clients.map((client, index) => {
-                                    if(index === indexTableEdit){
-                                        return(
-                                            <tr key={index} className="data-row-client">
-                                                <td><input type="text" value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
-                                                <td>{client.codigo}</td>
-                                                <td>{client.status}</td>
-                                                <td className="icon">
-                                                    <IconButton>
-                                                        <Done/>
-                                                    </IconButton>
-                                                </td>
-                                                <td className="icon">
-                                                    <IconButton onClick={() => cancelEdit()}>
-                                                        <Close/>
-                                                    </IconButton>
-                                                </td>
-                                            </tr>
-                                        );
-                                    }else{
-                                        return(
-                                            <tr key={index} className="data-row-client">
-                                                <td>{client.nome}</td>
-                                                <td>{client.codigo}</td>
-                                                <td>{client.status}</td>
-                                                <td className="icon">
-                                                    <IconButton onClick={() => openEditTablesIndex(index)}>
-                                                        <Create/>
-                                                    </IconButton>
-                                                </td>
-                                                <td className="icon">
-                                                    <IconButton>
-                                                        <Delete/>
-                                                    </IconButton>
-                                                </td>
-                                            </tr>
-                                        )
-                                    }
-                                })
-                            }
-                        </tbody>
                     </table>
+                    <AutoSizer>
+                        {({height, width}) => (
+                            <List
+                            width={width}
+                            height={400}
+                            rowCount={clients.length}
+                            rowHeight={50}
+                            rowRenderer={renderListWithEditRow}
+                        />
+                        )}
+                    </AutoSizer>  
                 </div>
             </div>
         );
