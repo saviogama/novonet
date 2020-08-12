@@ -2,7 +2,10 @@
 
 1. Rode 'yarn' para instalar as dependências
 2. Crie um banco de dados local
-  - docker run --name <name> -e POSTGRES_PASSWORD=<password> -p 5432:5432 -d postgres
+  - docker run --name=database -e POSTGRES_PASSWORD=workana -p 5432:5432 -d postgres
+  - use uma interface de banco de dados (exemplo: Postbird)
+  - use a senha 'workana' para acessar a interface
+  - crie uma tabela 'novonet'
 3. Rode 'yarn sequelize db:migrate' para criar as tabelas no banco
 4. Rode 'yarn dev' para rodas o server
 
