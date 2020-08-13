@@ -1,4 +1,5 @@
 import React from 'react';
+import './drawer.css';
 import clsx from 'clsx';
 import {Link, useHistory} from 'react-router-dom';
 
@@ -6,7 +7,7 @@ import {Drawer, AppBar, Toolbar} from '@material-ui/core'; //Estructure
 import { makeStyles, useTheme } from '@material-ui/core/styles'; //Style
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'; //List
 import {Divider, IconButton, Collapse} from '@material-ui/core'; //Customization
-import {Dashboard, Home, ChevronLeft, Menu, ExpandLess, ExpandMore, SupervisorAccount, Search, Assignment, BusinessCenter} from '@material-ui/icons' //Icons
+import {Dashboard, Home, ChevronLeft, Menu, ExpandLess, ExpandMore, SupervisorAccount, Search, Assignment, BusinessCenter, ExitToApp} from '@material-ui/icons' //Icons
 
 import Logo_Branco from '../../../assets/Logo_Branco.png';
 
@@ -101,8 +102,7 @@ const useStyles = makeStyles((theme) => ({
 
   list: {
     padding: 0,
-  }
-
+  },
 }));
 
 export default function PersistentDrawerLeft(props) {
@@ -141,6 +141,10 @@ export default function PersistentDrawerLeft(props) {
     }
   }
 
+  const exitFromTheSystem = () =>{
+      history.push('/');
+  }
+
 
   return (
     <div className={classes.root}>
@@ -165,6 +169,12 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
 
           <img src={Logo_Branco} className={classes.logoImg} alt="NovoNet"/>
+
+          <div className="exitButton-container">
+            <IconButton className={classes.icons} onClick={exitFromTheSystem}>
+              <ExitToApp fontSize="large"/>
+            </IconButton>
+          </div>
 
         </Toolbar>
 
