@@ -13,11 +13,8 @@ class ClientSessionController {
       }
     });
 
+    // verificar funcionalidade
     if (!client) {
-      return response.status(401).json({ error: 'Client not found.' });
-    }
-
-    if (!(await client.checkCode(code))) {
       return response.status(401).json({ error: 'Code does not match.' });
     }
 

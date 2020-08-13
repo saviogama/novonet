@@ -21,11 +21,8 @@ module.exports = {
         unique: true,
       },
       code: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
       },
       rg: {
@@ -34,6 +31,11 @@ module.exports = {
       },
       cpf: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
         allowNull: false,
       },
       client_type: {

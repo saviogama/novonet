@@ -7,14 +7,14 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       company_name: {
         type: Sequelize.STRING,

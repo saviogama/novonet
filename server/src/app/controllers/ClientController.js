@@ -5,12 +5,11 @@ class ClientController {
     const clientExists = await Client.findOne({
       where: {
         email: request.body.email,
-        code: request.body.code,
       }
     });
 
     if (clientExists) {
-      return response.status(400).json({ error: 'Partner already exists.' });
+      return response.status(400).json({ error: 'Client already exists.' });
     }
 
     const {
@@ -52,7 +51,7 @@ class ClientController {
 
     const client = await Client.findByPk(request.userId);
 
-    if (email && email !== partner.email) {
+    if (email && email !== client.email) {
       const clientExists = await Client.findOne({
         where: {
           email,
@@ -60,13 +59,12 @@ class ClientController {
       });
 
       if (clientExists) {
-        return response.status(400).json({ error: 'Partner already exists.' });
+        return response.status(400).json({ error: 'Client already exists.' });
       }
     }
 
     const {
       id,
-      email,
       firstname,
       lastname,
       rg,
@@ -75,7 +73,6 @@ class ClientController {
 
     return response.json({
       id,
-      email,
       firstname,
       lastname,
       rg,
