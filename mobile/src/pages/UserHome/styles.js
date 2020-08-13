@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 export default StyleSheet.create({
@@ -30,6 +30,30 @@ export default StyleSheet.create({
         marginTop: 48,
         color: "#13131a",
         fontWeight: "bold"
+    },
+    description: {
+        fontSize: 14,
+        lineHeight: 24,
+        marginLeft: 30,
+        color: "#737380"
+    },
+    observation: {
+        fontSize: 14,
+        marginBottom: 5,
+        marginTop: 5,
+        color: "#13131A",
+    },
+    buttonText: {
+        color: "#FFFFFF",
+        fontSize: 16
+    },
+    button: {
+        borderRadius: 12,
+        alignItems: "center",
+        backgroundColor: "#00524A",
+        padding: 15,
+        marginVertical: 25,
+        marginHorizontal: 55,
     },
     footer: {
         flexDirection: "row",

@@ -22,7 +22,7 @@ export default function PartnerLogin() {
         <View style={styles.container}>
             <Image
                 style={styles.logo}
-                source={require('../../assets/logo.png')}
+                source={require('../../assets/loginLogo.png')}
             />
             <View>
                 <TextInput

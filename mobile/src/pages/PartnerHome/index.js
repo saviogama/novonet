@@ -15,6 +15,10 @@ export default function PartnerHome() {
         navigation.navigate('PartnerLogin');
     }
 
+    function navigateToResult() {
+        navigation.navigate('Result');
+    }
+
     return (
         <View style={styles.view}>
             <View style={styles.container}>
@@ -43,7 +47,7 @@ export default function PartnerHome() {
                                 <View style={styles.modalButtons}>
                                     <TouchableOpacity
                                         style={styles.searchButton}
-                                        onPress={() => { setModalVisible(!modalVisible) }}
+                                        onPress={() => { setModalVisible(!modalVisible), navigateToResult() }}
                                     >
                                         <Text style={styles.searchButtonText}>Pesquisar</Text>
                                     </TouchableOpacity>
