@@ -74,5 +74,51 @@ export default StyleSheet.create({
         bottom: 0,
         width: "100%",
         zIndex: -1
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        width: "80%",
+        margin: 10,
+        backgroundColor: "#F0F0F0",
+        borderRadius: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    input: {
+        width: "90%",
+        fontSize: 14,
+        color: "#00524A",
+        height: 30,
+        borderColor: "#00524A",
+        borderBottomWidth: 2,
+        margin: 15
+    },
+    modalButtons: {
+        flexDirection: "row"
+    },
+    searchButton: {
+        borderRadius: 12,
+        alignItems: "center",
+        backgroundColor: "#00524A",
+        padding: 15,
+        margin: 5
+    },
+    searchButtonText: {
+        color: "#FFFFFF",
+        fontSize: 16
+    },
 });

@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 
 export default function PartnerHome() {
-
+    const [codigo, setCodigo] = useState('Digite o código do cliente');
+    const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
 
-    function navigateToLogin(){
+    function navigateToLogin() {
         navigation.navigate('PartnerLogin');
     }
-    
+
     return (
         <View style={styles.view}>
             <View style={styles.container}>
@@ -27,7 +28,36 @@ export default function PartnerHome() {
                 <Text style={styles.title}>Olá, Empresa</Text>
                 <Text style={styles.description}>Como deseja consultar o cliente?</Text>
                 <View style={styles.options}>
-                    <TouchableOpacity style={styles.optionsButton}>
+                    <Modal
+                        animationType="none"
+                        transparent={true}
+                        visible={modalVisible}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <TextInput
+                                    style={styles.input}
+                                    onChangeText={text => setCodigo(text)}
+                                    value={codigo}
+                                />
+                                <View style={styles.modalButtons}>
+                                    <TouchableOpacity
+                                        style={styles.searchButton}
+                                        onPress={() => { setModalVisible(!modalVisible) }}
+                                    >
+                                        <Text style={styles.searchButtonText}>Pesquisar</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.searchButton}
+                                        onPress={() => { setModalVisible(!modalVisible) }}
+                                    >
+                                        <Text style={styles.searchButtonText}>Voltar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+                    <TouchableOpacity style={styles.optionsButton} onPress={() => { setModalVisible(true) }}>
                         <Entypo name="keyboard" size={50} color="#E4FF23" />
                         <Text style={styles.optionsText}>DIGITAR</Text>
                         <Text style={styles.optionsText}>CÓDIGO</Text>
