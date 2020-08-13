@@ -11,34 +11,48 @@ export default StyleSheet.create({
         paddingTop: Constants.statusBarHeight + 20,
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     icon: {
-        flexDirection: 'row',
+        flexDirection: "row",
         alignItems: "center"
     },
     headerText: {
         fontSize: 14,
         marginRight: 5,
-        color: '#737380',
-    },
-    headerTextBold: {
-        fontWeight: 'bold'
+        color: "#737380",
     },
     title: {
         fontSize: 30,
         marginBottom: 5,
         marginTop: 48,
-        color: '#13131a',
-        fontWeight: 'bold'
+        color: "#13131a",
+        fontWeight: "bold"
     },
     description: {
         fontSize: 14,
         lineHeight: 24,
         marginLeft: 30,
-        color: '#737380'
+        color: "#737380"
+    },
+    options: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 50
+    },
+    optionsButton: {
+        borderRadius: 25,
+        alignItems: "center",
+        backgroundColor: "#00524A",
+        paddingVertical: 20,
+        paddingHorizontal: 40,
+        margin: 5
+    },
+    optionsText: {
+        fontSize: 14,
+        color: "#E4FF23",
     },
     footer: {
         flexDirection: "row",
