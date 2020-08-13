@@ -43,6 +43,28 @@ export default StyleSheet.create({
         marginTop: 5,
         color: "#13131A",
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        width: "90%",
+        backgroundColor: "#F0F0F0",
+        borderRadius: 20,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
     buttonText: {
         color: "#FFFFFF",
         fontSize: 16

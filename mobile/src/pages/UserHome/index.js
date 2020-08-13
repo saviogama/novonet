@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Modal } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import Carteirinha from '../../components/Carteirinha';
 import styles from './styles';
 
 export default function UserHome() {
-
+    const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
 
     function navigateToLogin() {
@@ -30,10 +31,28 @@ export default function UserHome() {
                 <Text style={styles.observation}>
                     Observação: É obrigatório a apresentação de um documento com foto comprovando a titularidade.
                 </Text>
+                <Modal
+                    animationType="none"
+                    transparent={true}
+                    visible={modalVisible}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <AntDesign name="qrcode" size={250} color="#00524A" />
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => { setModalVisible(!modalVisible) }}
+                            >
+                                <Text style={styles.buttonText}>Voltar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 <TouchableOpacity
                     style={styles.button}
+                    onPress={() => { setModalVisible(true) }}
                 >
-                    <Text style={styles.buttonText}>Exibir QR Code</Text>
+                    <Text style={styles.buttonText} >Exibir QR Code</Text>
                 </TouchableOpacity>
                 <View style={styles.footer}>
                     <TouchableOpacity>
