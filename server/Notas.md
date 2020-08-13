@@ -53,10 +53,8 @@
 - GET: Lista todos clientes
 
 - PUT: Atualiza cliente (
-    não é obrigatório atualizar todos os campos,
-    se o campo old_password for preenchido os campos
-    password_entry e confirm_password devem ser preenchidos
-    para atualizar a senha.
+    não é obrigatório atualizar todos os campos
+    (code não pode ser atualizado pelo cliente)
 )
 
 > '/clients-session'
