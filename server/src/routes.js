@@ -32,7 +32,7 @@ routes.post('/admin-session', validateAdminSessionStore, AdminSessionController.
 routes.post('/partners-session', validatePartnerSessionStore, PartnerSessionController.store);
 routes.post('/clients-session', validateClientSessionStore, ClientSessionController.store);
 
-routes.use(authMiddleware);
+// routes.use(authMiddleware);
 
 routes.get('/clients/:id/card', CardController.index);
 

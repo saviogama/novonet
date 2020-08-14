@@ -11,7 +11,9 @@ class QrCodeGenerationService {
       }
     });
 
-    const codeClient = qrcode.image(client.code, { type: 'svg' });
+    const codeUUID = toString(client.code);
+
+    const codeClient = qrcode.image(codeUUID, { type: 'svg' });
 
     return codeClient;
   }
