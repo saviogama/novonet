@@ -35,17 +35,6 @@ class ClientController {
     });
   }
 
-  async index(request, response) {
-    const clients = await Client.findAll({
-      // where: {
-      //   client: true,
-      // },
-      attributes: ['id', 'email', 'firstname', 'lastname', 'rg', 'cpf', 'status'],
-    });
-
-    return response.json(clients);
-  };
-
   async update(request, response) {
     const { email } = request.body;
 
@@ -73,11 +62,23 @@ class ClientController {
 
     return response.json({
       id,
+      email,
       firstname,
       lastname,
       rg,
       cpf
     });
+  };
+
+  async index(request, response) {
+    const clients = await Client.findAll({
+      where: {
+        client_type: true,
+      },
+      attributes: ['id', 'email', 'firstname', 'lastname', 'rg', 'cpf', 'status'],
+    });
+
+    return response.json(clients);
   };
 }
 

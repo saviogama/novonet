@@ -1,47 +1,34 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('clients', {
+    return queryInterface.createTable('admins', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      firstname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      lastname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      code: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-      },
-      rg: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cpf: {
+      password: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      status: {
+      admin_type: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true,
         allowNull: false,
+        defaultValue: true,
       },
-      client_type: {
+      admin_master: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true,
         allowNull: false,
+        defaultValue: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -55,6 +42,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    return queryInterface.dropTable('clients');
+    return queryInterface.dropTable('admins');
   },
 };

@@ -30,6 +30,7 @@ class AdminSessionController {
     return response.json({
       admin: {
         id,
+        email,
         name,
         admin_type
       },

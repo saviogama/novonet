@@ -35,17 +35,6 @@ class PartnerController {
     });
   };
 
-  async index(request, response) {
-    const partners = await Partner.findAll({
-      // where: {
-      //   partner: true,
-      // },
-      attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
-    });
-
-    return response.json(partners);
-  };
-
   async update(request, response) {
     const { email, old_password } = request.body;
 
@@ -78,12 +67,24 @@ class PartnerController {
 
     return response.json({
       id,
+      email,
       name,
       company_name,
       rg,
       cpf,
       cnpj
     });
+  };
+
+  async index(request, response) {
+    const partners = await Partner.findAll({
+      where: {
+        partner_type: true,
+      },
+      attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
+    });
+
+    return response.json(partners);
   };
 };
 

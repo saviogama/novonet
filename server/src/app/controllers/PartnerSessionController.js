@@ -34,6 +34,7 @@ class PartnerSessionController {
     return response.json({
       partner: {
         id,
+        email,
         name,
         company_name,
         rg,
