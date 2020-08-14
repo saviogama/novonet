@@ -7,12 +7,14 @@ import RegisterClient from './components/client/register';
 import Partners from './components/partner/visualize'
 import RegisterPartner from './components/partner/register'
 import Login from '../login'
+import Client from '../client'
 
 export default () => {
     return(
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Login}/>
+                <Route path="/cliente" component={Client}/>
                 <Drawer>
                     <Route path="/admin" exact component={Dashboard}/>
                     <Route path="/admin/clientes" exact component={Clients}/>

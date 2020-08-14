@@ -8,7 +8,7 @@ export default () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [codeClient, setCodeClient] = useState('');
-    const [clientLogin, setClientLogin] = useState(false);
+    const [clientLoginForm, setClientLoginForm] = useState(false);
 
 
     function handleSubmitAdmin(e){
@@ -18,10 +18,10 @@ export default () => {
 
     function handleSubmitClient(e){
         e.preventDefault();
-        history.push('/client');
+        history.push('/cliente');
     }
 
-    if(!clientLogin){
+    if(!clientLoginForm){
         return(
             <div className="login-container">
     
@@ -40,7 +40,7 @@ export default () => {
                         <div className="links-container">
                             <a className="link-forgot">Esqueci a senha</a>
                             <a>|</a> 
-                            <a className="link-client"  onClick={e => setClientLogin(true)}>Sou cliente</a>
+                            <a className="link-client"  onClick={e => setClientLoginForm(true)}>Sou cliente</a>
                         </div>
     
                     </form>
@@ -63,10 +63,8 @@ export default () => {
     
                         <button className="button" type="submit">Entrar</button>
                         
-                        <div className="links-container">
-                            <a className="link-forgot">Esqueci a senha</a>
-                            <a>|</a> 
-                            <a className="link-client" onClick={e => setClientLogin(false)}>Voltar</a>
+                        <div className="links-container"> 
+                            <a className="link-client" onClick={e => setClientLoginForm(false)}>Voltar</a>
                         </div>
     
                     </form>

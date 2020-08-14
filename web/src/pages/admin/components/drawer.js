@@ -1,7 +1,7 @@
 import React from 'react';
 import './drawer.css';
 import clsx from 'clsx';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {Drawer, AppBar, Toolbar} from '@material-ui/core'; //Estructure
 import { makeStyles, useTheme } from '@material-ui/core/styles'; //Style
