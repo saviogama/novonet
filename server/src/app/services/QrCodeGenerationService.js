@@ -1,17 +1,8 @@
 import qrcode from 'qr-image';
 
-import Client from '../models/Client';
-
 class QrCodeGenerationService {
-  async run({ id, code }) {
-    const client = await Client.findAll({
-      where: {
-        id,
-        code,
-      }
-    });
-
-    const codeUUID = toString(client.code);
+  async run({ code }) {
+    const codeUUID = toString(code);
 
     const codeClient = qrcode.image(codeUUID, { type: 'svg' });
 

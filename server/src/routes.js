@@ -9,8 +9,8 @@ import PartnerSessionController from './app/controllers/PartnerSessionController
 import ClientSessionController from './app/controllers/ClientSessionController';
 
 import CardController from './app/controllers/CardController';
-// import ListClientIDController from './app/controllers/ListClientIDController';
-// import ListPartnerIDController from './app/controllers/ListPartnerIDController';
+import ListClientIDController from './app/controllers/ListClientIDController';
+import ListPartnerIDController from './app/controllers/ListPartnerIDController';
 
 import validateAdminStore from './app/validators/AdminStore';
 import validateAdminSessionStore from './app/validators/AdminSessionStore';
@@ -32,7 +32,7 @@ routes.post('/admin-session', validateAdminSessionStore, AdminSessionController.
 routes.post('/partners-session', validatePartnerSessionStore, PartnerSessionController.store);
 routes.post('/clients-session', validateClientSessionStore, ClientSessionController.store);
 
-// routes.use(authMiddleware);
+routes.use(authMiddleware);
 
 routes.get('/clients/:id/card', CardController.index);
 
@@ -49,11 +49,11 @@ routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);
 
 routes.get('/partners', PartnerController.index);
-// routes.get('/partners/:id', ListPartnerIDController.index);
+routes.get('/partners/:id', ListPartnerIDController.index);
 
 routes.use(partnerAuthMiddleware);
 
 routes.get('/clients', ClientController.index);
-// routes.get('/clients/:id', ListClientIDController.index);
+routes.get('/clients/:id', ListClientIDController.index);
 
 export default routes;
