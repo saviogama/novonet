@@ -3,6 +3,7 @@ import Partner from '../models/Partner';
 export default async (request, response, next) => {
   const checkPartner = await Partner.findOne({
     where: {
+      id: request.userId,
       partner_type: true,
     },
   });

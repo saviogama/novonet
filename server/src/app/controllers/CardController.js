@@ -3,22 +3,22 @@
 import QrCodeGenerationService from '../services/QrCodeGenerationService';
 
 class CardController {
-  async index(request, response) {
-    const { code } = request.body;
+  async show(request, response) {
+    const { id, code } = request.params;
 
-    const { id } = request.params;
-
-    const client = await Client.findByPk(id);
+    const client = await Client.findAll({
+      where: {
+        status: true,
+        id,
+        code,
+      },
+    });
 
     if (!client) {
       return response.status(400).json({ error: 'Client not found' })
     }
 
     // const validateCode = validate(code);
-
-    if (!code) {
-      return response.status(400).json({ error: 'Code not found or does not exist' });
-    }
 
     // if (!validateCode) {
     //   return response.status(400).json({ error: 'Invalid code' });
@@ -28,7 +28,10 @@ class CardController {
       code,
     });
 
-    return response.json(valid);
+    return response.json({
+      id: client.id,
+      valid,
+    });
   }
 }
 

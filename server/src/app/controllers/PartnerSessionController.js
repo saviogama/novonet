@@ -14,7 +14,7 @@ class PartnerSessionController {
     });
 
     if (!partner) {
-      return response.status(401).json({ error: 'Partner not found.' });
+      return response.status(401).json({ error: 'E-mail not found.' });
     }
 
     if (!(await partner.checkPassword(password_entry))) {

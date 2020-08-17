@@ -1,6 +1,17 @@
 import Partner from '../models/Partner';
 
 class PartnerController {
+  async index(request, response) {
+    const partners = await Partner.findAll({
+      where: {
+        partner_type: true,
+      },
+      attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
+    });
+
+    return response.json(partners);
+  };
+
   async store(request, response) {
     const partnerExists = await Partner.findOne({
       where: {
@@ -20,7 +31,6 @@ class PartnerController {
       rg,
       cpf,
       cnpj,
-      partner_type
     } = await Partner.create(request.body);
 
     return response.json({
@@ -31,7 +41,6 @@ class PartnerController {
       rg,
       cpf,
       cnpj,
-      partner_type
     });
   };
 
@@ -74,17 +83,6 @@ class PartnerController {
       cpf,
       cnpj
     });
-  };
-
-  async index(request, response) {
-    const partners = await Partner.findAll({
-      where: {
-        partner_type: true,
-      },
-      attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
-    });
-
-    return response.json(partners);
   };
 };
 

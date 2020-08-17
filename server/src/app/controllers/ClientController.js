@@ -1,6 +1,17 @@
 import Client from '../models/Client';
 
 class ClientController {
+  async index(request, response) {
+    const clients = await Client.findAll({
+      where: {
+        client_type: true,
+      },
+      attributes: ['id', 'email', 'firstname', 'lastname', 'code', 'status'],
+    });
+
+    return response.json(clients);
+  };
+
   async store(request, response) {
     const clientExists = await Client.findOne({
       where: {
@@ -19,8 +30,6 @@ class ClientController {
       lastname,
       rg,
       cpf,
-      client_type,
-      status
     } = await Client.create(request.body);
 
     return response.json({
@@ -30,13 +39,11 @@ class ClientController {
       lastname,
       rg,
       cpf,
-      client_type,
-      status
     });
   }
 
   async update(request, response) {
-    const { email } = request.body;
+    const { email, code } = request.body;
 
     const client = await Client.findByPk(request.userId);
 
@@ -50,6 +57,10 @@ class ClientController {
       if (clientExists) {
         return response.status(400).json({ error: 'Client already exists.' });
       }
+    }
+
+    if (code) {
+      return response.status(400).json({ error: 'The code cannot be updated.' });
     }
 
     const {
@@ -68,17 +79,6 @@ class ClientController {
       rg,
       cpf
     });
-  };
-
-  async index(request, response) {
-    const clients = await Client.findAll({
-      where: {
-        client_type: true,
-      },
-      attributes: ['id', 'email', 'firstname', 'lastname', 'rg', 'cpf', 'status'],
-    });
-
-    return response.json(clients);
   };
 }
 
