@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo_Branco from '../../assets/Logo_Branco.png'
+import Ativo from '../../assets/Ativo-image.png'
 import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles'; 
 import {IconButton} from '@material-ui/core'; //Customization
@@ -30,7 +31,10 @@ export default () => {
                     </IconButton>
                 </div>
             </header>
-            <main><h2>aaaaaaaaaa</h2></main>
+            <main id="main-client">
+                <h2>Olá caro cliente, você está ativo no sistema!</h2>
+                <img src={Ativo} className="ativo-image" alt="Ativo no sistema"/>
+            </main>
         </div>  
     );
 }
