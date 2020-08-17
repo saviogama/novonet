@@ -26,53 +26,6 @@
     margin-right: 15px;
 }
 
-.table-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.table-clients{
-    width: 90%;
-}
-
-.header-table-client{
-    border-bottom: 1px solid #d3d3d3;
-    border-top: 1px solid #d3d3d3;
-    height: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr repeat(2, 56px);
-    color: rgb(134, 134, 134);
-}
-
-.data-row-client{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr repeat(2, 50px);
-    font-size: 0.9em;
-}
-
-tr{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-th{
-    text-align: left;
-}
-
-td{
-    margin-top: 30px;
-    overflow: auto;
-    margin: 13px 0;
-    margin-right: 13px;
-}
-
-.icon{
-    margin: 0 0;
-    margin-right: 0;
-}
 
 .MuiIconButton-root:hover{
     color: #000;

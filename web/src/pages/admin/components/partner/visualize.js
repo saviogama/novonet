@@ -156,7 +156,7 @@ export default () => {
                 </div>
     
                 <div className="table-container">
-                    <table className="table-clients">
+                    <table className="table-partner">
                         <thead>
                             <tr className="header-table-partner">
                                 <th>Nome</th>
@@ -191,7 +191,7 @@ export default () => {
                 </div>
     
                 <div className="table-container">
-                    <table className="table-clients">
+                    <table className="table-partner">
                         <thead>
                             <tr className="header-table-partner">
                                 <th>Nome</th>
