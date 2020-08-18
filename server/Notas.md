@@ -11,12 +11,26 @@
 
 # Documentação Rotas
 
-##### Observação
-- ainda não gera nem verifica o código do cliente
-- ainda não filtra cliente por parâmetros (verificar se o frontend pode fazer essa tarefa)
+### Observação:
+- tipos de admin: admin_master, admin_type
+- Só admins podem criar parceiros e clientes
+
+> '/clients/:id/card'
+##### GET: Retorna para o cliente sua imagem qrcode
+
+> '/admin'
+##### POST: Cria subs admin (
+  Só pode criar outro admin se for um admin do tipo admin_master
+)
+
+> '/admin/users'
+##### GET: Lista a quantidade de todos usuários (partners e clients) do sistema
+
+> '/admin/status-users'
+##### GET: Lista o status dos clientes, ativos e inativos
 
 > '/partners'
-- POST: Cria parceiros com campos obrigatórios (
+##### POST: Cria parceiros com campos obrigatórios (
     email,
     password_entry,
     name,
@@ -26,9 +40,9 @@
     cnpj,
 )
 
-- GET: Lista todos parceiros
+##### GET: Lista todos parceiros
 
-- PUT: Atualiza parceiro (
+##### PUT: Atualiza parceiro (
     não é obrigatório atualizar todos os campos,
     se o campo old_password for preenchido os campos
     password_entry e confirm_password devem ser preenchidos
@@ -36,13 +50,18 @@
 )
 
 > '/partners-session'
-- POST: Seção dos parceiros (
+##### POST: Seção dos parceiros (
     email,
     password_entry,
 )
 
+> '/partners/data'
+##### GET: Lista dados de um parceiro especifico através do name, company_name ou cnpj (
+  Só admin pode listar
+)
+
 > '/clients'
-- POST: Cria clientes com campos obrigatórios (
+##### POST: Cria clientes com campos obrigatórios (
     email,
     firstname,
     lastname,
@@ -50,14 +69,19 @@
     cpf,
 )
 
-- GET: Lista todos clientes
+##### GET: Lista todos clientes
 
-- PUT: Atualiza cliente (
+##### PUT: Atualiza cliente (
     não é obrigatório atualizar todos os campos
     (code não pode ser atualizado pelo cliente)
 )
 
 > '/clients-session'
-- POST: Seção dos clientes (
+##### POST: Seção dos clientes (
     code,
+)
+
+> '/clients/data'
+##### GET: Lista dados de um cliente especifico através do firstname ou code (
+  qualquer usuário, menos os do tipo cliente, pode listar
 )

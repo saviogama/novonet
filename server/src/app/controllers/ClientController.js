@@ -55,7 +55,7 @@ class ClientController {
       });
 
       if (clientExists) {
-        return response.status(400).json({ error: 'Client already exists.' });
+        return response.status(400).json({ error: 'Email already exists.' });
       }
     }
 
