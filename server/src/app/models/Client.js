@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+import { v4 } from 'uuid';
 
 class Client extends Model {
   static init(sequelize) {
@@ -9,25 +9,19 @@ class Client extends Model {
       lastname: Sequelize.STRING,
       rg: Sequelize.STRING,
       cpf: Sequelize.STRING,
-      code: Sequelize.STRING,
+      code: Sequelize.UUID,
       status: Sequelize.BOOLEAN,
       client_type: Sequelize.BOOLEAN,
     }, {
       sequelize,
     });
 
-    // this.addHook('beforeSave', async (client) => {
-    //   if (client.code) {
-    //     client.code = await bcrypt.hash(client.code, 8);
-    //   }
-    // });
+    this.addHook('beforeSave', (client) => {
+      client.code = v4();
+    });
 
-    // return this;
+    return this;
   }
-
-  // checkPassword(p) {
-  //   return bcrypt.compare(p, this.password);
-  // }
 }
 
 export default Client;

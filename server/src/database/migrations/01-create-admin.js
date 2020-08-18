@@ -1,11 +1,16 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('admin', {
+    return queryInterface.createTable('admins', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -17,8 +22,13 @@ module.exports = {
       },
       admin_type: {
         type: Sequelize.BOOLEAN,
-        defaultValue: true,
         allowNull: false,
+        defaultValue: true,
+      },
+      admin_master: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -32,6 +42,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    return queryInterface.dropTable('admin');
+    return queryInterface.dropTable('admins');
   },
 };

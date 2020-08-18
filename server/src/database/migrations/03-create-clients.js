@@ -21,11 +21,8 @@ module.exports = {
         unique: true,
       },
       code: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
       },
       rg: {
@@ -40,6 +37,13 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
         allowNull: false,
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
       created_at: {
         type: Sequelize.DATE,

@@ -12,7 +12,7 @@ class Partner extends Model {
       cnpj: Sequelize.STRING,
       password_entry: Sequelize.VIRTUAL,
       password: Sequelize.STRING,
-      partner: Sequelize.BOOLEAN,
+      partner_type: Sequelize.BOOLEAN,
     }, {
       sequelize,
     });
