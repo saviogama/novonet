@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 
 export default function PartnerHome() {
-    const [codigo, setCodigo] = useState('Digite o código do cliente');
+    const [codigo, setCodigo] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
 
@@ -43,6 +43,8 @@ export default function PartnerHome() {
                                     style={styles.input}
                                     onChangeText={text => setCodigo(text)}
                                     value={codigo}
+                                    placeholder="Digite o código do cliente"
+                                    placeholderTextColor="#00524A99"
                                 />
                                 <View style={styles.modalButtons}>
                                     <TouchableOpacity
