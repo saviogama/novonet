@@ -1,37 +1,35 @@
-// import { validate } from 'uuid';
+import qrcode from 'qr-image';
 
-import QrCodeGenerationService from '../services/QrCodeGenerationService';
+import Client from '../models/Client';
 
 class CardController {
   async show(request, response) {
-    const { id, code } = request.params;
+    const { id } = request.params;
 
     const client = await Client.findAll({
       where: {
-        status: true,
         id,
-        code,
+        status: true,
       },
+      raw: true,
+      attributes: ['code'],
     });
 
     if (!client) {
-      return response.status(400).json({ error: 'Client not found' })
+      return response.status(400).json({ error: 'Erro, data invalid' });
     }
 
-    // const validateCode = validate(code);
+    const jsonToString = JSON.stringify(client);
 
-    // if (!validateCode) {
-    //   return response.status(400).json({ error: 'Invalid code' });
-    // }
+    const codeClient = jsonToString.slice(10, jsonToString.length - 3);
 
-    const valid = await QrCodeGenerationService.run({
-      code,
-    });
+    const ImageQrCode = qrcode.image(codeClient, { type: 'svg', size: 5 });
 
-    return response.json({
-      id: client.id,
-      valid,
-    });
+    response.type('svg');
+
+    ImageQrCode.pipe(response);
+
+    return ImageQrCode;
   }
 }
 

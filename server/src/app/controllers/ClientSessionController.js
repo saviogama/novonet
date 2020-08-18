@@ -13,7 +13,6 @@ class ClientSessionController {
       }
     });
 
-    // verificar funcionalidade
     if (!client) {
       return response.status(401).json({ error: 'Code does not match.' });
     }
@@ -38,6 +37,7 @@ class ClientSessionController {
         rg,
         cpf,
         client_type,
+        code,
         status
       },
       token: jwt.sign({ id }, authConfig.secret, {

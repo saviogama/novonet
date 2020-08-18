@@ -2,19 +2,17 @@ import Client from '../models/Client';
 
 class ClientListIndexController {
   async show(request, response) {
-    const { name, code } = request.body;
+    const { firstname, code } = request.body;
 
-    const client = await Client.findAll({
+    const client = await Client.findOne({
       where: {
-        client_type: true,
-        id: request.params.userId,
-        firstname: name,
+        firstname,
         code,
       },
       attributes: ['id', 'email', 'firstname', 'lastname', 'status'],
     });
 
-    if (!client.firstname && !client.code) {
+    if (!client.firstname || !client.code) {
       return response.status(400).json({ error: 'Client not found.' });
     }
 

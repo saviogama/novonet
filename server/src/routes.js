@@ -36,8 +36,6 @@ routes.post('/admin-session', validateAdminSessionStore, AdminSessionController.
 routes.post('/partners-session', validatePartnerSessionStore, PartnerSessionController.store);
 routes.post('/clients-session', validateClientSessionStore, ClientSessionController.store);
 
-// routes.post('/admin/master', AdminMasterController.store);
-
 routes.use(authMiddleware);
 
 routes.get('/clients/:id/card', CardController.show);
@@ -45,12 +43,13 @@ routes.get('/clients/:id/card', CardController.show);
 routes.put('/partners', validatePartnerUpdate, PartnerController.update);
 routes.put('/clients', validateClientUpdate, ClientController.update);
 
-// routes.use(adminMasterAuthMiddleware);
+routes.use(partnerAuthMiddleware);
 
-routes.post('/admin', validateAdminStore, AdminController.store);
-// routes.get('/admin', AdminController.index);
+routes.get('/clients/data', validateClientListIndex, ClientListIndexController.show);
 
-// routes.use(adminAuthMiddleware);
+// routes.post('/admin/master', AdminMasterController.store);
+
+routes.use(adminAuthMiddleware);
 
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);
@@ -63,8 +62,9 @@ routes.get('/admin/users', ListSystemUsersController.index);
 
 routes.get('/partners/data', validatePartnerListIndex, PartnerListIndexController.show);
 
-// routes.use(partnerAuthMiddleware);
+routes.use(adminMasterAuthMiddleware);
 
-routes.get('/clients/data', validateClientListIndex, ClientListIndexController.show);
+routes.post('/admin', validateAdminStore, AdminController.store);
+// routes.get('/admin', AdminController.index);
 
 export default routes;

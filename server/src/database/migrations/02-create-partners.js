@@ -20,10 +20,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       rg: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -39,6 +35,10 @@ module.exports = {
       partner_type: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {

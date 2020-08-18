@@ -4,10 +4,8 @@ class PartnerListIndexController {
   async show(request, response) {
     const { name, company_name, cnpj } = request.body;
 
-    const partner = await Partner.findAll({
+    const partner = await Partner.findOne({
       where: {
-        partner_type: true,
-        id: request.params.userId,
         name,
         company_name,
         cnpj,
@@ -15,7 +13,7 @@ class PartnerListIndexController {
       attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
     });
 
-    if (!partner.name && !partner.company_name && ! partner.cnpj) {
+    if (!partner.name || !partner.company_name || !partner.cnpj) {
       return response.status(400).json({ error: 'Partner not found.' });
     }
 
