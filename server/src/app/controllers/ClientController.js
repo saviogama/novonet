@@ -6,7 +6,7 @@ class ClientController {
       where: {
         client_type: true,
       },
-      attributes: ['id', 'email', 'firstname', 'lastname', 'code', 'status'],
+      attributes: ['id', 'email', 'firstname', 'lastname', 'rg', 'cpf', 'code', 'status'],
     });
 
     return response.json(clients);

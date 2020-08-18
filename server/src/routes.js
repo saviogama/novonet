@@ -45,12 +45,12 @@ routes.get('/clients/:id/card', CardController.show);
 routes.put('/partners', validatePartnerUpdate, PartnerController.update);
 routes.put('/clients', validateClientUpdate, ClientController.update);
 
-routes.use(adminMasterAuthMiddleware);
+// routes.use(adminMasterAuthMiddleware);
 
 routes.post('/admin', validateAdminStore, AdminController.store);
 // routes.get('/admin', AdminController.index);
 
-routes.use(adminAuthMiddleware);
+// routes.use(adminAuthMiddleware);
 
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);
@@ -63,7 +63,7 @@ routes.get('/admin/users', ListSystemUsersController.index);
 
 routes.get('/partners/data', validatePartnerListIndex, PartnerListIndexController.show);
 
-routes.use(partnerAuthMiddleware);
+// routes.use(partnerAuthMiddleware);
 
 routes.get('/clients/data', validateClientListIndex, ClientListIndexController.show);
 
