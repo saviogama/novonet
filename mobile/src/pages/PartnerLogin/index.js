@@ -5,8 +5,8 @@ import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 
 export default function PartnerLogin() {
-    const [email, setEmail] = useState('Email');
-    const [senha, setSenha] = useState('Senha');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
     const navigation = useNavigation();
 
@@ -29,11 +29,15 @@ export default function PartnerLogin() {
                     style={styles.input}
                     onChangeText={text => setEmail(text)}
                     value={email}
+                    placeholder="Email"
+                    placeholderTextColor="#00524A99"
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={text => setSenha(text)}
                     value={senha}
+                    placeholder="Senha"
+                    placeholderTextColor="#00524A99"
                 />
                 <TouchableOpacity
                     style={styles.button}

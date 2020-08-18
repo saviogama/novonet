@@ -4,7 +4,7 @@ import { View, Text, TextInput, Image, TouchableOpacity, TouchableHighlight } fr
 import styles from './styles';
 
 export default function UserLogin() {
-    const [codigo, setCodigo] = useState('Digite seu código');
+    const [codigo, setCodigo] = useState('');
 
     const navigation = useNavigation();
 
@@ -23,6 +23,8 @@ export default function UserLogin() {
                     style={styles.input}
                     onChangeText={text => setCodigo(text)}
                     value={codigo}
+                    placeholder="Digite seu código"
+                    placeholderTextColor="#00524A99"
                 />
                 <TouchableOpacity
                     style={styles.button}
