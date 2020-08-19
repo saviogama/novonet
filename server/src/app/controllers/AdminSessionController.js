@@ -21,9 +21,19 @@ class AdminSessionController {
       return response.status(401).json({ error: 'Password does not match.' });
     }
 
-    const { id } = admin;
+    const {
+      id,
+      name,
+      admin_type
+    } = admin;
 
     return response.json({
+      admin: {
+        id,
+        email,
+        name,
+        admin_type
+      },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),

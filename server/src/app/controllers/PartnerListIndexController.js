@@ -1,11 +1,13 @@
 import Partner from '../models/Partner';
 
-class PartnerListIDController {
+class PartnerListIndexController {
   async show(request, response) {
     const { name, company_name, cnpj } = request.body;
 
-    const partner = await Partner.findOne({
+    const partner = await Partner.findAll({
       where: {
+        partner_type: true,
+        id: request.params.userId,
         name,
         company_name,
         cnpj,
@@ -13,7 +15,7 @@ class PartnerListIDController {
       attributes: ['id', 'email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
     });
 
-    if (!partner.name || !partner.company_name || !partner.cnpj) {
+    if (!partner.name && !partner.company_name && ! partner.cnpj) {
       return response.status(400).json({ error: 'Partner not found.' });
     }
 
@@ -21,4 +23,4 @@ class PartnerListIDController {
   }
 }
 
-export default new PartnerListIDController();
+export default new PartnerListIndexController();
