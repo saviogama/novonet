@@ -29,12 +29,16 @@ class AdminController {
       id,
       email,
       name,
+      admin_type = true,
+      admin_master = false,
     } = await Admin.create(request.body);
 
     return response.json({
       id,
       email,
       name,
+      admin_type,
+      admin_master,
     });
   }
 }
