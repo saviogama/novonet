@@ -9,6 +9,7 @@ class Admin extends Model {
       password_entry: Sequelize.VIRTUAL,
       password: Sequelize.STRING,
       admin_type: Sequelize.BOOLEAN,
+      admin_master: Sequelize.BOOLEAN,
     }, {
       sequelize,
     });

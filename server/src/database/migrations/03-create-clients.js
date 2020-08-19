@@ -7,22 +7,17 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
       firstname: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       lastname: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      code: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
       },
       rg: {
@@ -36,6 +31,11 @@ module.exports = {
       client_type: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
+        allowNull: false,
+      },
+      code: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
       },
       status: {

@@ -3,8 +3,8 @@ import Client from '../models/Client';
 
 class ListSystemUsersController {
   async index(request, response) {
-    const partners = await Partner.findAndCountAll()
-    const clients = await Client.findAndCountAll();
+    const partners = await Partner.count()
+    const clients = await Client.count();
 
     return response.json({ partners, clients });
   }

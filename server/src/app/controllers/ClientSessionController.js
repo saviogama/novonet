@@ -13,33 +13,13 @@ class ClientSessionController {
       }
     });
 
-    // verificar funcionalidade
     if (!client) {
       return response.status(401).json({ error: 'Code does not match.' });
     }
 
-    const {
-      id,
-      email,
-      firstname,
-      lastname,
-      rg,
-      cpf,
-      client_type,
-      status
-    } = client;
+    const { id } = client;
 
     return response.json({
-      client: {
-        id,
-        email,
-        firstname,
-        lastname,
-        rg,
-        cpf,
-        client_type,
-        status
-      },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
