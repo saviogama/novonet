@@ -1,6 +1,6 @@
 import Partner from '../models/Partner';
 
-class PartnerListIndexController {
+class PartnerListIDController {
   async show(request, response) {
     const { name, company_name, cnpj } = request.body;
 
@@ -21,4 +21,4 @@ class PartnerListIndexController {
   }
 }
 
-export default new PartnerListIndexController();
+export default new PartnerListIDController();

@@ -2,13 +2,11 @@ import qrcode from 'qr-image';
 
 import Client from '../models/Client';
 
-class CardController {
+class CardGenerationController {
   async show(request, response) {
-    const { id } = request.params;
-
-    const client = await Client.findAll({
+    const client = await Client.findOne({
       where: {
-        id,
+        id: request.userId,
         status: true,
       },
       raw: true,
@@ -33,4 +31,4 @@ class CardController {
   }
 }
 
-export default new CardController();
+export default new CardGenerationController();

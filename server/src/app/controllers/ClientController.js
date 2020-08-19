@@ -43,7 +43,7 @@ class ClientController {
   }
 
   async update(request, response) {
-    const { email, code } = request.body;
+    const { email } = request.body;
 
     const client = await Client.findByPk(request.userId);
 

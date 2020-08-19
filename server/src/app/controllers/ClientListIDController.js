@@ -1,6 +1,6 @@
 import Client from '../models/Client';
 
-class ClientListIndexController {
+class ClientListIDController {
   async show(request, response) {
     const { firstname, code } = request.body;
 
@@ -20,4 +20,4 @@ class ClientListIndexController {
   }
 }
 
-export default new ClientListIndexController();
+export default new ClientListIDController();
