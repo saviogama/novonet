@@ -20,7 +20,6 @@ class ProfilePartnerController {
       rg,
       cpf,
       cnpj,
-      partner_type
     } = partner;
 
     return response.json({
@@ -32,7 +31,6 @@ class ProfilePartnerController {
         rg,
         cpf,
         cnpj,
-        partner_type
       },
     });
   };

@@ -19,7 +19,6 @@ class ProfileClientController {
       lastname,
       rg,
       cpf,
-      client_type,
       status
     } = client;
 
@@ -30,7 +29,6 @@ class ProfileClientController {
         lastname,
         rg,
         cpf,
-        client_type,
         status
       },
     });
