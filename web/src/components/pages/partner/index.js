@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
-import Logo_Branco from '../../assets/Logo_Branco.png'
+import React, {useState, useContext} from 'react'
+import Logo_Branco from '../../../assets/Logo_Branco.png'
 import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles'; 
 import {Create, Delete, Done, Close} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'; //Customization
 import {ExitToApp} from '@material-ui/icons'
 import {AutoSizer, List} from 'react-virtualized';
+import StoreContext from '../../store/Context'
 import './styles.css'
 
 
@@ -67,6 +68,7 @@ export default () => {
 
     const classes = useStyles();
     const history = useHistory();
+    const {removeTokenPartner} = useContext(StoreContext);
     const [clients, setClients] = useState(clientes);
     const [codeSearch, setCodeSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
@@ -90,6 +92,7 @@ export default () => {
     }
 
     const exitFromTheSystem = () =>{
+        removeTokenPartner();
         history.push('/');
     }
 

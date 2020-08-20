@@ -8,6 +8,7 @@ import Partners from './components/partner/visualize'
 import RegisterPartner from './components/partner/register'
 import Login from '../login'
 import Client from '../client'
+import Partner from '../partner'
 
 export default () => {
     return(
@@ -15,6 +16,7 @@ export default () => {
             <Switch>
                 <Route path="/" exact component={Login}/>
                 <Route path="/cliente" component={Client}/>
+                <Route path="/parceiro" component={Partner}/>
                 <Drawer>
                     <Route path="/admin" exact component={Dashboard}/>
                     <Route path="/admin/clientes" exact component={Clients}/>

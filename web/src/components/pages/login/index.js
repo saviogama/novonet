@@ -1,24 +1,57 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import StoreContext from '../../store/Context'
 import {useHistory} from 'react-router-dom';
-import Logo_Verde from '../../assets/Logo_Verde.png'
+import Logo_Verde from '../../../assets/Logo_Verde.png'
+import api from '../../../services/api'
+
 import './styles.css';
 
 export default () => {
     const history = useHistory();
+    const {setTokenAdmin, setTokenClient, setTokenPartner} = useContext(StoreContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [codeClient, setCodeClient] = useState('');
     const [clientLoginForm, setClientLoginForm] = useState(false);
 
 
-    function handleSubmitAdmin(e){
+    async function handleSubmitAdmin(e){
         e.preventDefault();
-        history.push('/admin');
+
+        try{
+            const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
+            setTokenAdmin(responseAdmin.token);
+
+            api.defaults.headers.Authorization = `Bearer ${responseAdmin.token}`;
+            
+            history.push('/admin');
+
+        }catch(err){
+            try{
+                const responsePartner = await api.post('/partner-session', {"email":email, "password_entry": password});
+                setTokenPartner(responsePartner.token);
+
+                api.defaults.headers.Authorization = `Bearer ${responsePartner.token}`;
+
+                history.push('/parceiro');
+            }catch(err){
+                alert('Falha no login, tente novamente.');
+            }
+        }
     }
 
-    function handleSubmitClient(e){
+    async function handleSubmitClient(e){
         e.preventDefault();
-        history.push('/cliente');
+        try{
+            const responseClient = await api.post('/client-session', {"code":codeClient});
+            setTokenClient(responseClient.token);
+
+            api.defaults.headers.Authorization = `Bearer ${responseClient.token}`;
+            
+            history.push('/cliente');
+        }catch(err){
+            alert('Falha no login, tente novamente.');
+        }
     }
 
     if(!clientLoginForm){
