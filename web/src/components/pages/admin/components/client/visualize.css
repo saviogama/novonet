@@ -38,11 +38,11 @@
     }
 
     .header-table-client{
-        grid-template-columns: 1fr 1fr 1fr repeat(2, 33px);
+        grid-template-columns: 1fr 1fr 1fr 1fr repeat(3, 33px);
     }
 
     .data-row-client{
-        grid-template-columns: 1fr 1fr 1fr repeat(2, 33px);
+        grid-template-columns: 1fr 1fr 1fr 1fr repeat(3, 33px);
     }
 
     th{

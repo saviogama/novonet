@@ -1,137 +1,128 @@
 import React, {useState} from 'react'
-import {Create, Delete, Done, Close} from '@material-ui/icons'
+import {Create, Delete, Done, Close, AccountBox} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
 import {AutoSizer, List} from 'react-virtualized';
+import Modal from '../Modal'
 
 import './visualize.css'
 
 export default () => {
     const clientes = [{
-        nome:"João",
-        codigo:"0008124",
+        name:"João",
+        lastname: "Dória",
+        email: "jo@hotmail.com",
+        rg: "5.524.632",
+        cpf: "123.456.789-00",
+        code:"0008124",
         status:"ativo",
     },
     {
-        nome:"João",
-        codigo:"0008124",
-        status:"ativo",
-    },
-    {
-        nome:"Lucia",
-        codigo:"000325418124",
+        name:"Maria",
+        lastname: "Glória",
+        email: "mari.10@hotmail.com",
+        rg: "9.414.632",
+        cpf: "023.446.789-20",
+        code:"3216549",
         status:"Inativo",
     },
     {
-        nome:"Jaqueline",
-        codigo:"0008122424",
-        status:"Ativo",
+        name:"Rodrigo",
+        lastname: "Gusmão",
+        email: "rogriguinho@bol.com",
+        rg: "9.050.134",
+        cpf: "234.754.124-82",
+        code:"00038124",
+        status:"ativo",
     },
     {
-        nome:"Marcos",
-        codigo:"666333",
-        status:"Ativo",
+        name:"João",
+        lastname: "Dória",
+        email: "jo@hotmail.com",
+        rg: "5.524.632",
+        cpf: "123.456.789-00",
+        code:"000812435",
+        status:"ativo",
     },
-    {
-        nome:"Maria",
-        codigo:"099999514",
-        status:"Inativa",
-    },
-    {
-        nome:"Marcos da fé",
-        codigo:"6663",
-        status:"Ativo",
-    },
-    {
-        nome:"Maria do carmo",
-        codigo:"099999514",
-        status:"Inativa",
-    },
-    {
-        nome:"Marcos da Fé",
-        codigo:"666333",
-        status:"Ativo",
-    }];
+];
 
     const [clients, setClients] = useState(clientes);
     const [codeSearch, setCodeSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
 
-    const [edit, setEdit] = useState(false);
     const [indexTableEdit, setIndexTableEdit] = useState('');
     const [nameEditable, setNameEditable] = useState('');
 
+    const [modal, setModal] = useState(false);
+    const [clientModal, setClientModal] = useState('');
+
+
+    function getDataAndOpenModal(index){
+        setClientModal(clients[index]);
+        setModal(true);
+    }
+
+    function openModal(){
+        if(modal){
+            return(
+                <Modal stateModal={modal} setStateModal={(bool) => setModal(bool)} modalProfile={clientModal}/>
+            )
+        }
+    }
+
+
     function openEditTablesIndex(index){
-        setEdit(true);
         setIndexTableEdit(index);
-        setNameEditable(clients[index].nome);
+        setNameEditable(clients[index].name);
     }
 
     function cancelEdit(){
-        setEdit(false);
+        setIndexTableEdit('');
+        setNameEditable('');
     }
 
     function deleteTablesIndex(){
         console.log('Delete');
     }
 
+    
     function searchByCode(codePassedForSearch){
+        setIndexTableEdit('');
+        setNameEditable('');
+
         setCodeSearch(codePassedForSearch);
 
         if(nameSearch === '' && codePassedForSearch === ''){
             setClients(clientes);
         }else if(codePassedForSearch !== '' && nameSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.codigo === codePassedForSearch && client.nome === nameSearch));
+            setClients(clientes.filter((client, index, array) => client.code === codePassedForSearch && client.name === nameSearch));
         }else if(codePassedForSearch === '' && nameSearch !== ''){
             console.log(nameSearch);
-            setClients(clientes.filter((client, index, array) => client.nome === nameSearch));
+            setClients(clientes.filter((client, index, array) => client.name === nameSearch));
         }else{
-            setClients(clientes.filter((client, index, array) => client.codigo === codePassedForSearch));
+            setClients(clientes.filter((client, index, array) => client.code === codePassedForSearch));
         }
 
     }
 
     function searchByName(namePassedForSearch){
+        setIndexTableEdit('');
+        setNameEditable('');
+
         setNameSearch(namePassedForSearch);
 
         if(namePassedForSearch === '' && codeSearch === ''){
             setClients(clientes);
         }else if(namePassedForSearch !== '' && codeSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.nome === namePassedForSearch && client.codigo === codeSearch));
+            setClients(clientes.filter((client, index, array) => client.name === namePassedForSearch && client.code === codeSearch));
         }else if(namePassedForSearch === '' && codeSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.codigo === codeSearch));
+            setClients(clientes.filter((client, index, array) => client.code === codeSearch));
         }else{
-            setClients(clientes.filter((client, index, array) => client.nome === namePassedForSearch));
+            setClients(clientes.filter((client, index, array) => client.name === namePassedForSearch));
         }
     }
 
-    function renderFullList({
-        key, // Unique key within array of rows
-        index, // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible, // This row is visible within the List (eg it is not an overscanned row)
-        style, // Style object to be applied to row (to position it)
-    }) {
-        return (
-            <tr key={index} style={style} className="data-row-client">
-                <td>{clients[index].nome}</td>
-                <td>{clients[index].codigo}</td>
-                <td>{clients[index].status}</td>
-                <td className="icon">
-                    <IconButton onClick={() => openEditTablesIndex(index)}>
-                        <Create/>
-                    </IconButton>
-                </td>
-                <td className="icon">
-                    <IconButton onClick={() => deleteTablesIndex()}>
-                        <Delete/>
-                    </IconButton>
-                </td>
-            </tr>
-        );
-    }
-
     
-    function renderListWithEditRow({
+    function renderList({
         key, // Unique key within array of rows
         index, // Index of row within collection
         isScrolling, // The List is currently being scrolled
@@ -142,7 +133,8 @@ export default () => {
             return(
                 <tr key={key} style={style} className="data-row-client">
                     <td><input className="input-edit-row"type="text"  value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
-                    <td>{clients[index].codigo}</td>
+                    <td>{clients[index].lastname}</td>
+                    <td>{clients[index].code}</td>
                     <td>{clients[index].status}</td>
 
                     <td className="icon">
@@ -155,13 +147,20 @@ export default () => {
                             <Close/>
                         </IconButton>
                     </td>
+                    <td className="icon">
+                        <IconButton disabled>
+                            <AccountBox/>
+                        </IconButton>
+                    </td>
                 </tr>
+
             );
         }else{
             return(
                 <tr key={key} style={style} className="data-row-client">
-                    <td>{clients[index].nome}</td>
-                    <td>{clients[index].codigo}</td>
+                    <td>{clients[index].name}</td>
+                    <td>{clients[index].lastname}</td>
+                    <td>{clients[index].code}</td>
                     <td>{clients[index].status}</td>
                     <td className="icon">
                         <IconButton onClick={() => openEditTablesIndex(index)}>
@@ -169,8 +168,13 @@ export default () => {
                         </IconButton>
                     </td>
                     <td className="icon">
-                        <IconButton>
+                        <IconButton onClick={() => deleteTablesIndex()}>
                             <Delete/>
+                        </IconButton>
+                    </td>
+                    <td className="icon">
+                        <IconButton onClick={() => getDataAndOpenModal(index)}>
+                            <AccountBox/>
                         </IconButton>
                     </td>
                 </tr>
@@ -178,77 +182,39 @@ export default () => {
         }
     }
 
+    return(
+        <div className="container-visualize">
 
-
-
-
-    if(!edit){
-        return(
-            <div className="container-visualize">
-    
-                <div className="search-container">
-                    <input className="input-name" type="text" placeholder="Nome do cliente" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
-                    <input className="input-code" type="text" placeholder="Código do cliente" value={codeSearch} onChange={e => searchByCode(e.target.value)}/>
-                </div>
-    
-                <div className="table-container">
-                    <table className="table-clients">
-                        <thead>
-                            <tr className="header-table-client">
-                                <th>Nome</th>
-                                <th>Código</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <AutoSizer>
-                        {({height, width}) => (
-                            <List
-                            width={width}
-                            height={400}
-                            rowCount={clients.length}
-                            rowHeight={50}
-                            rowRenderer={renderFullList}
-                        />
-                        )}
-                    </AutoSizer>
-                </div>
+            <div className="search-container">
+                <input className="input-name" type="text" placeholder="Nome do cliente" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
+                <input className="input-code" type="text" placeholder="Código do cliente" value={codeSearch} onChange={e => searchByCode(e.target.value)}/>
             </div>
-        );
-    }else{
-        return(
-            <div className="container-visualize">
-    
-                <div className="search-container">
-                    <input className="input-name" type="text" placeholder="Nome do cliente" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
-                    <input className="input-code" type="text" placeholder="Código do cliente" value={codeSearch} onChange={e => searchByCode(e.target.value)}/>
-                </div>
-    
-                <div className="table-container">
-                    <table className="table-clients">
-                        <thead>
-                            <tr className="header-table-client">
-                                <th>Nome</th>
-                                <th>Código</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <AutoSizer>
-                        {({height, width}) => (
-                            <List
-                            width={width}
-                            height={400}
-                            rowCount={clients.length}
-                            rowHeight={50}
-                            rowRenderer={renderListWithEditRow}
-                        />
-                        )}
-                    </AutoSizer>  
-                </div>
+
+            <div className="table-container">
+                <table className="table-clients">
+                    <thead>
+                        <tr className="header-table-client">
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Código</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                </table>
+                <AutoSizer>
+                    {({height, width}) => (
+                        <List
+                        width={width}
+                        height={400}
+                        rowCount={clients.length}
+                        rowHeight={50}
+                        rowRenderer={renderList}
+                    />
+                    )}
+                </AutoSizer>
             </div>
-        );
-    }
-    
-    
+            {openModal()}
+        </div>
+    );
+
 }

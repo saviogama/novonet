@@ -22,8 +22,8 @@ header{
 .container-search{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-start;
+    width: 95%;
 }
 
 .container-result{
@@ -31,7 +31,7 @@ header{
 }
 
 .input{
-    width: 30%;
+    width: 16%;
     margin-right: 10px;
     margin-top: 10px;
 }

@@ -46,13 +46,13 @@
     border-top: 1px solid #d3d3d3;
     height: 50px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr repeat(2, 56px);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr repeat(2, 50px);
     color: rgb(134, 134, 134);
 }
 
 .data-row-partner{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr repeat(2, 50px);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr repeat(2, 50px);
     font-size: 0.9em;
 }
 

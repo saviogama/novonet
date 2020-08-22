@@ -6,24 +6,46 @@ import {AutoSizer, List} from 'react-virtualized';
 import './visualize.css'
 
 export default () => {
-    const parceiros = [];
+    const parceiros = [{
+        nome:"João",
+        email:"joão@joão.com",
+        company: "Academia Fit",
+        CNPJ:"0012130",
+        rg: "9.095.482",
+        cpf: "120.425.142-90"
+    },
+    {
+        nome:"Maria Aparecida",
+        email:"mari@bol.com",
+        company: "Atacado Souza",
+        CNPJ:"001255012",
+        rg: "2.105.132",
+        cpf: "130.454.032-25"
+    },
+    {
+        nome:"Rodrigo",
+        email:"ro@hotmail.com",
+        company: "Centro Informática",
+        CNPJ:"001202150",
+        rg: "9.095.482",
+        cpf: "120.358.152-90"
+    }];
 
     const [cnpjSearch, setCNPJSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
     const [partners, setPartners] = useState(parceiros);
 
-    const [edit, setEdit] = useState(false);
     const [indexTableEdit, setIndexTableEdit] = useState('');
     const [nameEditable, setNameEditable] = useState('');
 
     function openEditTablesIndex(index){
-        setEdit(true);
         setIndexTableEdit(index);
         setNameEditable(partners[index].nome);
     }
 
     function cancelEdit(){
-        setEdit(false);
+        setIndexTableEdit('');
+        setNameEditable('');
     }
 
     function deleteTablesIndex(){
@@ -31,6 +53,8 @@ export default () => {
     }
 
     function searchByCnpj(passedCnpjForSearch){
+        setIndexTableEdit('');
+        setNameEditable('');
         setCNPJSearch(passedCnpjForSearch);
 
         if(nameSearch === '' && passedCnpjForSearch === ''){
@@ -47,6 +71,8 @@ export default () => {
     }
 
     function searchByName(passedNameForSearch){
+        setIndexTableEdit('');
+        setNameEditable('');
         setNameSearch(passedNameForSearch);
 
         if(passedNameForSearch === '' && cnpjSearch === ''){
@@ -59,37 +85,8 @@ export default () => {
             setPartners(parceiros.filter((partners) => partners.nome === passedNameForSearch));
         }
     }
-
-    function renderFullList({
-        key, // Unique key within array of rows
-        index, // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible, // This row is visible within the List (eg it is not an overscanned row)
-        style, // Style object to be applied to row (to position it)
-    }) {
-        return (
-            <tr key={index} style={style} className="data-row-partner">
-                <td>{partners[index].nome}</td>
-                <td>{partners[index].email}</td>
-                <td>{partners[index].CNPJ}</td>
-                <td>{partners[index].endereco}</td>
-                <td>{partners[index].telefone}</td>
-                <td className="icon">
-                    <IconButton onClick={() => openEditTablesIndex(index)}>
-                        <Create/>
-                    </IconButton>
-                </td>
-                <td className="icon">
-                    <IconButton onClick={() => deleteTablesIndex()}>
-                        <Delete/>
-                    </IconButton>
-                </td>
-            </tr>
-        );
-    }
-
     
-    function renderListWithEditRow({
+    function renderList({
         key, // Unique key within array of rows
         index, // Index of row within collection
         isScrolling, // The List is currently being scrolled
@@ -101,9 +98,10 @@ export default () => {
                 <tr key={key} style={style} className="data-row-partner">
                     <td><input className="input-edit-row"type="text"  value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
                     <td>{partners[index].email}</td>
+                    <td>{partners[index].company}</td>
                     <td>{partners[index].CNPJ}</td>
-                    <td>{partners[index].endereco}</td>
-                    <td>{partners[index].telefone}</td>
+                    <td>{partners[index].rg}</td>
+                    <td>{partners[index].cpf}</td>
 
                     <td className="icon">
                         <IconButton>
@@ -122,9 +120,10 @@ export default () => {
                 <tr key={key} style={style} className="data-row-partner">
                     <td>{partners[index].nome}</td>
                     <td>{partners[index].email}</td>
+                    <td>{partners[index].company}</td>
                     <td>{partners[index].CNPJ}</td>
-                    <td>{partners[index].endereco}</td>
-                    <td>{partners[index].telefone}</td>
+                    <td>{partners[index].rg}</td>
+                    <td>{partners[index].cpf}</td>
                     <td className="icon">
                         <IconButton onClick={() => openEditTablesIndex(index)}>
                             <Create/>
@@ -140,83 +139,39 @@ export default () => {
         }
     }
 
+    return(
+        <div className="container-visualize">
 
-
-
-
-
-    
-    if(!edit){
-        return(
-            <div className="container-visualize">
-    
-                <div className="search-container">
-                    <input className="input-name" type="text" placeholder="Nome do parceiro" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
-                    <input className="input-code" type="text" placeholder="CNPJ" value={cnpjSearch} onChange={e => searchByCnpj(e.target.value)}/>
-                </div>
-    
-                <div className="table-container">
-                    <table className="table-partner">
-                        <thead>
-                            <tr className="header-table-partner">
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>CNPJ</th>
-                                <th>Endereço</th>
-                                <th>Telefone</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <AutoSizer>
-                        {({height, width}) => (
-                            <List
-                            width={width}
-                            height={400}
-                            rowCount={partners.length}
-                            rowHeight={50}
-                            rowRenderer={renderFullList}
-                        />
-                        )}
-                    </AutoSizer>
-                </div>
+            <div className="search-container">
+                <input className="input-name" type="text" placeholder="Nome do parceiro" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
+                <input className="input-code" type="text" placeholder="CNPJ" value={cnpjSearch} onChange={e => searchByCnpj(e.target.value)}/>
             </div>
-        );
-    }else{
-        return(
-            <div className="container-visualize">
-    
-                <div className="search-container">
-                    <input className="input-name" type="text" placeholder="Nome do parceiro" value={nameSearch} onChange={e => searchByName(e.target.value)}/>
-                    <input className="input-code" type="text" placeholder="CNPJ" value={cnpjSearch} onChange={e => searchByCnpj(e.target.value)}/>
-                </div>
-    
-                <div className="table-container">
-                    <table className="table-partner">
-                        <thead>
-                            <tr className="header-table-partner">
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>CNPJ</th>
-                                <th>Endereço</th>
-                                <th>Telefone</th>
-                            </tr>
-                        </thead> 
-                    </table>
-                    <AutoSizer>
-                        {({height, width}) => (
-                            <List
-                            width={width}
-                            height={400}
-                            rowCount={partners.length}
-                            rowHeight={50}
-                            rowRenderer={renderListWithEditRow}
-                        />
-                        )}
-                    </AutoSizer>  
-                </div>
+
+            <div className="table-container">
+                <table className="table-partner">
+                    <thead>
+                        <tr className="header-table-partner">
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Empresa</th>
+                            <th>CNPJ</th>
+                            <th>RG</th>
+                            <th>CPF</th>
+                        </tr>
+                    </thead>
+                </table>
+                <AutoSizer>
+                    {({height, width}) => (
+                        <List
+                        width={width}
+                        height={400}
+                        rowCount={partners.length}
+                        rowHeight={50}
+                        rowRenderer={renderList}
+                    />
+                    )}
+                </AutoSizer>
             </div>
-        );
-    }
-    
-    
+        </div>
+    );
 }
