@@ -37,10 +37,20 @@ export default () => {
 
     const [indexTableEdit, setIndexTableEdit] = useState('');
     const [nameEditable, setNameEditable] = useState('');
+    const [emailEditable, setEmailEditable] = useState('');
+    const [companyEditable, setCompanyEditable] = useState('');
+    const [cnpjEditable, setCnpjEditable] = useState('');
+    const [rgEditable, setRgEditable] = useState('');
+    const [cpfEditable, setCpfEditable] = useState('');
 
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
         setNameEditable(partners[index].nome);
+        setEmailEditable(partners[index].email);
+        setCompanyEditable(partners[index].company);
+        setCnpjEditable(partners[index].CNPJ);
+        setRgEditable(partners[index].rg);
+        setCpfEditable(partners[index].cpf);
     }
 
     function cancelEdit(){
@@ -97,11 +107,11 @@ export default () => {
             return(
                 <tr key={key} style={style} className="data-row-partner">
                     <td><input className="input-edit-row"type="text"  value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
-                    <td>{partners[index].email}</td>
-                    <td>{partners[index].company}</td>
-                    <td>{partners[index].CNPJ}</td>
-                    <td>{partners[index].rg}</td>
-                    <td>{partners[index].cpf}</td>
+                    <td><input className="input-edit-row"type="text"  value={emailEditable} onChange={e => setEmailEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={companyEditable} onChange={e => setCompanyEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={cnpjEditable} onChange={e => setCnpjEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={rgEditable} onChange={e => setRgEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
 
                     <td className="icon">
                         <IconButton>

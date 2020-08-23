@@ -5,6 +5,7 @@ import {AutoSizer, List} from 'react-virtualized';
 import Modal from '../Modal'
 
 import './visualize.css'
+import client from '../../../client';
 
 export default () => {
     const clientes = [{
@@ -51,10 +52,23 @@ export default () => {
 
     const [indexTableEdit, setIndexTableEdit] = useState('');
     const [nameEditable, setNameEditable] = useState('');
+    const [lastNameEditable, setLastNameEditable] = useState('');
+    const [emailEditable, setEmailEditable] = useState('');
+    const [rgEditable, setRgEditable] = useState('');
+    const [cpfEditable, setCpfEditable] = useState('');
+    const [codeEditable, setCodeEditable] = useState('');
+    const [statusEditable, setStatusEditable] = useState('');
 
     const [modal, setModal] = useState(false);
     const [clientModal, setClientModal] = useState('');
 
+    function statusSelection(){
+        if(statusEditable == "Ativo" | statusEditable == "ativo" ){
+            return "Inativo"
+        }else{
+            return "Ativo"
+        }
+    }
 
     function getDataAndOpenModal(index){
         setClientModal(clients[index]);
@@ -64,7 +78,7 @@ export default () => {
     function openModal(){
         if(modal){
             return(
-                <Modal stateModal={modal} setStateModal={(bool) => setModal(bool)} modalProfile={clientModal}/>
+                <Modal stateModal={modal} setStateModal={(bool) => setModal(bool)} modalProfile={clientModal} partner={false}/>
             )
         }
     }
@@ -73,6 +87,12 @@ export default () => {
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
         setNameEditable(clients[index].name);
+        setLastNameEditable(clients[index].lastname);
+        setEmailEditable(clients[index].email);
+        setRgEditable(clients[index].rg);
+        setCpfEditable(clients[index].cpf);
+        setCodeEditable(clients[index].code);
+        setStatusEditable(clients[index].status);
     }
 
     function cancelEdit(){
@@ -133,9 +153,15 @@ export default () => {
             return(
                 <tr key={key} style={style} className="data-row-client">
                     <td><input className="input-edit-row"type="text"  value={nameEditable} onChange={e => setNameEditable(e.target.value)}></input></td>
-                    <td>{clients[index].lastname}</td>
-                    <td>{clients[index].code}</td>
-                    <td>{clients[index].status}</td>
+                    <td><input className="input-edit-row"type="text"  value={lastNameEditable} onChange={e => setLastNameEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={emailEditable} onChange={e => setEmailEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={rgEditable} onChange={e => setRgEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
+                    <td><input className="input-edit-row"type="text"  value={codeEditable} onChange={e => setCodeEditable(e.target.value)}></input></td>
+                    <td><select>
+                        <option value={statusEditable} onChange={e => setStatusEditable}>{statusEditable}</option>
+                        <option value={statusSelection()} onChange={e => setStatusEditable}>{statusSelection()}</option>
+                        </select></td>
 
                     <td className="icon">
                         <IconButton>
@@ -160,6 +186,9 @@ export default () => {
                 <tr key={key} style={style} className="data-row-client">
                     <td>{clients[index].name}</td>
                     <td>{clients[index].lastname}</td>
+                    <td>{clients[index].email}</td>
+                    <td>{clients[index].rg}</td>
+                    <td>{clients[index].cpf}</td>
                     <td>{clients[index].code}</td>
                     <td>{clients[index].status}</td>
                     <td className="icon">
@@ -196,6 +225,9 @@ export default () => {
                         <tr className="header-table-client">
                             <th>Nome</th>
                             <th>Sobrenome</th>
+                            <th>Email</th>
+                            <th>RG</th>
+                            <th>CPF</th>
                             <th>Código</th>
                             <th>Status</th>
                         </tr>

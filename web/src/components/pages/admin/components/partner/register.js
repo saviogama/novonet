@@ -3,15 +3,15 @@ import './register.css'
 
 export default () => {
     const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [company, setCompany] = useState('');
+    const [rg, setRG] = useState('');
+    const [cpf, setCPF] = useState('');
     const [cnpj, setCNPJ] = useState('');
-    const [address, setAddress] = useState('');
-    const [phone, setPhone] = useState('');
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(name, password, email, cnpj, address, phone);
+        console.log(name, email, company, rg, cpf, cnpj);
     }
     return(
         <div className="container">
@@ -23,18 +23,18 @@ export default () => {
 
                         <input className="input-nome" type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)}/>
 
-                        <input className="input-password" type="text" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)}/>
+                        <input className="input-password" type="mail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
 
-                        <input className="input-email" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
+                        <input className="input-email" type="text" placeholder="Company" value={company} onChange={e => setCompany(e.target.value)}/>
 
                     </div>
 
                     <div className="inputs-coluna">
-                        <input className="input-cnpj" type="text" placeholder="CNPJ" value={cnpj} onChange={e => setCNPJ(e.target.value)}/>
+                        <input className="input-cnpj" type="text" placeholder="RG" value={rg} onChange={e => setRG(e.target.value)}/>
 
-                        <input className="input-address" type="text" placeholder="Endereço" value={address} onChange={e => setAddress(e.target.value)}/>
+                        <input className="input-address" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)}/>
 
-                        <input className="input-phone" type="tel" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" placeholder="Telefone: (DDD 99999-9999)" value={phone} onChange={e => setPhone(e.target.value)}/>
+                        <input className="input-phone" type="text" placeholder="CNPJ" value={cnpj} onChange={e => setCNPJ(e.target.value)}/>
                     </div>
                 </div>
 

@@ -24,8 +24,16 @@
     height: fit-content;
     color: #FFFFFF;
     display: flex;
+    flex-direction: column;
     padding-right: 3%;
     padding-bottom: 3%;
+}
+
+.row1{
+    display: flex;
+}
+.row2{
+    display: flex;
 }
 
 .logo_modal{
@@ -41,7 +49,7 @@
 }
 .h2-styled{
     font-size: xx-large;
-    color: #00524A;
+    color: #003832;
     -webkit-text-stroke-width: 0.02em;
     -webkit-text-stroke-color: #E4FF23; 
     font-weight: 700;
@@ -49,9 +57,10 @@
 
 .h2-styled-branco{
     font-weight: 700;
-    color: #00524A;
-    -webkit-text-stroke-width: 0.02em;
-    -webkit-text-stroke-color: #FFFFFF; 
+    font-size: xx-large;
+    color: #003832;
+    -webkit-text-stroke-width: 0.05em;
+    -webkit-text-stroke-color: #009181; 
 }
 
 .h2-modal{
@@ -59,6 +68,9 @@
 }
 
 .h2-modal#code{
-    margin-right: 10px;
+    padding: 7px;
 }
 
+.h2-modal#status{
+    padding: 7px;
+}
