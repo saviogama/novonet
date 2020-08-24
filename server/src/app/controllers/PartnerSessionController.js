@@ -10,7 +10,7 @@ class PartnerSessionController {
     const partner = await Partner.findOne({
       where: {
         email,
-      }
+      },
     });
 
     if (!partner) {
@@ -28,7 +28,7 @@ class PartnerSessionController {
         expiresIn: authConfig.expiresIn,
       }),
     });
-  };
-};
+  }
+}
 
 export default new PartnerSessionController();

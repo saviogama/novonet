@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-import authConfig from '../../config/auth';
-import Admin from '../models/Admin';
+import authConfig from '../../../config/auth';
+import Admin from '../../models/Admin';
 
 class AdminSessionController {
   async store(request, response) {
@@ -10,7 +10,7 @@ class AdminSessionController {
     const admin = await Admin.findOne({
       where: {
         email,
-      }
+      },
     });
 
     if (!admin) {
@@ -28,7 +28,7 @@ class AdminSessionController {
         expiresIn: authConfig.expiresIn,
       }),
     });
-  };
-};
+  }
+}
 
 export default new AdminSessionController();

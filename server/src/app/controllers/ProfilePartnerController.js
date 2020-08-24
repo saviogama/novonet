@@ -6,34 +6,16 @@ class ProfilePartnerController {
       where: {
         id: request.userId,
         partner_type: true,
-      }
+      },
+      attributes: ['email', 'name', 'company_name', 'rg', 'cpf', 'cnpj'],
     });
 
     if (!partner) {
       return response.status(401).json({ error: 'Error, partner not found.' });
     }
 
-    const {
-      id,
-      name,
-      company_name,
-      rg,
-      cpf,
-      cnpj,
-    } = partner;
-
-    return response.json({
-      partner: {
-        id,
-        email,
-        name,
-        company_name,
-        rg,
-        cpf,
-        cnpj,
-      },
-    });
-  };
-};
+    return response.json(partner);
+  }
+}
 
 export default new ProfilePartnerController();
