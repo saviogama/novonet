@@ -1,0 +1,16 @@
+
+.container-dashboard{
+    height: calc(100vh - 98px);
+    display: flex;
+    flex-direction: column;
+}
+
+.client-data{
+    height: 50%;
+    width: 100%;
+}
+
+.partner-data{
+    height: 50%;
+    width: 100%;
+}

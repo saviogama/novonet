@@ -1,5 +1,4 @@
-import React from 'react';
-import './drawer.css';
+import React, {useContext} from 'react';
 import clsx from 'clsx';
 import {useHistory} from 'react-router-dom';
 
@@ -9,7 +8,9 @@ import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'; //
 import {Divider, IconButton, Collapse} from '@material-ui/core'; //Customization
 import {Dashboard, Home, ChevronLeft, Menu, ExpandLess, ExpandMore, SupervisorAccount, Search, Assignment, BusinessCenter, ExitToApp} from '@material-ui/icons' //Icons
 
-import Logo_Branco from '../../../assets/Logo_Branco.png';
+import Logo_Branco from '../../../../assets/Logo_Branco.png';
+import StoreContext from '../../../store/Context'
+import './drawer.css';
 
 const drawerWidth = 240;
 
@@ -109,6 +110,8 @@ export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
+  const {removeTokenAdmin} = useContext(StoreContext);
+  
   const [statusDrawer, setStatusDrawer] = React.useState(true); //Status => open/closed
   const [openClientes, setOpenClientes] = React.useState(false);
   const [openParceiros, setOpenParceiros] = React.useState(false);
@@ -142,6 +145,7 @@ export default function PersistentDrawerLeft(props) {
   }
 
   const exitFromTheSystem = () =>{
+      removeTokenAdmin();
       history.push('/');
   }
 

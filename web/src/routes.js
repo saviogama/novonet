@@ -1,15 +1,23 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Login from './pages/login';
-import Admin from './pages/admin';
-import Cliente from './pages/client'
+import PrivateRouteAdmin from './components/privateRoutes/RouteAdmin' 
+import PrivateRouteClient from './components/privateRoutes/RouteClient' 
+import PrivateRoutePartner from './components/privateRoutes/RoutePartner'
+import StoreProvider from './components/store/Provider'
+import Login from './components/pages/login';
+import Admin from './components/pages/admin';
+import Client from './components/pages/client'
+import Partner from './components/pages/partner'
 
 
 export default () =>
     <BrowserRouter>
-        <Switch>
-            <Route path="/" exact component={Login}/>
-            <Route path="/admin" component={Admin}/>
-            <Route path="/cliente" component={Cliente}/>
-        </Switch>
+        <StoreProvider>
+            <Switch>
+                <Route path="/" exact component={Login}/>
+                <PrivateRouteAdmin path="/admin" component={Admin}/>
+                <PrivateRouteClient path="/cliente" component={Client}/>
+                <PrivateRoutePartner path="/parceiro" component={Partner}/>
+            </Switch>
+        </StoreProvider>
     </BrowserRouter>
