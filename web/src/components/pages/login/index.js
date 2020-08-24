@@ -23,9 +23,8 @@ export default () => {
             setTokenAdmin(responseAdmin.token);
 
             api.defaults.headers.Authorization = `Bearer ${responseAdmin.token}`;
-            
-            history.push('/admin');
 
+            history.push('/admin');
         }catch(err){
             try{
                 const responsePartner = await api.post('/partner-session', {"email":email, "password_entry": password});
@@ -47,11 +46,10 @@ export default () => {
             setTokenClient(responseClient.token);
 
             api.defaults.headers.Authorization = `Bearer ${responseClient.token}`;
-            
             history.push('/cliente');
-        }catch(err){
+       }catch(err){
             alert('Falha no login, tente novamente.');
-        }
+       }
     }
 
     if(!clientLoginForm){

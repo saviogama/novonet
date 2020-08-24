@@ -6,13 +6,13 @@
     background-image: url('../../../../assets/Logo_Recorte_Branco.png');
     background-repeat: no-repeat;
     background-size: 40%;
-    background-position-x: 350px;
-    background-position-y: 105px;
+    background-position-x: 347px;
+    background-position-y: 115px;
 }
 
 .column1{
-    width: 45%;
-    color: #E4FF23;
+    width: 60%;
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     padding-left: 3%;
@@ -20,7 +20,7 @@
 }
 
 .column2{
-    width: 55%;
+    width: 40%;
     height: fit-content;
     color: #FFFFFF;
     display: flex;
@@ -32,23 +32,31 @@
 .row1{
     display: flex;
 }
+.row1#margin{
+    margin-top: 20px;
+}
+
 .row2{
     display: flex;
 }
 
-.logo_modal{
-    margin-block-start: auto;
-    width: 80%;
+.row3{
+    display: flex;
 }
 
-.h2-modal#email{
-    margin-top: 30px;
+
+.logo_modal{
+    margin-block-start: auto;
+    width: 60%;
 }
+
+
 .h2-nome{
-    font-size: xx-large;
+    color: #E4FF23;
+    font-size: 2em;
 }
 .h2-styled{
-    font-size: xx-large;
+    font-size: 2em;
     color: #003832;
     -webkit-text-stroke-width: 0.02em;
     -webkit-text-stroke-color: #E4FF23; 
@@ -67,10 +75,6 @@
     overflow: auto;
 }
 
-.h2-modal#code{
-    padding: 7px;
-}
-
-.h2-modal#status{
+.h2-modal#content{
     padding: 7px;
 }

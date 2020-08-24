@@ -19,8 +19,8 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 550,
-    height: 300,
+    width: 580,
+    height: 350,
     background: 'linear-gradient(90deg, rgba(0,82,74,1) 0%, rgba(0,145,129,1) 100%)',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -66,21 +66,35 @@ export default (props) => {
             <div style={modalStyle} className={classes.paper}>
               <div className="container-modal">
                   <div className="column1">
+
                     <h2 className="h2-nome">{props.modalProfile.name}</h2>
                     <h2 className="h2-styled">{props.modalProfile.lastname}</h2>
-                    <h2 className="h2-modal" id="email">{props.modalProfile.email}</h2>
-                    <h2 className="h2-modal">RG: {props.modalProfile.rg}</h2>
-                    <h2 className="h2-modal">CPF: {props.modalProfile.cpf}</h2>
+
+                    <div className="row1" id="margin">
+                      <h2 className="h2-styled-branco">Email: </h2>
+                      <h2 className="h2-modal" id="content">{props.modalProfile.email}</h2>
+                    </div>
+
+                    <div className="row2">
+                      <h2 className="h2-styled-branco">RG: </h2>
+                      <h2 className="h2-modal" id="content">{props.modalProfile.rg}</h2>
+                    </div>
+
+                    <div className="row3">
+                      <h2 className="h2-styled-branco">CPF: </h2>
+                      <h2 className="h2-modal" id="content">{props.modalProfile.cpf}</h2>
+                    </div>
+
                     <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
                   </div>
                   <div className="column2">
                       <div className="row1">
                         <h2 className="h2-styled-branco">Cod:</h2>
-                        <h2 className="h2-modal" id="code">{props.modalProfile.code}</h2>
+                        <h2 className="h2-modal" id="content">{props.modalProfile.code}</h2>
                       </div>
                       <div className="row2">
                         <h2 className="h2-styled-branco">Status:</h2>
-                        <h2 className="h2-modal" id="status">{props.modalProfile.status}</h2>
+                        <h2 className="h2-modal" id="content">{props.modalProfile.status}</h2>
                       </div>
                   </div>
               </div>

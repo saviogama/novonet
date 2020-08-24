@@ -7,7 +7,6 @@ import {ExitToApp} from '@material-ui/icons'
 import StoreContext from '../../store/Context'
 import Api from '../../../services/api'
 import './styles.css'
-import api from '../../../services/api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +48,7 @@ export default () => {
                 <div className="container-search">
                     <input type="text" placeholder="Código do cliente" className="input" value={codeSearch} onChange={e => setCodeSearch(e.target.value)}/>
 
-                    <button className="button" onClick={() => handleSearch()}>Buscar Cliente</button> 
+                    <button className="button" id="button_partner" onClick={() => handleSearch()}>Buscar Cliente</button> 
                 </div>
             </main>
         </div>
