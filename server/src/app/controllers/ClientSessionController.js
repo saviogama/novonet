@@ -10,7 +10,7 @@ class ClientSessionController {
     const client = await Client.findOne({
       where: {
         code,
-      }
+      },
     });
 
     if (!client) {

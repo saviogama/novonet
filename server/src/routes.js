@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
-import AdminController from './app/controllers/AdminController';
-import PartnerController from './app/controllers/PartnerController';
-import ClientController from './app/controllers/ClientController';
+import AdminMasterController from './app/controllers/Admin/AdminMasterController';
+import AdminController from './app/controllers/Admin/AdminController';
+import PartnerController from './app/controllers/Admin/PartnerController';
+import ClientController from './app/controllers/Admin/ClientController';
 
-import AdminSessionController from './app/controllers/AdminSessionController';
+import AdminSessionController from './app/controllers/Admin/AdminSessionController';
 import PartnerSessionController from './app/controllers/PartnerSessionController';
 import ClientSessionController from './app/controllers/ClientSessionController';
 
@@ -12,10 +13,10 @@ import ProfilePartnerController from './app/controllers/ProfilePartnerController
 import ProfileClientController from './app/controllers/ProfileClientController';
 import CardGenerationController from './app/controllers/CardGenerationController';
 
-import PartnerListIDController from './app/controllers/PartnerListIDController';
-import ClientListIDController from './app/controllers/ClientListIDController';
-import ListSystemUsersController from './app/controllers/ListSystemUsersController';
-import ListClientsStatusController from './app/controllers/ListClientsStatusController';
+import ListPartnerIDController from './app/controllers/ListPartnerIDController';
+import ListClientIDController from './app/controllers/ListClientIDController';
+import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
+import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
 // import ImportCSVController from './app/controllers/ImportCSVController';
 
 import validateAdminStore from './app/validators/AdminStore';
@@ -26,21 +27,51 @@ import validatePartnerSessionStore from './app/validators/PartnerSessionStore';
 import validateClientStore from './app/validators/ClientStore';
 import validateClientUpdate from './app/validators/ClientUpdate';
 import validateClientSessionStore from './app/validators/ClientSessionStore';
-import validatePartnerListID from './app/validators/PartnerListID';
-import validateClientListID from './app/validators/ClientListID';
+import validateListPartnerID from './app/validators/ListPartnerID';
+import validateListClientID from './app/validators/ListClientID';
 
 import authMiddleware from './app/middlewares/auth';
-import adminMasterAuthMiddleware from './app/middlewares/adminMasterAuth';
-import adminAuthMiddleware from './app/middlewares/adminAuth';
-import partnerAuthMiddleware from './app/middlewares/partnerAuth';
 
 const routes = new Router();
 
-routes.post('/admin-session', validateAdminSessionStore, AdminSessionController.store);
-routes.post('/partners-session', validatePartnerSessionStore, PartnerSessionController.store);
-routes.post('/clients-session', validateClientSessionStore, ClientSessionController.store);
+routes.post('/admin/master', validateAdminStore, AdminMasterController.store);
+
+routes.post(
+  '/admin-session',
+  validateAdminSessionStore,
+  AdminSessionController.store
+);
+routes.post(
+  '/partners-session',
+  validatePartnerSessionStore,
+  PartnerSessionController.store
+);
+routes.post(
+  '/clients-session',
+  validateClientSessionStore,
+  ClientSessionController.store
+);
 
 routes.use(authMiddleware);
+
+// routes.post('/admin/import', ImportCSVController.single);
+
+routes.post('/admin', validateAdminStore, AdminController.store);
+routes.post('/partners', validatePartnerStore, PartnerController.store);
+routes.post('/clients', validateClientStore, ClientController.store);
+
+routes.get('/admin/users', ListSystemUsersController.index);
+routes.get('/admin/status-users', ListClientsStatusController.index);
+
+routes.get('/partners', PartnerController.index);
+routes.get('/clients', ClientController.index);
+
+routes.get(
+  '/partners/data',
+  validateListPartnerID,
+  ListPartnerIDController.show
+);
+routes.get('/clients/data', validateListClientID, ListClientIDController.show);
 
 routes.get('/partners/:id', ProfilePartnerController.show);
 routes.get('/clients/:id', ProfileClientController.show);
@@ -48,31 +79,5 @@ routes.get('/clients/:id/card', CardGenerationController.show);
 
 routes.put('/partners', validatePartnerUpdate, PartnerController.update);
 routes.put('/clients', validateClientUpdate, ClientController.update);
-
-routes.use(partnerAuthMiddleware);
-
-routes.get('/clients/data', validateClientListID, ClientListIDController.show);
-
-// routes.post('/admin/master', AdminMasterController.store);
-
-routes.use(adminAuthMiddleware);
-
-routes.post('/partners', validatePartnerStore, PartnerController.store);
-routes.post('/clients', validateClientStore, ClientController.store);
-
-routes.get('/partners', PartnerController.index);
-routes.get('/clients', ClientController.index);
-
-routes.get('/admin/users', ListSystemUsersController.index);
-routes.get('/admin/status-users', ListClientsStatusController.index);
-
-routes.get('/partners/data', validatePartnerListID, PartnerListIDController.show);
-
-routes.use(adminMasterAuthMiddleware);
-
-routes.post('/admin', validateAdminStore, AdminController.store);
-// routes.get('/admin', AdminController.index);
-
-// routes.post('/admin/import', ImportCSVController.single);
 
 export default routes;

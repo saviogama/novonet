@@ -1,16 +1,18 @@
-import Admin from '../models/Admin';
+import Admin from '../../models/Admin';
 
 class AdminMasterController {
   async store(request, response) {
-    const adminExists = await Admin.findOne({
+    const adminMasterExists = await Admin.findOne({
       where: {
-        email: request.body.email,
         admin_master: true,
-      }
+      },
     });
 
-    if (adminExists) {
-      return response.status(400).json({ error: 'Admin Master already exists, it is not allowed to create another.' });
+    if (adminMasterExists) {
+      return response.status(400).json({
+        error:
+          'Admin Master already exists, it is not allowed to create another.',
+      });
     }
 
     const {

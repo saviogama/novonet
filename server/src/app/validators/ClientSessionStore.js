@@ -9,8 +9,9 @@ export default async (request, response, next) => {
     await schema.validate(request.body, { abortEarly: false });
 
     return next();
-
   } catch (err) {
-    return response.status(400).json({ error: 'Validation fails', messages: err.inner });
+    return response
+      .status(400)
+      .json({ error: 'Validation fails', messages: err.inner });
   }
-}
+};

@@ -1,7 +1,21 @@
-import Partner from '../models/Partner';
+import Admin from '../../models/Admin';
+import Partner from '../../models/Partner';
 
 class PartnerController {
   async index(request, response) {
+    const adminId = request.userId;
+
+    const adminMaster = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
+    });
+
+    if (!adminMaster) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
+
     const partners = await Partner.findAll({
       where: {
         partner_type: true,
@@ -10,13 +24,26 @@ class PartnerController {
     });
 
     return response.json(partners);
-  };
+  }
 
   async store(request, response) {
+    const adminId = request.userId;
+
+    const adminMaster = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
+    });
+
+    if (!adminMaster) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
+
     const partnerExists = await Partner.findOne({
       where: {
         email: request.body.email,
-      }
+      },
     });
 
     if (partnerExists) {
@@ -42,7 +69,7 @@ class PartnerController {
       cpf,
       cnpj,
     });
-  };
+  }
 
   async update(request, response) {
     const { email, old_password } = request.body;
@@ -53,7 +80,7 @@ class PartnerController {
       const partnerExists = await Partner.findOne({
         where: {
           email,
-        }
+        },
       });
 
       if (partnerExists) {
@@ -65,25 +92,10 @@ class PartnerController {
       return response.status(401).json({ error: 'Password does not match.' });
     }
 
-    const {
-      id,
-      name,
-      company_name,
-      rg,
-      cpf,
-      cnpj
-    } = await partner.update(request.body);
+    await partner.update(request.body);
 
-    return response.json({
-      id,
-      email,
-      name,
-      company_name,
-      rg,
-      cpf,
-      cnpj
-    });
-  };
-};
+    return response.json(partner);
+  }
+}
 
 export default new PartnerController();

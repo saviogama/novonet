@@ -17,8 +17,11 @@
 - tipos de admin: admin_master, admin_type
 - Só admins podem criar parceiros e clientes
 
-> '/clients/:id/card'
-##### GET: Retorna para o cliente sua imagem qrcode
+> '/admin/master'
+##### POST: Cria admin master único
+
+> '/admin-session'
+##### POST: Sessão admins
 
 > '/admin'
 ##### POST: Cria subs admin (
@@ -42,7 +45,9 @@
     cnpj,
 )
 
-##### GET: Lista todos parceiros
+##### GET: Lista todos parceiros (
+
+)
 
 ##### PUT: Atualiza parceiro (
     não é obrigatório atualizar todos os campos,
@@ -71,7 +76,10 @@
     cpf,
 )
 
-##### GET: Lista todos clientes
+##### GET: Lista todos clientes (
+  Só admins podem listar
+)
+
 
 ##### PUT: Atualiza cliente (
     não é obrigatório atualizar todos os campos
@@ -87,3 +95,12 @@
 ##### GET: Lista dados de um cliente especifico através do firstname ou code (
   qualquer usuário, menos os do tipo cliente, pode listar
 )
+
+> '/clients/:id/card'
+##### GET: Retorna para o cliente sua imagem qrcode
+
+> '/partners/:id'
+###### GET: Retorna para partner, através do id do body, seus dados
+
+> '/clients/:id'
+###### GET: Retorna para client, através do id do body, seus dados

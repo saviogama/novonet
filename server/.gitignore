@@ -1,5 +1,6 @@
-# dependencies
 node_modules/
+dist
+.env
 
 # production
 build/
@@ -7,8 +8,9 @@ build/
 # testing
 coverage/
 
-# misc
-.env
-
-# readmen
+# readme
 README.md
+
+# tmp
+tmp/*
+!tmp/.gitkeep
