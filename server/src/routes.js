@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import AdminMasterController from './app/controllers/Admin/AdminMasterController';
 import AdminController from './app/controllers/Admin/AdminController';
 import PartnerController from './app/controllers/Admin/PartnerController';
 import ClientController from './app/controllers/Admin/ClientController';
@@ -34,7 +33,8 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.post('/admin/master', validateAdminStore, AdminMasterController.store);
+routes.post('/admin', validateAdminStore, AdminController.store);
+// routes.post('/admin/import', ImportCSVController.single);
 
 routes.post(
   '/admin-session',
@@ -54,9 +54,6 @@ routes.post(
 
 routes.use(authMiddleware);
 
-// routes.post('/admin/import', ImportCSVController.single);
-
-routes.post('/admin', validateAdminStore, AdminController.store);
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);
 
