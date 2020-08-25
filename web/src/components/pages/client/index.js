@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useState,useContext, useEffect} from 'react'
 import Logo_Branco from '../../../assets/Logo_Branco.png'
 import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles'; 
@@ -6,6 +6,8 @@ import {IconButton} from '@material-ui/core'; //Customization
 import {ExitToApp} from '@material-ui/icons'
 import StoreContext from '../../store/Context'
 import './styles.css'
+import api from '../../../services/api';
+const jwtDecode = require('jwt-decode');
 
 const useStyles = makeStyles((theme) => ({
     icons:{
@@ -16,7 +18,20 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
     const classes = useStyles();
     const history = useHistory();
-    const {removeTokenClient} = useContext(StoreContext);
+    const {tokenClient, removeTokenClient} = useContext(StoreContext);
+    const [clientData, setClientData] = useState('');
+
+    const token = tokenClient();
+    const clientToken = jwtDecode(token);
+
+    useEffect(() => {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        api.get(`/clients/${clientToken.id}`).then(response => {
+            setClientData(response.data);
+        });
+    }, []);
+
+    console.log(clientData);
 
     const exitFromTheSystem = () =>{
         removeTokenClient();
@@ -42,19 +57,22 @@ export default () => {
                         <div className="container-card">
                             <div className="column1">
 
-                                <h2 className="h2-nome">Nome</h2>
-                                <h2 className="h2-styled">Sobrenome</h2>
+                                <h2 className="h2-nome">{clientData.firstname}</h2>
+                                <h2 className="h2-styled">{clientData.lastname}</h2>
 
                                 <div className="row1" id="margin">
-                                    <h2 className="h2-modal" id="email">Email</h2>
+                                    <h2 className="h2-styled-branco" id="email">Email:</h2>
+                                    <h2 className="h2-modal" id="content">{clientData.email}</h2>
                                 </div>
 
                                 <div className="row2">
-                                    <h2 className="h2-modal">RG: RG</h2>
+                                    <h2 className="h2-styled-branco">RG:</h2> 
+                                    <h2 className="h2-modal" id="content">{clientData.rg}</h2>
                                 </div>
 
                                 <div className="row3">
-                                    <h2 className="h2-modal">CPF: CPF</h2>
+                                    <h2 className="h2-styled-branco">CPF:</h2>
+                                    <h2 className="h2-modal" id="content">{clientData.cpf}</h2>
                                 </div>
 
                                 <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
@@ -62,7 +80,7 @@ export default () => {
                             <div className="column2">
                                 <div className="row1">
                                     <h2 className="h2-styled-branco">Cod:</h2>
-                                    <h2 className="h2-modal" id="content">001235</h2>
+                                    <h2 className="h2-modal" id="content">{clientData.code}</h2>
                                 </div>
                                 <div className="row2">
                                     <h2 className="h2-styled-branco">Status:</h2>

@@ -19,33 +19,28 @@ export default () => {
         e.preventDefault();
 
         try{
-            const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
-            setTokenAdmin(responseAdmin.token);
+            //const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
+            //setTokenAdmin(responseAdmin.token);
 
-            api.defaults.headers.Authorization = `Bearer ${responseAdmin.token}`;
+            //api.defaults.headers.Authorization = `Bearer ${responseAdmin.token}`;
 
-            history.push('/admin');
+            //history.push('/admin');
+
+            const responsePartner = await api.post('/partners-session', {"email":email, "password_entry": password});
+            setTokenPartner(responsePartner.data.token);
+
+            history.push('/parceiro');
         }catch(err){
-            try{
-                const responsePartner = await api.post('/partner-session', {"email":email, "password_entry": password});
-                setTokenPartner(responsePartner.token);
-
-                api.defaults.headers.Authorization = `Bearer ${responsePartner.token}`;
-
-                history.push('/parceiro');
-            }catch(err){
-                alert('Falha no login, tente novamente.');
-            }
+            alert('Falha no login, tente novamente.');
         }
     }
 
     async function handleSubmitClient(e){
         e.preventDefault();
         try{
-            const responseClient = await api.post('/client-session', {"code":codeClient});
-            setTokenClient(responseClient.token);
+            const responseClient = await api.post('/clients-session', {"code": codeClient});
+            setTokenClient(responseClient.data.token);
 
-            api.defaults.headers.Authorization = `Bearer ${responseClient.token}`;
             history.push('/cliente');
        }catch(err){
             alert('Falha no login, tente novamente.');

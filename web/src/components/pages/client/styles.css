@@ -42,8 +42,8 @@ header{
 }
 
 .client-card{
-    width: 550px;
-    height: 300px;
+    width: 580px;
+    height: 330px;
     background: linear-gradient(90deg, rgba(0,82,74,1) 0%, rgba(0,145,129,1) 100%);
     display: flex;
     -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.68);

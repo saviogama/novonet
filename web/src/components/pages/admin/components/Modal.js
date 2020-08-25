@@ -44,18 +44,18 @@ export default (props) => {
             <div style={modalStyle} className={classes.paper}>
               <div className="container-modal">
                   <div className="column1">
-                    <h2 className="h2-nome">{props.modalProfile.name}</h2>
+                    <h2 className="h2-nome">{props.modalProfile.firstname}</h2>
                     <h2 className="h2-styled">{props.modalProfile.lastname}</h2>
                     <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
                   </div>
                   <div className="column2">
                       <div className="row1">
                         <h2 className="h2-styled-branco">Cod:</h2>
-                        <h2 className="h2-modal" id="code">{props.modalProfile.code}</h2>
+                        <h2 className="h2-modal" id="content">{props.modalProfile.code}</h2>
                       </div>
                       <div className="row2">
                         <h2 className="h2-styled-branco">Status:</h2>
-                        <h2 className="h2-modal" id="status">{props.modalProfile.status}</h2>
+                        <h2 className="h2-modal" id="content">{props.modalProfile.status}</h2>
                       </div>
                   </div>
               </div>

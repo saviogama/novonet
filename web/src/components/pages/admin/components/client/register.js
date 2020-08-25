@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import api from '../../../../../services/api'
+import StoreContext from '../../../../store/Context'
 import './register.css'
 
 export default () => {
+    const {tokenAdmin} = useContext(StoreContext);
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -9,9 +12,17 @@ export default () => {
     const [cpf, setCPF] = useState('');
     const [code, setCode] = useState('');
 
-    function handleSubmit(e){
+    const token = tokenAdmin();
+
+    async function handleSubmit(e){
         e.preventDefault();
-        console.log(name, email, rg, cpf);
+        try{
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+            const response = await api.post('/client', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf, "code":code})
+
+        }catch(err){
+            alert('Falha em registrar cliente.')
+        }
     }
     return(
         <div className="container">
