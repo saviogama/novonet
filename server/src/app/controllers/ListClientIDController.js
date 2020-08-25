@@ -13,11 +13,16 @@ class ListClientIDController {
         .json({ error: 'You do not have access to this functionality' });
     }
 
-    const { firstname, code } = request.body;
+    const { firstname, cpf } = request.body;
 
     const client = await Client.findAll({
       where: {
-        [Op.or]: [firstname, code],
+        firstname: {
+          [Op.eq]: firstname,
+        },
+        cpf: {
+          [Op.eq]: cpf,
+        },
       },
       attributes: ['id', 'email', 'firstname', 'lastname', 'status'],
     });
