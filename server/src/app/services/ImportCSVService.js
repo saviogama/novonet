@@ -1,9 +1,5 @@
-
-
 class ImportCSVService {
-  async store(request, response) {
-
-  }
+  async store(request, response) {}
 }
 
 export default new ImportCSVService();

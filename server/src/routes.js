@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import AdminMasterController from './app/controllers/Admin/AdminMasterController';
 import AdminController from './app/controllers/Admin/AdminController';
 import PartnerController from './app/controllers/Admin/PartnerController';
 import ClientController from './app/controllers/Admin/ClientController';
@@ -13,7 +12,6 @@ import ProfilePartnerController from './app/controllers/ProfilePartnerController
 import ProfileClientController from './app/controllers/ProfileClientController';
 import CardGenerationController from './app/controllers/CardGenerationController';
 
-import ListPartnerIDController from './app/controllers/ListPartnerIDController';
 import ListClientIDController from './app/controllers/ListClientIDController';
 import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
 import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
@@ -27,17 +25,17 @@ import validatePartnerSessionStore from './app/validators/PartnerSessionStore';
 import validateClientStore from './app/validators/ClientStore';
 import validateClientUpdate from './app/validators/ClientUpdate';
 import validateClientSessionStore from './app/validators/ClientSessionStore';
-import validateListPartnerID from './app/validators/ListPartnerID';
 import validateListClientID from './app/validators/ListClientID';
 
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.post('/admin/master', validateAdminStore, AdminMasterController.store);
+routes.post('/access-admin', validateAdminStore, AdminController.store);
+// routes.post('/admin/import', ImportCSVController.single);
 
 routes.post(
-  '/admin-session',
+  '/access-admin-session',
   validateAdminSessionStore,
   AdminSessionController.store
 );
@@ -54,9 +52,6 @@ routes.post(
 
 routes.use(authMiddleware);
 
-// routes.post('/admin/import', ImportCSVController.single);
-
-routes.post('/admin', validateAdminStore, AdminController.store);
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);
 
@@ -66,11 +61,6 @@ routes.get('/admin/status-users', ListClientsStatusController.index);
 routes.get('/partners', PartnerController.index);
 routes.get('/clients', ClientController.index);
 
-routes.get(
-  '/partners/data',
-  validateListPartnerID,
-  ListPartnerIDController.show
-);
 routes.get('/clients/data', validateListClientID, ListClientIDController.show);
 
 routes.get('/partners/:id', ProfilePartnerController.show);

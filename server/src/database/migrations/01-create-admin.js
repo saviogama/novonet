@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('admins', {
+    return queryInterface.createTable("admins", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,11 +25,6 @@ module.exports = {
         allowNull: false,
         defaultValue: true,
       },
-      admin_master: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -42,6 +37,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    return queryInterface.dropTable('admins');
+    return queryInterface.dropTable("admins");
   },
 };

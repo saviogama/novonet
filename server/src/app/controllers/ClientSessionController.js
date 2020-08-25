@@ -5,16 +5,16 @@ import Client from '../models/Client';
 
 class ClientSessionController {
   async store(request, response) {
-    const { code } = request.body;
+    const { cpf } = request.body;
 
     const client = await Client.findOne({
       where: {
-        code,
+        cpf,
       },
     });
 
     if (!client) {
-      return response.status(401).json({ error: 'Code does not match.' });
+      return response.status(401).json({ error: 'CPF does not match.' });
     }
 
     const { id } = client;

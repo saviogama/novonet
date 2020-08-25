@@ -6,8 +6,10 @@ class ListClientsStatusController {
     const adminId = request.userId;
 
     const adminMaster = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!adminMaster) {
