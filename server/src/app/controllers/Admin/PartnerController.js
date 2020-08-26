@@ -5,14 +5,14 @@ class PartnerController {
   async index(request, response) {
     const adminId = request.userId;
 
-    const adminMaster = await Admin.findOne({
+    const admin = await Admin.findOne({
       where: {
         id: adminId,
         admin_type: true,
       },
     });
 
-    if (!adminMaster) {
+    if (!admin) {
       return response
         .status(400)
         .json({ error: 'You do not have access to this functionality!' });
@@ -76,29 +76,70 @@ class PartnerController {
   }
 
   async update(request, response) {
-    const { email, old_password } = request.body;
+    const adminId = request.userId;
 
-    const partner = await Partner.findByPk(request.userId);
+    const admin = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
+    });
+
+    if (!admin) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
+
+    const partnerID = request.params.id;
+    const { email } = request.body;
+
+    const partner = await Partner.findByPk(partnerID);
+
+    if (!partner) {
+      return response.status(400).json({ error: 'Partner not found.' });
+    }
 
     if (email && email !== partner.email) {
-      const partnerExists = await Partner.findOne({
+      const PartnerExists = await Partner.findOne({
         where: {
           email,
         },
       });
 
-      if (partnerExists) {
-        return response.status(400).json({ error: 'Partner already exists.' });
+      if (PartnerExists) {
+        return response.status(400).json({ error: 'Email already exists.' });
       }
     }
 
-    if (old_password && !(await partner.checkPassword(old_password))) {
-      return response.status(401).json({ error: 'Password does not match.' });
+    const partnertUpdated = await partner.update(request.body);
+
+    return response.json(partnertUpdated);
+  }
+
+  async delete(request, response) {
+    const adminId = request.userId;
+
+    const admin = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
+    });
+
+    if (!admin) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
     }
 
-    await partner.update(request.body);
+    const partnerID = request.params.id;
 
-    return response.json(partner);
+    const partner = await Partner.findByPk(partnerID);
+
+    if (!partner) {
+      return response.status(400).json({ error: 'Partner not found.' });
+    }
+
+    const partnerDeleted = await partner.update(request.body);
+
+    return response.json(partnerDeleted);
   }
 }
 

@@ -14,27 +14,33 @@
 # Documentação Rotas
 
 ### Observação:
-- tipos de admin: admin_master, admin_type
+- tipos de admin: admin_type
 - Só admins podem criar parceiros e clientes
 
-> '/admin/master'
-##### POST: Cria admin master único
+> '/access-admin'
+##### POST: Cria admin 
 
-> '/admin-session'
+> '/access-admin-session'
 ##### POST: Sessão admins
 
-> '/admin'
-##### POST: Cria subs admin (
-  Só pode criar outro admin se for um admin do tipo admin_master
-)
-
 > '/admin/users'
+### so admin
 ##### GET: Lista a quantidade de todos usuários (partners e clients) do sistema
 
 > '/admin/status-users'
+### so admin
 ##### GET: Lista o status dos clientes, ativos e inativos
 
 > '/partners'
+### so admin
+##### GET: Lista todos parceiros
+
+> '/clients'
+### so admin
+##### GET: Lista todos clients
+
+> '/partners'
+### so admin
 ##### POST: Cria parceiros com campos obrigatórios (
     email,
     password_entry,
@@ -45,29 +51,8 @@
     cnpj,
 )
 
-##### GET: Lista todos parceiros (
-
-)
-
-##### PUT: Atualiza parceiro (
-    não é obrigatório atualizar todos os campos,
-    se o campo old_password for preenchido os campos
-    password_entry e confirm_password devem ser preenchidos
-    para atualizar a senha.
-)
-
-> '/partners-session'
-##### POST: Seção dos parceiros (
-    email,
-    password_entry,
-)
-
-> '/partners/data'
-##### GET: Lista dados de um parceiro especifico através do name, company_name ou cnpj (
-  Só admin pode listar
-)
-
 > '/clients'
+### so admin
 ##### POST: Cria clientes com campos obrigatórios (
     email,
     firstname,
@@ -76,27 +61,47 @@
     cpf,
 )
 
-##### GET: Lista todos clientes (
-  Só admins podem listar
+> '/partners/:id'
+### so admin
+##### PUT: Atualiza parceiro (
+    não é obrigatório atualizar todos os campos,
+    se o campo old_password for preenchido os campos
+    password_entry e confirm_password devem ser preenchidos
+    para atualizar a senha.
 )
 
+> '/partners/:id'
+### so admin
+##### DELETE: Deleta parceiro
 
+> '/partners-session'
+##### POST: Seção dos parceiros (
+    email,
+    password_entry,
+)
+
+> '/clients/:id'
+### so admin
 ##### PUT: Atualiza cliente (
     não é obrigatório atualizar todos os campos
     (code não pode ser atualizado pelo cliente)
 )
 
+> '/clients/:id'
+### so admin
+##### DELETE: Deleta cliente
+
 > '/clients-session'
 ##### POST: Seção dos clientes (
-    code,
+    code
 )
 
 > '/clients/data'
-##### GET: Lista dados de um cliente especifico através do firstname ou code (
-  qualquer usuário, menos os do tipo cliente, pode listar
-)
+### so partners
+##### GET: Lista dados de um cliente especifico através do code
 
 > '/clients/:id/card'
+### so clients
 ##### GET: Retorna para o cliente sua imagem qrcode
 
 > '/partners/:id'
