@@ -24,7 +24,7 @@ class ListClientIDController {
       return response.status(400).json({ error: 'Client not found.' });
     }
 
-    return response.json(client);
+    return response.json(client[0]);
   }
 }
 
