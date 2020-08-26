@@ -35,6 +35,18 @@ export default () => {
         })
     }, [])
 
+    async function confirmEdit(){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.put(`/partners/${partners[indexTableEdit].id}`, {"email": emailEditable, "name": nameEditable, "company_name": companyEditable, "rg": rgEditable, "cpf": cpfEditable, "cnpj": cnpjEditable})
+
+            cancelEdit();
+            window.location.reload();
+        }catch(err){
+            alert('Falha na tentativa de editar parceiro');
+        }
+    }
+
 
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
@@ -56,8 +68,14 @@ export default () => {
         setCpfEditable('');
     }
 
-    function deleteTablesIndex(){
-        console.log('Delete');
+    async function deleteTablesIndex(index){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.delete(`/partners/${partners[index].id}`)
+            window.location.reload();
+        }catch(err){
+            alert('Erro ao tentar excluir parceiro');
+        }
     }
 
     function searchByCnpj(passedCnpjForSearch){
@@ -111,7 +129,7 @@ export default () => {
                     <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
 
                     <td className="icon">
-                        <IconButton>
+                        <IconButton onClick={() => confirmEdit()}>
                             <Done/>
                         </IconButton>
                     </td>
@@ -137,7 +155,7 @@ export default () => {
                         </IconButton>
                     </td>
                     <td className="icon">
-                        <IconButton>
+                        <IconButton onClick={() => deleteTablesIndex(index)}>
                             <Delete/>
                         </IconButton>
                     </td>

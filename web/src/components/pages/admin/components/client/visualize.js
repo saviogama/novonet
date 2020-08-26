@@ -13,7 +13,7 @@ export default () => {
     const {tokenAdmin} = useContext(StoreContext);
 
     const [clients, setClients] = useState('');
-    const [clients2, setClients2] = useState('');
+    const [clientsBase, setClientsBase] = useState('');
     const [codeSearch, setCodeSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
 
@@ -24,7 +24,7 @@ export default () => {
     const [rgEditable, setRgEditable] = useState('');
     const [cpfEditable, setCpfEditable] = useState('');
     const [codeEditable, setCodeEditable] = useState('');
-    const [statusEditable, setStatusEditable] = useState('');
+    const [statusEditable, setStatusEditable] = useState(false);
 
     const [modal, setModal] = useState(false);
     const [clientModal, setClientModal] = useState('');
@@ -35,31 +35,15 @@ export default () => {
         api.defaults.headers.Authorization = `Bearer ${token}`;
         api.get('/clients').then(response =>{
             setClients(response.data);
-            setClients2(response.data)
+            setClientsBase(response.data)
         })
     }, [])
 
-    function statusSelection(index, type, order){
-        if(type === 1){
-            if(clients[index].status === true){
-                return 'Ativo'
-            }else{
-                return 'Inativo'
-            }
+    function statusSelection(index){
+        if(clients[index].status === true){
+            return 'Ativo'
         }else{
-            if(order === 1){
-                if(statusEditable === true){
-                    return 'Ativo'
-                }else{
-                    return 'Inativo'
-                }
-            }else{
-                if(statusEditable === true){
-                    return 'Inativo'
-                }else{
-                    return 'Ativo'
-                }
-            }
+            return 'Inativo'
         }
     }
 
@@ -76,6 +60,17 @@ export default () => {
         }
     }
 
+    async function confirmEdit(){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "code": codeEditable, "status": statusEditable})
+
+            cancelEdit();
+            window.location.reload();
+        }catch(err){
+            alert('Falha na tentativa de editar cliente');
+        }
+    }
 
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
@@ -99,8 +94,14 @@ export default () => {
         setStatusEditable('');
     }
 
-    function deleteTablesIndex(){
-        console.log('Delete');
+    async function deleteTablesIndex(index){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.delete(`/clients/${clients[index].id}`)
+            window.location.reload();
+        }catch(err){
+            alert('Erro ao tentar excluir cliente');
+        }
     }
 
     
@@ -111,14 +112,14 @@ export default () => {
         setCodeSearch(codePassedForSearch);
 
         if(nameSearch === '' && codePassedForSearch === ''){
-            setClients(clients2);
+            setClients(clientsBase);
         }else if(codePassedForSearch !== '' && nameSearch !== ''){
-            setClients(clients2.filter((client, index, array) => client.code === codePassedForSearch && client.firstname === nameSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codePassedForSearch && client.firstname === nameSearch));
         }else if(codePassedForSearch === '' && nameSearch !== ''){
             console.log(nameSearch);
-            setClients(clients2.filter((client, index, array) => client.firstname === nameSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === nameSearch));
         }else{
-            setClients(clients2.filter((client, index, array) => client.code === codePassedForSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codePassedForSearch));
         }
 
     }
@@ -130,13 +131,13 @@ export default () => {
         setNameSearch(namePassedForSearch);
 
         if(namePassedForSearch === '' && codeSearch === ''){
-            setClients(clients2);
+            setClients(clientsBase);
         }else if(namePassedForSearch !== '' && codeSearch !== ''){
-            setClients(clients2.filter((client, index, array) => client.firstname === namePassedForSearch && client.code === codeSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === namePassedForSearch && client.code === codeSearch));
         }else if(namePassedForSearch === '' && codeSearch !== ''){
-            setClients(clients2.filter((client, index, array) => client.code === codeSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codeSearch));
         }else{
-            setClients(clients2.filter((client, index, array) => client.firstname === namePassedForSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === namePassedForSearch));
         }
     }
 
@@ -157,13 +158,14 @@ export default () => {
                     <td><input className="input-edit-row"type="text"  value={rgEditable} onChange={e => setRgEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={codeEditable} onChange={e => setCodeEditable(e.target.value)}></input></td>
-                    <td><select>
-                        <option value={statusEditable} onChange={e => setStatusEditable}>{statusSelection(index, 2, 1)}</option>
-                        <option value={!statusEditable} onChange={e => setStatusEditable}>{statusSelection(index,2,2)}</option>
+                    <td><select onChange={e => setStatusEditable(e.target.value)}>
+                        <option></option>
+                        <option value={true}>Ativo</option>
+                        <option value={false}>Inativo</option>
                         </select></td>
 
                     <td className="icon">
-                        <IconButton>
+                        <IconButton onClick={() => confirmEdit()}>
                             <Done/>
                         </IconButton>
                     </td>
@@ -189,14 +191,14 @@ export default () => {
                     <td>{clients[index].rg}</td>
                     <td>{clients[index].cpf}</td>
                     <td>{clients[index].code}</td>
-                    <td>{statusSelection(index, 1)}</td>
+                    <td>{statusSelection(index)}</td>
                     <td className="icon">
                         <IconButton onClick={() => openEditTablesIndex(index)}>
                             <Create/>
                         </IconButton>
                     </td>
                     <td className="icon">
-                        <IconButton onClick={() => deleteTablesIndex()}>
+                        <IconButton onClick={() => deleteTablesIndex(index)}>
                             <Delete/>
                         </IconButton>
                     </td>

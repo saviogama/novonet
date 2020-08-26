@@ -36,7 +36,7 @@ export default () => {
 
             api.defaults.headers.Authorization = `Bearer ${token}`;
             api.get(`/partners/${partnerToken.id}`).then(response => {
-            setPartnerData(response.data);
+                setPartnerData(response.data);
             });
 
             setToken(token);
@@ -46,6 +46,7 @@ export default () => {
         }
     }, [partnerData])
 
+    
     function openModal(){
         if(modal){
             return(
@@ -59,12 +60,12 @@ export default () => {
         signOut();
     }
 
+
     async function handleSearch(){
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
             const response = await api.get('/clients/data', {"code": codeSearch});
-            setClientSearched(response.data);
-            console.log(response);
+            setClientSearched(response.data[0])
             setModal(true)
 
         }catch(err){

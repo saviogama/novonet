@@ -96,7 +96,6 @@ export default () => {
 
             </div>
             <div className="partner-data">
-                <h2>Parceiros</h2>
                 <div className="total-partners">
                 </div>
             </div>

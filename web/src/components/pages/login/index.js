@@ -19,7 +19,7 @@ export default () => {
         e.preventDefault();
 
         try{
-            const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
+            const responseAdmin = await api.post('/access-admin-session', {"email":email, "password_entry": password});
             setTokenAdmin(responseAdmin.data.token);
 
 

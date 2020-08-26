@@ -17,7 +17,7 @@ export default () => {
         e.preventDefault();
         try{
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            const response = await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf})
+            await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf})
 
             resetFields();
             alert('Cadastro de cliente concluido!');

@@ -20,7 +20,8 @@ export default () => {
         e.preventDefault();
         try{
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            const response = await api.post('/partners', {"name": name, "email": email, "company_name":company, "rg": rg, "cpf":cpf, "cnpj":cnpj, "password_entry":password})
+            
+            await api.post('/partners', {"name": name, "email": email, "company_name":company, "rg": rg, "cpf":cpf, "cnpj":cnpj, "password_entry":password})
 
             resetFields();
             alert('Cadastro de parceiro concluído.')
@@ -38,6 +39,7 @@ export default () => {
         setCPF('');
         setCNPJ('');
     }
+
     return(
         <div className="container">
 
