@@ -1,6 +1,5 @@
 import React, {useState,useContext, useEffect} from 'react'
 import Logo_Branco from '../../../assets/Logo_Branco.png'
-import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles'; 
 import {IconButton} from '@material-ui/core'; //Customization
 import {ExitToApp} from '@material-ui/icons'
@@ -17,25 +16,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
     const classes = useStyles();
-    const history = useHistory();
-    const {tokenClient, removeTokenClient} = useContext(StoreContext);
+    const {tokenClient, signOut} = useContext(StoreContext);
     const [clientData, setClientData] = useState('');
 
-    const token = tokenClient();
-    const clientToken = jwtDecode(token);
 
     useEffect(() => {
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-        api.get(`/clients/${clientToken.id}`).then(response => {
-            setClientData(response.data);
-        });
-    }, []);
+        try{
+            const token = JSON.parse(tokenClient());
+            const clientToken = jwtDecode(token);
 
-    console.log(clientData);
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+            api.get(`/clients/${clientToken.id}`).then(response => {
+            setClientData(response.data);
+            });
+
+        }catch(err){
+            signOut();
+        }
+    }, [clientData]);
 
     const exitFromTheSystem = () =>{
-        removeTokenClient();
-        history.push('/');
+        signOut();
     }
 
     return(

@@ -29,7 +29,7 @@ export default () => {
     const [modal, setModal] = useState(false);
     const [clientModal, setClientModal] = useState('');
 
-    const token = tokenAdmin();
+    const token = JSON.parse(tokenAdmin());
 
     useEffect(() => {
         api.defaults.headers.Authorization = `Bearer ${token}`;

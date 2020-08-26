@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {useHistory} from 'react-router-dom';
 
 import {Drawer, AppBar, Toolbar} from '@material-ui/core'; //Estructure
-import { makeStyles, useTheme } from '@material-ui/core/styles'; //Style
+import { makeStyles} from '@material-ui/core/styles'; //Style
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'; //List
 import {Divider, IconButton, Collapse} from '@material-ui/core'; //Customization
 import {Dashboard, Home, ChevronLeft, Menu, ExpandLess, ExpandMore, SupervisorAccount, Search, Assignment, BusinessCenter, ExitToApp} from '@material-ui/icons' //Icons
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const history = useHistory();
-  const {removeTokenAdmin} = useContext(StoreContext);
+  const {signOut} = useContext(StoreContext);
   
   const [statusDrawer, setStatusDrawer] = React.useState(true); //Status => open/closed
   const [openClientes, setOpenClientes] = React.useState(false);
@@ -144,8 +144,7 @@ export default function PersistentDrawerLeft(props) {
   }
 
   const exitFromTheSystem = () =>{
-      removeTokenAdmin();
-      history.push('/');
+      signOut()
   }
 
 

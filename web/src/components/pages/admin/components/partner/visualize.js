@@ -25,7 +25,7 @@ export default () => {
     const [rgEditable, setRgEditable] = useState('');
     const [cpfEditable, setCpfEditable] = useState('');
 
-    const token = tokenAdmin();
+    const token = JSON.parse(tokenAdmin());
 
     useEffect(() => {
         api.defaults.headers.Authorization = `Bearer ${token}`;

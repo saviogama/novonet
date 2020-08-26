@@ -11,7 +11,7 @@ export default () => {
     const [rg, setRG] = useState('');
     const [cpf, setCPF] = useState('');
 
-    const token = tokenAdmin();
+    const token = JSON.parse(tokenAdmin());
 
     async function handleSubmit(e){
         e.preventDefault();

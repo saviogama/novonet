@@ -15,7 +15,7 @@ export default () => {
 
     const [partnersTotal, setPartnersTotal] = useState('');
     const {tokenAdmin} = useContext(StoreContext);
-    const token = tokenAdmin();
+    const token = JSON.parse(tokenAdmin());
 
     useEffect(() => {
         api.defaults.headers.Authorization = `Bearer ${token}`

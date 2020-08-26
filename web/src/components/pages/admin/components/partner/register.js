@@ -14,7 +14,7 @@ export default () => {
     const [cnpj, setCNPJ] = useState('');
 
 
-    const token = tokenAdmin();
+    const token = JSON.parse(tokenAdmin());
 
     async function handleSubmit(e){
         e.preventDefault();
