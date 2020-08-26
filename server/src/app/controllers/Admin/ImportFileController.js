@@ -1,26 +1,26 @@
-// import Admin from '../../models/Admin';
+import Admin from '../../models/Admin';
 
-// import ImportFileService from '../../services/ImportFileService';
+import ImportFileService from '../../services/ImportFileService';
 
-// class ImportFileController {
-//   async store(request, response) {
-//     const admin = await Admin.findOne({
-//       where: {
-//         id: request.userId,
-//         admin_type: true,
-//       },
-//     });
+class ImportFileController {
+  async store(request, response) {
+    const admin = await Admin.findOne({
+      where: {
+        id: request.userId,
+        admin_type: true,
+      },
+    });
 
-//     if (!admin) {
-//       return response
-//         .status(400)
-//         .json({ error: 'You do not have access to this functionality!' });
-//     }
+    if (!admin) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
 
-//     const uploadData = await ImportFileService.run(request.file.path);
+    const uploadData = await ImportFileService.run(request.file.path);
 
-//     return response.json(uploadData);
-//   }
-// }
+    return response.json(uploadData);
+  }
+}
 
-// export default new ImportFileController();
+export default new ImportFileController();
