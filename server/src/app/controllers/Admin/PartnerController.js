@@ -31,14 +31,14 @@ class PartnerController {
   async store(request, response) {
     const adminId = request.userId;
 
-    const adminMaster = await Admin.findOne({
+    const admin = await Admin.findOne({
       where: {
         id: adminId,
         admin_type: true,
       },
     });
 
-    if (!adminMaster) {
+    if (!admin) {
       return response
         .status(400)
         .json({ error: 'You do not have access to this functionality!' });
@@ -79,8 +79,10 @@ class PartnerController {
     const adminId = request.userId;
 
     const admin = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!admin) {
@@ -95,7 +97,7 @@ class PartnerController {
     const partner = await Partner.findByPk(partnerID);
 
     if (!partner) {
-      return response.status(400).json({ error: 'Partner not found.' });
+      return response.status(400).json({ error: 'Client not found.' });
     }
 
     if (email && email !== partner.email) {
@@ -119,8 +121,10 @@ class PartnerController {
     const adminId = request.userId;
 
     const admin = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!admin) {
@@ -134,12 +138,12 @@ class PartnerController {
     const partner = await Partner.findByPk(partnerID);
 
     if (!partner) {
-      return response.status(400).json({ error: 'Partner not found.' });
+      return response.status(400).json({ error: 'Client not found.' });
     }
 
-    const partnerDeleted = await partner.update(request.body);
+    await partner.destroy();
 
-    return response.json(partnerDeleted);
+    return response.json(partner);
   }
 }
 

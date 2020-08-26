@@ -7,7 +7,7 @@ class ProfileClientController {
         id: request.userId,
         client_type: true,
       },
-      attributes: ['email', 'firstname', 'lastname', 'rg', 'cpf', 'status'],
+      attributes: ['firstname', 'lastname', 'code', 'status'],
     });
 
     if (!client) {

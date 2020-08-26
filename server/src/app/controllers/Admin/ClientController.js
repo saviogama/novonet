@@ -6,8 +6,10 @@ class ClientController {
     const adminId = request.userId;
 
     const admin = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!admin) {
@@ -38,12 +40,14 @@ class ClientController {
   async store(request, response) {
     const adminId = request.userId;
 
-    const adminMaster = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+    const admin = await Admin.findOne({
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
-    if (!adminMaster) {
+    if (!admin) {
       return response
         .status(400)
         .json({ error: 'You do not have access to this functionality!' });
@@ -77,8 +81,10 @@ class ClientController {
     const adminId = request.userId;
 
     const admin = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!admin) {
@@ -117,8 +123,10 @@ class ClientController {
     const adminId = request.userId;
 
     const admin = await Admin.findOne({
-      id: adminId,
-      admin_type: true,
+      where: {
+        id: adminId,
+        admin_type: true,
+      },
     });
 
     if (!admin) {
@@ -135,9 +143,9 @@ class ClientController {
       return response.status(400).json({ error: 'Client not found.' });
     }
 
-    const clientDeleted = await client.update(request.body);
+    await client.destroy();
 
-    return response.json(clientDeleted);
+    return response.json(client);
   }
 }
 

@@ -1,4 +1,4 @@
-import qrcode from 'qr-image';
+import QRCode from 'qrcode';
 
 import Client from '../models/Client';
 
@@ -21,13 +21,40 @@ class CardGenerationService {
 
     const codeClient = jsonToString.slice(10, jsonToString.length - 3);
 
-    const ImageQrCode = qrcode.image(codeClient, { type: 'png', size: 5 });
+    const opts = {
+      type: 'image/png',
+    };
 
-    response.type('png');
+    const generateQR = QRCode.toDataURL(codeClient, opts, (err, url) => {
+      if (err) {
+        throw new Error('Error!');
+      }
 
-    ImageQrCode.pipe(response);
+      return url;
+    });
 
-    return ImageQrCode;
+    console.log(typeof generateQR);
+    console.log(generateQR);
+
+    // const generateQR = async (code) => {
+    //   try {
+    //     console.log(await QRCode.toDataURL(code));
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // };
+
+    // const ImageQrCode = qrcode.image(codeClient, {
+    //   type: 'png',
+    //   parse_url: true,
+    //   size: 5,
+    // });
+
+    // response.type('png');
+
+    // ImageQrCode.pipe(response);
+
+    return response.json(generateQR);
   }
 }
 

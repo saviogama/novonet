@@ -9,19 +9,7 @@ export default async (request, response, next) => {
       rg: Yup.string(),
       cpf: Yup.string(),
       cnpj: Yup.string(),
-      old_password: Yup.string().min(6),
-      password_entry: Yup.string()
-        .min(6)
-        .when('old_password', (old_password, field) =>
-          old_password ? field.required() : field
-        ),
-      confirm_password: Yup.string().when(
-        'password_entry',
-        (password_entry, field) =>
-          password_entry
-            ? field.required().oneOf([Yup.ref('password_entry')])
-            : field
-      ),
+      password_entry: Yup.string().min(6),
     });
 
     await schema.validate(request.body, { abortEarly: false });
