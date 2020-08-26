@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../contexts/auth';
 import { useNavigation } from '@react-navigation/native';
 import { View, Image, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import jwt_decode from 'jwt-decode';
+import api from '../../services/api';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 
 export default function PartnerHome() {
+    const [partner, setPartner] = useState('');
     const [codigo, setCodigo] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const { user, signOut } = useContext(AuthContext);
     const navigation = useNavigation();
 
+    var decoded = jwt_decode(user);
+
     function navigateToLogin() {
-        navigation.navigate('PartnerLogin');
+        signOut();
     }
 
     function navigateToResult() {
         navigation.navigate('Result');
     }
+
+    useEffect(() => {
+        api.get(`partners/${decoded.id}`, {
+            headers: {
+                Authorization: `Bearer ${user}`
+            }
+        }).then(response => {
+            setPartner(response.data);
+        });
+    }, [setPartner]);
 
     return (
         <View style={styles.view}>
@@ -29,7 +46,7 @@ export default function PartnerHome() {
                         <Feather name="log-out" size={14} color="#737380" />
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.title}>Olá, Empresa</Text>
+                <Text style={styles.title}>Olá, {partner.company_name}</Text>
                 <Text style={styles.description}>Como deseja consultar o cliente?</Text>
                 <View style={styles.options}>
                     <Modal

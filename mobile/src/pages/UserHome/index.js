@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../contexts/auth';
+import jwt_decode from 'jwt-decode';
+import api from '../../services/api';
 import { View, Image, Text, TouchableOpacity, Modal } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
 import Carteirinha from '../../components/Carteirinha';
 import styles from './styles';
 
 export default function UserHome() {
     const [modalVisible, setModalVisible] = useState(false);
-    const navigation = useNavigation();
+    const [client, setClient] = useState('');
+    const [image, setImage] = useState('');
+    const { user, signOut } = useContext(AuthContext);
+
+    var decoded = jwt_decode(user);
 
     function navigateToLogin() {
-        navigation.navigate('PartnerLogin');
+        signOut();
     }
+
+    useEffect(() => {
+        api.get(`clients/${decoded.id}`, {
+            headers: {
+                Authorization: `Bearer ${user}`
+            }
+        }).then(response => {
+            setClient(response.data);
+        });
+    }, [setClient]);
+
+    useEffect(() => {
+        api.get(`clients/${decoded.id}/card`, {
+            headers: {
+                Authorization: `Bearer ${user}`
+            }
+        }).then(response => {
+            setImage(response.data);
+        });
+    }, [setImage]);
 
     return (
         <View style={styles.view}>
@@ -25,9 +50,9 @@ export default function UserHome() {
                         <Feather name="log-out" size={14} color="#737380" />
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.title}>Olá, Cliente</Text>
-                <Text style={styles.description}>Seu status é: Ativo</Text>
-                <Carteirinha />
+                <Text style={styles.title}>Olá, {client.firstname}</Text>
+                <Text style={styles.description}>Seu status é: {client.status}</Text>
+                <Carteirinha name={client.firstname} lastname={client.lastname} cpf={client.cpf} status={client.status} />
                 <Text style={styles.observation}>
                     Observação: É obrigatório a apresentação de um documento com foto comprovando a titularidade.
                 </Text>
@@ -38,7 +63,7 @@ export default function UserHome() {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <AntDesign name="qrcode" size={250} color="#00524A" />
+                            
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => { setModalVisible(!modalVisible) }}
