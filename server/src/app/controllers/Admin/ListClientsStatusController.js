@@ -3,16 +3,14 @@ import Client from '../../models/Client';
 
 class ListClientsStatusController {
   async index(request, response) {
-    const adminId = request.userId;
-
-    const adminMaster = await Admin.findOne({
+    const admin = await Admin.findOne({
       where: {
-        id: adminId,
+        id: request.userId,
         admin_type: true,
       },
     });
 
-    if (!adminMaster) {
+    if (!admin) {
       return response
         .status(400)
         .json({ error: 'You do not have access to this functionality!' });

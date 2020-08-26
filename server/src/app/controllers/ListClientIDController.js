@@ -1,5 +1,3 @@
-import { Op } from 'sequelize';
-
 import Partner from '../models/Partner';
 import Client from '../models/Client';
 
@@ -13,18 +11,13 @@ class ListClientIDController {
         .json({ error: 'You do not have access to this functionality' });
     }
 
-    const { firstname, cpf } = request.body;
+    const { code } = request.body;
 
     const client = await Client.findAll({
       where: {
-        firstname: {
-          [Op.eq]: firstname,
-        },
-        cpf: {
-          [Op.eq]: cpf,
-        },
+        code,
       },
-      attributes: ['id', 'email', 'firstname', 'lastname', 'status'],
+      attributes: ['email', 'firstname', 'lastname', 'status'],
     });
 
     if (!client) {

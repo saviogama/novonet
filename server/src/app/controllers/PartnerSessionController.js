@@ -21,10 +21,10 @@ class PartnerSessionController {
       return response.status(401).json({ error: 'Password does not match.' });
     }
 
-    const { id } = partner;
+    const { id, partner_type } = partner;
 
     return response.json({
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, partner_type }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });

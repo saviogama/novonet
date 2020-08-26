@@ -5,12 +5,12 @@ class ClientController {
   async index(request, response) {
     const adminId = request.userId;
 
-    const adminMaster = await Admin.findOne({
+    const admin = await Admin.findOne({
       id: adminId,
       admin_type: true,
     });
 
-    if (!adminMaster) {
+    if (!admin) {
       return response
         .status(400)
         .json({ error: 'You do not have access to this functionality!' });
@@ -74,9 +74,27 @@ class ClientController {
   }
 
   async update(request, response) {
+    const adminId = request.userId;
+
+    const admin = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
+    });
+
+    if (!admin) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
+
+    const clientID = request.params.id;
     const { email } = request.body;
 
-    const client = await Client.findByPk(request.userId);
+    const client = await Client.findByPk(clientID);
+
+    if (!client) {
+      return response.status(400).json({ error: 'Client not found.' });
+    }
 
     if (email && email !== client.email) {
       const clientExists = await Client.findOne({
@@ -90,18 +108,36 @@ class ClientController {
       }
     }
 
-    const { id, firstname, lastname, rg, cpf } = await client.update(
-      request.body
-    );
+    const clientUpdated = await client.update(request.body);
 
-    return response.json({
-      id,
-      email,
-      firstname,
-      lastname,
-      rg,
-      cpf,
+    return response.json(clientUpdated);
+  }
+
+  async delete(request, response) {
+    const adminId = request.userId;
+
+    const admin = await Admin.findOne({
+      id: adminId,
+      admin_type: true,
     });
+
+    if (!admin) {
+      return response
+        .status(400)
+        .json({ error: 'You do not have access to this functionality!' });
+    }
+
+    const clientID = request.params.id;
+
+    const client = await Client.findByPk(clientID);
+
+    if (!client) {
+      return response.status(400).json({ error: 'Client not found.' });
+    }
+
+    const clientDeleted = await client.update(request.body);
+
+    return response.json(clientDeleted);
   }
 }
 

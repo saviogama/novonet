@@ -2,7 +2,7 @@ import qrcode from 'qr-image';
 
 import Client from '../models/Client';
 
-class CardGenerationController {
+class CardGenerationService {
   async show(request, response) {
     const client = await Client.findOne({
       where: {
@@ -21,9 +21,9 @@ class CardGenerationController {
 
     const codeClient = jsonToString.slice(10, jsonToString.length - 3);
 
-    const ImageQrCode = qrcode.image(codeClient, { type: 'svg', size: 5 });
+    const ImageQrCode = qrcode.image(codeClient, { type: 'png', size: 5 });
 
-    response.type('svg');
+    response.type('png');
 
     ImageQrCode.pipe(response);
 
@@ -31,4 +31,4 @@ class CardGenerationController {
   }
 }
 
-export default new CardGenerationController();
+export default new CardGenerationService();

@@ -11,6 +11,8 @@ class Client extends Model {
         rg: Sequelize.STRING,
         cpf: Sequelize.STRING,
         code: Sequelize.UUID,
+        // code: Sequelize.STRING,
+        // codeUUI: Sequelize.UUID,
         status: Sequelize.BOOLEAN,
         client_type: Sequelize.BOOLEAN,
       },
