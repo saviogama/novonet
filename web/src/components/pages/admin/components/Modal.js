@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Logo_Branco from '../../../../assets/Logo_Branco.png'
-import Logo_Recorte_Branco from '../../../../assets/Logo_Recorte_Branco.png'
 import '../components/Modal.css'
 
 function getModalStyle() {
@@ -67,7 +66,7 @@ export default (props) => {
               <div className="container-modal">
                   <div className="column1">
 
-                    <h2 className="h2-nome">{props.modalProfile.name}</h2>
+                    <h2 className="h2-nome">{props.modalProfile.firstname}</h2>
                     <h2 className="h2-styled">{props.modalProfile.lastname}</h2>
 
                     <div className="row1" id="margin">

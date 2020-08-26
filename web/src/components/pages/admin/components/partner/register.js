@@ -20,12 +20,23 @@ export default () => {
         e.preventDefault();
         try{
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            const response = await api.post('/partners', {"email": email, "name": name, "company_name":company, "rg": rg, "cpf":cpf, "cnpj":cnpj, "password_entry":password})
+            const response = await api.post('/partners', {"name": name, "email": email, "company_name":company, "rg": rg, "cpf":cpf, "cnpj":cnpj, "password_entry":password})
 
-            console.log(response);
+            resetFields();
+            alert('Cadastro de parceiro concluído.')
         }catch(err){
             alert("Falha na tentativa de cadastro de parceiro.");
         }
+    }
+
+    function resetFields(){
+        setName('');
+        setPassword('');
+        setEmail('');
+        setCompany('');
+        setRG('');
+        setCPF('');
+        setCNPJ('');
     }
     return(
         <div className="container">
@@ -39,7 +50,7 @@ export default () => {
 
                         <input className="input-email" type="mail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
 
-                        <input className="input-password" type="text" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)}/>
+                        <input className="input-password" type="text" placeholder="Senha: mín 6 caracteres" value={password} onChange={e => setPassword(e.target.value)}/>
 
                         <input className="input-email" type="text" placeholder="Company" value={company} onChange={e => setCompany(e.target.value)}/>
 

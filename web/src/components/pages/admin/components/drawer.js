@@ -108,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const history = useHistory();
   const {removeTokenAdmin} = useContext(StoreContext);
   

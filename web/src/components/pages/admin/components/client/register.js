@@ -10,7 +10,6 @@ export default () => {
     const [email, setEmail] = useState('');
     const [rg, setRG] = useState('');
     const [cpf, setCPF] = useState('');
-    const [code, setCode] = useState('');
 
     const token = tokenAdmin();
 
@@ -18,11 +17,21 @@ export default () => {
         e.preventDefault();
         try{
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            const response = await api.post('/client', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf, "code":code})
+            const response = await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf})
 
+            resetFields();
+            alert('Cadastro de cliente concluido!');
         }catch(err){
             alert('Falha em registrar cliente.')
         }
+    }
+
+    function resetFields(){
+        setName('');
+        setLastName('');
+        setEmail('');
+        setRG('');
+        setCPF('');
     }
     return(
         <div className="container">
@@ -41,8 +50,6 @@ export default () => {
                         <input className="input-lastName" type="text" placeholder="Sobrenome" value={lastName} onChange={e => setLastName(e.target.value)}/>
 
                         <input className="input-cpf" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)}/>
-
-                        <input className="input-code" type="text" placeholder="Código" value={code} onChange={e => setCode(e.target.value)}/>
                     </div>
                 </div>
 

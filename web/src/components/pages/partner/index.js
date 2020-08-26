@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
 import Logo_Branco from '../../../assets/Logo_Branco.png'
 import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles'; 
@@ -8,7 +8,6 @@ import StoreContext from '../../store/Context'
 import Modal from '../admin/components/Modal'
 import api from '../../../services/api'
 import './styles.css'
-const jwtDecode = require('jwt-decode');
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +29,6 @@ export default () => {
     const [modal, setModal] = useState(false);
 
     const token = tokenPartner();
-    const partnerInfo = jwtDecode(token);
 
     function openModal(){
         if(modal){

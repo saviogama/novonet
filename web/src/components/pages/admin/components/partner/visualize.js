@@ -1,39 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Create, Delete, Done, Close} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
 import {AutoSizer, List} from 'react-virtualized';
+import StoreContext from '../../../../store/Context'
+import api from '../../../../../services/api';
+
 
 import './visualize.css'
 
 export default () => {
-    const parceiros = [{
-        nome:"João",
-        email:"joão@joão.com",
-        company: "Academia Fit",
-        CNPJ:"0012130",
-        rg: "9.095.482",
-        cpf: "120.425.142-90"
-    },
-    {
-        nome:"Maria Aparecida",
-        email:"mari@bol.com",
-        company: "Atacado Souza",
-        CNPJ:"001255012",
-        rg: "2.105.132",
-        cpf: "130.454.032-25"
-    },
-    {
-        nome:"Rodrigo",
-        email:"ro@hotmail.com",
-        company: "Centro Informática",
-        CNPJ:"001202150",
-        rg: "9.095.482",
-        cpf: "120.358.152-90"
-    }];
+
+    const {tokenAdmin} = useContext(StoreContext);
 
     const [cnpjSearch, setCNPJSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
-    const [partners, setPartners] = useState(parceiros);
+    const [partners, setPartners] = useState('');
+    const [partnersBase, setPartnersBase] = useState('');
 
     const [indexTableEdit, setIndexTableEdit] = useState('');
     const [nameEditable, setNameEditable] = useState('');
@@ -43,12 +25,23 @@ export default () => {
     const [rgEditable, setRgEditable] = useState('');
     const [cpfEditable, setCpfEditable] = useState('');
 
+    const token = tokenAdmin();
+
+    useEffect(() => {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        api.get('/partners').then(response =>{
+            setPartners(response.data);
+            setPartnersBase(response.data)
+        })
+    }, [])
+
+
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
-        setNameEditable(partners[index].nome);
+        setNameEditable(partners[index].name);
         setEmailEditable(partners[index].email);
-        setCompanyEditable(partners[index].company);
-        setCnpjEditable(partners[index].CNPJ);
+        setCompanyEditable(partners[index].company_name);
+        setCnpjEditable(partners[index].cnpj);
         setRgEditable(partners[index].rg);
         setCpfEditable(partners[index].cpf);
     }
@@ -56,6 +49,11 @@ export default () => {
     function cancelEdit(){
         setIndexTableEdit('');
         setNameEditable('');
+        setEmailEditable('');
+        setCompanyEditable('');
+        setCnpjEditable('');
+        setRgEditable('');
+        setCpfEditable('');
     }
 
     function deleteTablesIndex(){
@@ -68,14 +66,13 @@ export default () => {
         setCNPJSearch(passedCnpjForSearch);
 
         if(nameSearch === '' && passedCnpjForSearch === ''){
-            setPartners(parceiros);
+            setPartners(partnersBase);
         }else if(passedCnpjForSearch !== '' && nameSearch !== ''){
-            setPartners(parceiros.filter((partners) => partners.CNPJ === passedCnpjForSearch && partners.nome === nameSearch));
+            setPartners(partnersBase.filter((partner) => partner.cnpj === passedCnpjForSearch && partner.name === nameSearch));
         }else if(passedCnpjForSearch === '' && nameSearch !== ''){
-            console.log(nameSearch);
-            setPartners(parceiros.filter((partners) => partners.nome === nameSearch));
+            setPartners(partnersBase.filter((partner) => partner.name === nameSearch));
         }else{
-            setPartners(parceiros.filter((partners) => partners.CNPJ === passedCnpjForSearch));
+            setPartners(partnersBase.filter((partner) => partner.cnpj === passedCnpjForSearch));
         }
 
     }
@@ -86,13 +83,13 @@ export default () => {
         setNameSearch(passedNameForSearch);
 
         if(passedNameForSearch === '' && cnpjSearch === ''){
-            setPartners(parceiros);
+            setPartners(partnersBase);
         }else if(passedNameForSearch !== '' && cnpjSearch !== ''){
-            setPartners(parceiros.filter((partners) => partners.nome === passedNameForSearch && partners.CNPJ === cnpjSearch));
+            setPartners(partnersBase.filter((partner) => partner.name === passedNameForSearch && partner.cnpj === cnpjSearch));
         }else if(passedNameForSearch === '' && cnpjSearch !== ''){
-            setPartners(parceiros.filter((partners) => partners.CNPJ === cnpjSearch));
+            setPartners(partnersBase.filter((partner) => partner.cnpj === cnpjSearch));
         }else{
-            setPartners(parceiros.filter((partners) => partners.nome === passedNameForSearch));
+            setPartners(partnersBase.filter((partner) => partner.name === passedNameForSearch));
         }
     }
     
@@ -128,10 +125,10 @@ export default () => {
         }else{
             return(
                 <tr key={key} style={style} className="data-row-partner">
-                    <td>{partners[index].nome}</td>
+                    <td>{partners[index].name}</td>
                     <td>{partners[index].email}</td>
-                    <td>{partners[index].company}</td>
-                    <td>{partners[index].CNPJ}</td>
+                    <td>{partners[index].company_name}</td>
+                    <td>{partners[index].cnpj}</td>
                     <td>{partners[index].rg}</td>
                     <td>{partners[index].cpf}</td>
                     <td className="icon">
@@ -176,7 +173,7 @@ export default () => {
                         width={width}
                         height={400}
                         rowCount={partners.length}
-                        rowHeight={50}
+                        rowHeight={70}
                         rowRenderer={renderList}
                     />
                     )}

@@ -19,19 +19,21 @@ export default () => {
         e.preventDefault();
 
         try{
-            //const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
-            //setTokenAdmin(responseAdmin.token);
+            const responseAdmin = await api.post('/admin-session', {"email":email, "password_entry": password});
+            setTokenAdmin(responseAdmin.data.token);
 
-            //api.defaults.headers.Authorization = `Bearer ${responseAdmin.token}`;
 
-            //history.push('/admin');
+            history.push('/admin');
 
-            const responsePartner = await api.post('/partners-session', {"email":email, "password_entry": password});
-            setTokenPartner(responsePartner.data.token);
-
-            history.push('/parceiro');
         }catch(err){
-            alert('Falha no login, tente novamente.');
+            try{
+                const responsePartner = await api.post('/partners-session', {"email":email, "password_entry": password});
+                setTokenPartner(responsePartner.data.token);
+
+                history.push('/parceiro');
+            }catch(err){
+                alert('Falha no login, tente novamente.');
+            }
         }
     }
 
