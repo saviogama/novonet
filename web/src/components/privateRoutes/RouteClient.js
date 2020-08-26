@@ -7,6 +7,6 @@ export default ({component: Component, ...rest}) => {
     const {tokenClient} = useContext(Context);
 
     return(
-        <Route {...rest} render={()=> tokenClient ? <Component {...rest}/> : <Redirect to="/"/> } />
+        <Route {...rest} render={()=> tokenClient() ? <Component {...rest}/> : <Redirect to="/"/> } />
     );
 }

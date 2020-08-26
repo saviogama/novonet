@@ -1,18 +1,45 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import api from '../../../../../services/api'
+import StoreContext from '../../../../store/Context'
 import './register.css'
 
 export default () => {
+    const {tokenAdmin} = useContext(StoreContext);
     const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [company, setCompany] = useState('');
     const [rg, setRG] = useState('');
     const [cpf, setCPF] = useState('');
     const [cnpj, setCNPJ] = useState('');
 
-    function handleSubmit(e){
+
+    const token = JSON.parse(tokenAdmin());
+
+    async function handleSubmit(e){
         e.preventDefault();
-        console.log(name, email, company, rg, cpf, cnpj);
+        try{
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+            
+            await api.post('/partners', {"name": name, "email": email, "company_name":company, "rg": rg, "cpf":cpf, "cnpj":cnpj, "password_entry":password})
+
+            resetFields();
+            alert('Cadastro de parceiro concluído.')
+        }catch(err){
+            alert("Falha na tentativa de cadastro de parceiro.");
+        }
     }
+
+    function resetFields(){
+        setName('');
+        setPassword('');
+        setEmail('');
+        setCompany('');
+        setRG('');
+        setCPF('');
+        setCNPJ('');
+    }
+
     return(
         <div className="container">
 
@@ -23,7 +50,9 @@ export default () => {
 
                         <input className="input-nome" type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)}/>
 
-                        <input className="input-password" type="mail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
+                        <input className="input-email" type="mail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
+
+                        <input className="input-password" type="text" placeholder="Senha: mín 6 caracteres" value={password} onChange={e => setPassword(e.target.value)}/>
 
                         <input className="input-email" type="text" placeholder="Company" value={company} onChange={e => setCompany(e.target.value)}/>
 

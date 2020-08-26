@@ -1,52 +1,19 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Create, Delete, Done, Close, AccountBox} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
 import {AutoSizer, List} from 'react-virtualized';
+import StoreContext from '../../../../store/Context'
 import Modal from '../Modal'
 
 import './visualize.css'
-import client from '../../../client';
+import api from '../../../../../services/api';
 
 export default () => {
-    const clientes = [{
-        name:"João",
-        lastname: "Dória",
-        email: "jo@hotmail.com",
-        rg: "5.524.632",
-        cpf: "123.456.789-00",
-        code:"0008124",
-        status:"ativo",
-    },
-    {
-        name:"Maria",
-        lastname: "Glória",
-        email: "mari.10@hotmail.com",
-        rg: "9.414.632",
-        cpf: "023.446.789-20",
-        code:"3216549",
-        status:"Inativo",
-    },
-    {
-        name:"Rodrigo",
-        lastname: "Gusmão",
-        email: "rogriguinho@bol.com",
-        rg: "9.050.134",
-        cpf: "234.754.124-82",
-        code:"00038124",
-        status:"ativo",
-    },
-    {
-        name:"João",
-        lastname: "Dória",
-        email: "jo@hotmail.com",
-        rg: "5.524.632",
-        cpf: "123.456.789-00",
-        code:"000812435",
-        status:"ativo",
-    },
-];
 
-    const [clients, setClients] = useState(clientes);
+    const {tokenAdmin} = useContext(StoreContext);
+
+    const [clients, setClients] = useState('');
+    const [clientsBase, setClientsBase] = useState('');
     const [codeSearch, setCodeSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
 
@@ -57,16 +24,26 @@ export default () => {
     const [rgEditable, setRgEditable] = useState('');
     const [cpfEditable, setCpfEditable] = useState('');
     const [codeEditable, setCodeEditable] = useState('');
-    const [statusEditable, setStatusEditable] = useState('');
+    const [statusEditable, setStatusEditable] = useState(false);
 
     const [modal, setModal] = useState(false);
     const [clientModal, setClientModal] = useState('');
 
-    function statusSelection(){
-        if(statusEditable == "Ativo" | statusEditable == "ativo" ){
-            return "Inativo"
+    const token = JSON.parse(tokenAdmin());
+
+    useEffect(() => {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        api.get('/clients').then(response =>{
+            setClients(response.data);
+            setClientsBase(response.data)
+        })
+    }, [])
+
+    function statusSelection(index){
+        if(clients[index].status === true){
+            return 'Ativo'
         }else{
-            return "Ativo"
+            return 'Inativo'
         }
     }
 
@@ -83,10 +60,21 @@ export default () => {
         }
     }
 
+    async function confirmEdit(){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "code": codeEditable, "status": statusEditable})
+
+            cancelEdit();
+            window.location.reload();
+        }catch(err){
+            alert('Falha na tentativa de editar cliente');
+        }
+    }
 
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
-        setNameEditable(clients[index].name);
+        setNameEditable(clients[index].firstname);
         setLastNameEditable(clients[index].lastname);
         setEmailEditable(clients[index].email);
         setRgEditable(clients[index].rg);
@@ -98,10 +86,22 @@ export default () => {
     function cancelEdit(){
         setIndexTableEdit('');
         setNameEditable('');
+        setLastNameEditable('');
+        setEmailEditable('');
+        setRgEditable('');
+        setCpfEditable('');
+        setCodeEditable('');
+        setStatusEditable('');
     }
 
-    function deleteTablesIndex(){
-        console.log('Delete');
+    async function deleteTablesIndex(index){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.delete(`/clients/${clients[index].id}`)
+            window.location.reload();
+        }catch(err){
+            alert('Erro ao tentar excluir cliente');
+        }
     }
 
     
@@ -112,14 +112,14 @@ export default () => {
         setCodeSearch(codePassedForSearch);
 
         if(nameSearch === '' && codePassedForSearch === ''){
-            setClients(clientes);
+            setClients(clientsBase);
         }else if(codePassedForSearch !== '' && nameSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.code === codePassedForSearch && client.name === nameSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codePassedForSearch && client.firstname === nameSearch));
         }else if(codePassedForSearch === '' && nameSearch !== ''){
             console.log(nameSearch);
-            setClients(clientes.filter((client, index, array) => client.name === nameSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === nameSearch));
         }else{
-            setClients(clientes.filter((client, index, array) => client.code === codePassedForSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codePassedForSearch));
         }
 
     }
@@ -131,13 +131,13 @@ export default () => {
         setNameSearch(namePassedForSearch);
 
         if(namePassedForSearch === '' && codeSearch === ''){
-            setClients(clientes);
+            setClients(clientsBase);
         }else if(namePassedForSearch !== '' && codeSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.name === namePassedForSearch && client.code === codeSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === namePassedForSearch && client.code === codeSearch));
         }else if(namePassedForSearch === '' && codeSearch !== ''){
-            setClients(clientes.filter((client, index, array) => client.code === codeSearch));
+            setClients(clientsBase.filter((client, index, array) => client.code === codeSearch));
         }else{
-            setClients(clientes.filter((client, index, array) => client.name === namePassedForSearch));
+            setClients(clientsBase.filter((client, index, array) => client.firstname === namePassedForSearch));
         }
     }
 
@@ -158,13 +158,14 @@ export default () => {
                     <td><input className="input-edit-row"type="text"  value={rgEditable} onChange={e => setRgEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={codeEditable} onChange={e => setCodeEditable(e.target.value)}></input></td>
-                    <td><select>
-                        <option value={statusEditable} onChange={e => setStatusEditable}>{statusEditable}</option>
-                        <option value={statusSelection()} onChange={e => setStatusEditable}>{statusSelection()}</option>
+                    <td><select onChange={e => setStatusEditable(e.target.value)}>
+                        <option></option>
+                        <option value={true}>Ativo</option>
+                        <option value={false}>Inativo</option>
                         </select></td>
 
                     <td className="icon">
-                        <IconButton>
+                        <IconButton onClick={() => confirmEdit()}>
                             <Done/>
                         </IconButton>
                     </td>
@@ -184,20 +185,20 @@ export default () => {
         }else{
             return(
                 <tr key={key} style={style} className="data-row-client">
-                    <td>{clients[index].name}</td>
+                    <td>{clients[index].firstname}</td>
                     <td>{clients[index].lastname}</td>
                     <td>{clients[index].email}</td>
                     <td>{clients[index].rg}</td>
                     <td>{clients[index].cpf}</td>
                     <td>{clients[index].code}</td>
-                    <td>{clients[index].status}</td>
+                    <td>{statusSelection(index)}</td>
                     <td className="icon">
                         <IconButton onClick={() => openEditTablesIndex(index)}>
                             <Create/>
                         </IconButton>
                     </td>
                     <td className="icon">
-                        <IconButton onClick={() => deleteTablesIndex()}>
+                        <IconButton onClick={() => deleteTablesIndex(index)}>
                             <Delete/>
                         </IconButton>
                     </td>
@@ -239,7 +240,7 @@ export default () => {
                         width={width}
                         height={400}
                         rowCount={clients.length}
-                        rowHeight={50}
+                        rowHeight={70}
                         rowRenderer={renderList}
                     />
                     )}

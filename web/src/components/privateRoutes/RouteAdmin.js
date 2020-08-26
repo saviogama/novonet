@@ -7,6 +7,6 @@ export default ({component: Component, ...rest}) => {
     const {tokenAdmin} = useContext(Context);
 
     return(
-        <Route {...rest} render={()=> tokenAdmin ? <Component {...rest}/> : <Redirect to="/"/> } />
+        <Route {...rest} render={()=> tokenAdmin() ? <Component {...rest}/> : <Redirect to="/"/> } />
     );
 }

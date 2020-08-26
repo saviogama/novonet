@@ -31,6 +31,64 @@
     color: #000;
 }
 
+.table-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.table-clients{
+    width: 100%;
+}
+
+.header-table-client{
+    border-bottom: 1px solid #d3d3d3;
+    border-top: 1px solid #d3d3d3;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 130px 130px 1fr 120px 160px 1fr 70px repeat(3, 50px);
+    color: rgb(134, 134, 134);
+}
+
+.data-row-client{
+    display: grid;
+    grid-template-columns: 130px 130px 1fr 120px 160px 1fr 70px repeat(3, 50px);
+    font-size: 0.9em;
+
+}
+
+tr{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    overflow-y: hidden;
+}
+
+th{
+    text-align: left;
+}
+
+td{
+    margin-top: 30px;
+    overflow: auto;
+    margin: 13px 0;
+    margin-right: 13px;
+
+}
+
+.icon{
+    margin: 0 0;
+    margin-right: 0;
+}
+
+select{
+    width: 100%;
+    font-size: 1em;
+}
+
+
 
 @media only screen and (max-width: 400px){
     *{
@@ -38,11 +96,11 @@
     }
 
     .header-table-client{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr repeat(3, 33px);
+        grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr 1fr repeat(3, 33px);
     }
 
     .data-row-client{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr repeat(3, 33px);
+        grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr 1fr repeat(3, 33px);
     }
 
     th{

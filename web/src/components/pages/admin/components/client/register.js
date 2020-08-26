@@ -1,17 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import api from '../../../../../services/api'
+import StoreContext from '../../../../store/Context'
 import './register.css'
 
 export default () => {
+    const {tokenAdmin} = useContext(StoreContext);
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [rg, setRG] = useState('');
     const [cpf, setCPF] = useState('');
-    const [code, setCode] = useState('');
 
-    function handleSubmit(e){
+    const token = JSON.parse(tokenAdmin());
+
+    async function handleSubmit(e){
         e.preventDefault();
-        console.log(name, email, rg, cpf);
+        try{
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+            await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf})
+
+            resetFields();
+            alert('Cadastro de cliente concluido!');
+        }catch(err){
+            alert('Falha em registrar cliente.')
+        }
+    }
+
+    function resetFields(){
+        setName('');
+        setLastName('');
+        setEmail('');
+        setRG('');
+        setCPF('');
     }
     return(
         <div className="container">
@@ -30,8 +50,6 @@ export default () => {
                         <input className="input-lastName" type="text" placeholder="Sobrenome" value={lastName} onChange={e => setLastName(e.target.value)}/>
 
                         <input className="input-cpf" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)}/>
-
-                        <input className="input-code" type="text" placeholder="Código" value={code} onChange={e => setCode(e.target.value)}/>
                     </div>
                 </div>
 

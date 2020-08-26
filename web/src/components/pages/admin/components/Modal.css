@@ -72,9 +72,12 @@
 }
 
 .h2-modal{
+    white-space: nowrap;
     overflow: auto;
+    overflow-y: hidden;
 }
 
 .h2-modal#content{
     padding: 7px;
+    max-height: 50px;
 }

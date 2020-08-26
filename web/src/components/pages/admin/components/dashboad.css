@@ -1,15 +1,107 @@
-
 .container-dashboard{
     height: calc(100vh - 98px);
     display: flex;
     flex-direction: column;
 }
 
+.titles-dashboard{
+    display: flex;
+    justify-content: space-between;
+}
+
+#title-clients{
+    width: 40%;
+}
+
+#title-actions{
+    width: 55%;
+}
 .client-data{
     height: 50%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
 }
 
+.client-fields{
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.numbes{
+    display: flex;
+}
+
+.total-clients{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: whitesmoke;
+}
+
+.quick-actions{
+    width: 55%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+
+}
+
+.total-number{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: fit-content;
+    background-color: #c2c2c2;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+.total-actives{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: fit-content;
+    background-color: #75cfaa;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+.total-inactives{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: fit-content;
+    background-color: #e04b89;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+
+.buttons-client{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#button{
+    align-self: center;
+}
+
+.buttons-partner{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
 .partner-data{
     height: 50%;
     width: 100%;
