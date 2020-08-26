@@ -16,7 +16,7 @@ import ProfileClientController from './app/controllers/ProfileClientController';
 import ListClientIDController from './app/controllers/ListClientIDController';
 import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
 import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
-import FileController from './app/controllers/Admin/FileController';
+import ImportFileController from './app/controllers/Admin/ImportFileController';
 
 import CardGenerationService from './app/services/CardGenerationService';
 
@@ -55,7 +55,7 @@ routes.post(
 
 routes.use(authMiddleware);
 
-routes.post('/admin/import', upload.single('file'), FileController.store);
+routes.post('/admin/import', upload.single('file'), ImportFileController.store);
 
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);

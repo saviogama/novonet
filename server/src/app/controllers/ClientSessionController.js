@@ -14,7 +14,7 @@ class ClientSessionController {
     });
 
     if (!client) {
-      return response.status(401).json({ error: 'CPF does not match.' });
+      return response.status(401).json({ error: 'Code does not match.' });
     }
 
     const { id, client_type } = client;
