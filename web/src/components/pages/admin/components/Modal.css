@@ -44,6 +44,9 @@
     display: flex;
 }
 
+.row4{
+    display: flex;
+}
 
 .logo_modal{
     margin-block-start: auto;

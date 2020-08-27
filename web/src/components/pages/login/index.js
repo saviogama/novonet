@@ -66,8 +66,6 @@ export default () => {
                         <button className="button" type="submit">Entrar</button>
                         
                         <div className="links-container">
-                            <a className="link-forgot">Esqueci a senha</a>
-                            <a>|</a> 
                             <a className="link-client"  onClick={e => setClientLoginForm(true)}>Sou cliente</a>
                         </div>
     
