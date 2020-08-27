@@ -1,5 +1,5 @@
-import fs from 'fs';
 import csvParse from 'csv-parse';
+import fs from 'fs';
 
 import Client from '../models/Client';
 
@@ -8,8 +8,8 @@ class ImportFileService {
     const contactsReadStream = fs.createReadStream(filePath);
 
     const parsers = csvParse({
-      delimiter: ';',
       from_line: 2,
+      // delimiter: ';',
     });
 
     const parseCSV = contactsReadStream.pipe(parsers);
@@ -39,29 +39,29 @@ class ImportFileService {
         cpf,
         status,
       });
-
-      await new Promise((resolve) => parseCSV.on('end', resolve));
     });
 
-    console.log(datasClients);
+    await new Promise((resolve) => parseCSV.on('end', resolve));
 
-    // const createdClients = Client.create(
-    //   datasClients.map((data) => ({
-    //     email: data.email,
-    //     firstname: data.firstname,
-    //     lastname: data.lastname,
-    //     code: data.code,
-    //     rg: data.rg,
-    //     cpf: data.cpf,
-    //     status: data.status,
-    //   }))
-    // );
+    const createdClients = Client.create(
+      datasClients.map((data) => ({
+        email: data.email,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        code: data.code,
+        rg: data.rg,
+        cpf: data.cpf,
+        status: data.status,
+      }))
+    );
 
-    // await Client.save(createdClients);
+    console.log(createdClients);
+
+    // await Client.(createdClients);
 
     // await fs.promises.unlink(filePath);
 
-    // return createdClients;
+    return createdClients;
   }
 }
 

@@ -1,4 +1,8 @@
 import { Router } from 'express';
+
+import Brute from 'express-brute';
+import BruteRedis from 'express-brute-redis';
+
 import multer from 'multer';
 import uploadConfig from './config/upload';
 
@@ -14,11 +18,11 @@ import ProfilePartnerController from './app/controllers/ProfilePartnerController
 import ProfileClientController from './app/controllers/ProfileClientController';
 
 import ListClientIDController from './app/controllers/ListClientIDController';
+import UpdatePartnerPasswordController from './app/controllers/Admin/UpdatePartnerPasswordController';
+
 import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
 import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
 import ImportFileController from './app/controllers/Admin/ImportFileController';
-
-import CardGenerationService from './app/services/CardGenerationService';
 
 import validateAdminStore from './app/validators/AdminStore';
 import validateAdminSessionStore from './app/validators/AdminSessionStore';
@@ -27,6 +31,7 @@ import validatePartnerUpdate from './app/validators/PartnerUpdate';
 import validatePartnerSessionStore from './app/validators/PartnerSessionStore';
 import validateClientStore from './app/validators/ClientStore';
 import validateClientUpdate from './app/validators/ClientUpdate';
+import validateUpdatePartnerPassword from './app/validators/UpdatePartnerPassword';
 import validateClientSessionStore from './app/validators/ClientSessionStore';
 import validateListClientID from './app/validators/ListClientID';
 
@@ -34,21 +39,29 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(uploadConfig);
+const bruteStore = new BruteRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
+const bruteForce = new Brute(bruteStore);
 
 routes.post('/access-admin', validateAdminStore, AdminController.store);
 
 routes.post(
   '/access-admin-session',
+  bruteForce.prevent,
   validateAdminSessionStore,
   AdminSessionController.store
 );
 routes.post(
   '/partners-session',
+  bruteForce.prevent,
   validatePartnerSessionStore,
   PartnerSessionController.store
 );
 routes.post(
   '/clients-session',
+  bruteForce.prevent,
   validateClientSessionStore,
   ClientSessionController.store
 );
@@ -72,10 +85,15 @@ routes.get('/clients', ClientController.index);
 routes.get('/admin/users', ListSystemUsersController.index);
 routes.get('/admin/status-users', ListClientsStatusController.index);
 
-routes.get('/clients/data', validateListClientID, ListClientIDController.show);
-
 routes.get('/partners/:id', ProfilePartnerController.show);
 routes.get('/clients/:id', ProfileClientController.show);
-routes.get('/clients/:id/card', CardGenerationService.show);
+
+routes.post('/clients/data', validateListClientID, ListClientIDController.show);
+
+routes.put(
+  '/partners/password/:id',
+  validateUpdatePartnerPassword,
+  UpdatePartnerPasswordController.update
+);
 
 export default routes;
