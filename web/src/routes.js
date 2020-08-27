@@ -8,6 +8,7 @@ import Login from './components/pages/login';
 import Admin from './components/pages/admin';
 import Client from './components/pages/client'
 import Partner from './components/pages/partner'
+import RegisterAdmin from './components/pages/registerAdmin'
 
 
 export default () =>
@@ -18,6 +19,7 @@ export default () =>
                 <PrivateRouteAdmin path="/admin" component={Admin}/>
                 <PrivateRouteClient path="/cliente" component={Client}/>
                 <PrivateRoutePartner path="/parceiro" component={Partner}/>
+                <Route path="/registrar-admin" component={RegisterAdmin}/>
             </Switch>
         </StoreProvider>
     </BrowserRouter>

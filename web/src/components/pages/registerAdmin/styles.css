@@ -1,0 +1,14 @@
+.adminRegiste-container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.form-admin-registe{
+    width: 350px;
+    height: 300px;
+    align-self: center;
+}

@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Create, Delete, Done, Close} from '@material-ui/icons'
+import {Create, Delete, Done, Close, VpnKey} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
 import {AutoSizer, List} from 'react-virtualized';
 import StoreContext from '../../../../store/Context'
 import api from '../../../../../services/api';
+import Modal from '../Modal'
 
 
 import './visualize.css'
@@ -11,13 +12,15 @@ import './visualize.css'
 export default () => {
 
     const {tokenAdmin} = useContext(StoreContext);
-
+    const [modal, setModal] = useState(false);
     const [cnpjSearch, setCNPJSearch] = useState('');
     const [nameSearch, setNameSearch] = useState('');
     const [partners, setPartners] = useState('');
     const [partnersBase, setPartnersBase] = useState('');
 
     const [indexTableEdit, setIndexTableEdit] = useState('');
+    const [indexChangePass, setIndexChangePass] = useState('');
+    const [password, setPassword] = useState('');
     const [nameEditable, setNameEditable] = useState('');
     const [emailEditable, setEmailEditable] = useState('');
     const [companyEditable, setCompanyEditable] = useState('');
@@ -47,6 +50,20 @@ export default () => {
         }
     }
 
+    async function changePassword(){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.put(`/partners/password/${partners[indexChangePass].id}`, {"password": password})
+            setModal(false);
+        }catch(err){
+            alert('Erro ao mudar a senha, tente novamente');
+        }
+    }
+
+    function getIndexChangePass(index){
+        setIndexChangePass(index);
+        setModal(true)
+    }
 
     function openEditTablesIndex(index){
         setIndexTableEdit(index);
@@ -66,6 +83,14 @@ export default () => {
         setCnpjEditable('');
         setRgEditable('');
         setCpfEditable('');
+    }
+
+    function openModal(){
+        if(modal){
+            return(
+                <Modal stateModal={modal} setStateModal={(bool) => setModal(bool)} partner={false} changePassword={true} password = {password} setPassword= {setPassword} changePasswordFunc={() => changePassword()}/>
+            )
+        }
     }
 
     async function deleteTablesIndex(index){
@@ -138,6 +163,11 @@ export default () => {
                             <Close/>
                         </IconButton>
                     </td>
+                    <td className="icon">
+                        <IconButton onClick={() => getIndexChangePass(index)}>
+                            <VpnKey/>
+                        </IconButton>
+                    </td>
                 </tr>
             );
         }else{
@@ -157,6 +187,11 @@ export default () => {
                     <td className="icon">
                         <IconButton onClick={() => deleteTablesIndex(index)}>
                             <Delete/>
+                        </IconButton>
+                    </td>
+                    <td className="icon">
+                        <IconButton onClick={() => getIndexChangePass(index)}>
+                            <VpnKey/>
                         </IconButton>
                     </td>
                 </tr>
@@ -197,6 +232,7 @@ export default () => {
                     )}
                 </AutoSizer>
             </div>
+            {openModal()}
         </div>
     );
 }
