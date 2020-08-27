@@ -12,7 +12,7 @@ export default () => {
     const [clientsTotal, setClientsTotal] = useState('');
     const [clientsActives, setClientsActives] = useState('');
     const [clientsInactives, setClientsInactives] = useState('');
-
+    const [totalUsers, setTotalUsers] = useState('');
     const [partnersTotal, setPartnersTotal] = useState('');
     const {tokenAdmin} = useContext(StoreContext);
     const token = JSON.parse(tokenAdmin());
@@ -22,6 +22,7 @@ export default () => {
         api.get('/admin/users').then(response => {
             setClientsTotal(response.data.clients);
             setPartnersTotal(response.data.partners);
+            setTotalUsers(response.data.clients + response.data.partners);
         })
 
         api.get('/admin/status-users').then(response => {
@@ -31,10 +32,10 @@ export default () => {
     }, [setClientsTotal, setPartnersTotal, setClientsActives, setClientsInactives])
 
     const data = [
-        { name: 'Clientes Ativos', value: clientsActives, color: '#FFFFFF' }, { name: 'Clientes Inativos', value: clientsInactives, color: '#000000' },
+        {name:'Parceiros', value: partnersTotal},{name: 'Clientes Ativos', value: clientsActives }, { name: 'Clientes Inativos', value: clientsInactives},
     ];
 
-    const colors = ['#75cfaa', '#e04b89'];
+    const colors = ['#e4ff00', '#75cfaa', '#e04b89'];
       
     function handleQuickAction(type){
         if(type === 1){
@@ -62,22 +63,20 @@ export default () => {
                                 <Pie dataKey="value" isAnimationActive={false} data={data} outerRadius={80} innerRadius={40} fill="#9B111E">
                                     <Cell key={`cell-${0}`} fill={colors[0]} />
                                     <Cell key={`cell-${1}`} fill={colors[1]} />
+                                    <Cell key={`cell-${2}`} fill={colors[2]} />
                                 </Pie>
                                 <Tooltip />
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="numbers">
-                            <div className="total-number">
-                                <h2>Total: {clientsTotal}</h2>
-                                <SupervisorAccount/>
+                            <div className="users-number">
+                                <h2>Usuários: {totalUsers}</h2>
                             </div>
-                            <div className="total-actives">
-                                <h2>Ativos: {clientsActives}</h2>
-                                <SupervisorAccount/>
+                            <div className="client-number">
+                                <h2>Clientes: {clientsTotal}</h2>
                             </div>
-                            <div className="total-inactives">
-                                <h2>Inativo: {clientsInactives}</h2>
-                                <SupervisorAccount/>
+                            <div className="partner-number">
+                                <h2>Parceiros: {partnersTotal}</h2>
                             </div>
                         </div>
                     </div>

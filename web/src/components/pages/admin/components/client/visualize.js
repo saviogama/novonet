@@ -63,7 +63,8 @@ export default () => {
     async function confirmEdit(){
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
-            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "code": codeEditable, "status": statusEditable})
+            console.log(clients[indexTableEdit].id)
+            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "status": statusEditable})
 
             cancelEdit();
             window.location.reload();

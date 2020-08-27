@@ -54,36 +54,38 @@
 
 }
 
-.total-number{
+.users-number{
     padding: 5px;
     display: flex;
     justify-content: space-between;
     border-radius: 5px;
-    height: fit-content;
+    height: 40px;
+    background-color: #009181;
+    color: white;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+
+}
+
+.client-number{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: 40px;
     background-color: #c2c2c2;
     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
-.total-actives{
+.partner-number{
     padding: 5px;
     display: flex;
     justify-content: space-between;
     border-radius: 5px;
-    height: fit-content;
-    background-color: #75cfaa;
+    height: 40px;
+    background-color: #e4ff00;
     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    overflow: auto;
 }
-
-.total-inactives{
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 5px;
-    height: fit-content;
-    background-color: #e04b89;
-    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-}
-
 
 .buttons-client{
     margin: 10px;

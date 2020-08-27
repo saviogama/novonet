@@ -48,7 +48,7 @@ export default () => {
         }catch(err){
             signOut();
         }
-    }, [partnerData])
+    }, [])
 
     
     function openModal(){
@@ -68,7 +68,7 @@ export default () => {
     async function handleSearch(){
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
-            const response = await api.get('/clients/data', {"code": codeSearch});
+            const response = await api.post('/clients/data', {"code": codeSearch});
             setProfileModal(response.data)
             setClientCard(true);
             setModal(true)

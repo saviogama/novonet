@@ -106,6 +106,15 @@ export default (props) => {
             </div>
           </div>
           );
+      }else if(props.changePassword){
+        return(
+          <div className="changePassword-container">
+            <div className="data-container" >
+              <input type="text" placeholder="Digite a senha" value={props.password} onChange={e => props.setPassword(e.target.value)}/>
+              <button className="button" id="butPass" onClick={() => props.changePasswordFunc()}>Mudar senha</button>
+            </div>
+          </div>
+        );
       }else{
           return(
             <div style={modalStyle} className={classes.paper}>
@@ -152,7 +161,7 @@ export default (props) => {
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose()}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
