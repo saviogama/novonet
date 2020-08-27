@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import Brute from 'express-brute';
-import BruteRedis from 'express-brute-redis';
+// import Brute from 'express-brute';
+// import BruteRedis from 'express-brute-redis';
 
 import multer from 'multer';
 import uploadConfig from './config/upload';
@@ -39,29 +39,29 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(uploadConfig);
-const bruteStore = new BruteRedis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-});
-const bruteForce = new Brute(bruteStore);
+// const bruteStore = new BruteRedis({
+//   host: process.env.REDIS_HOST,
+//   port: process.env.REDIS_PORT,
+// });
+// const bruteForce = new Brute(bruteStore);
 
 routes.post('/access-admin', validateAdminStore, AdminController.store);
 
 routes.post(
   '/access-admin-session',
-  bruteForce.prevent,
+  // bruteForce.prevent,
   validateAdminSessionStore,
   AdminSessionController.store
 );
 routes.post(
   '/partners-session',
-  bruteForce.prevent,
+  // bruteForce.prevent,
   validatePartnerSessionStore,
   PartnerSessionController.store
 );
 routes.post(
   '/clients-session',
-  bruteForce.prevent,
+  // bruteForce.prevent,
   validateClientSessionStore,
   ClientSessionController.store
 );
