@@ -97,7 +97,7 @@ class PartnerController {
     const partner = await Partner.findByPk(partnerID);
 
     if (!partner) {
-      return response.status(400).json({ error: 'Client not found.' });
+      return response.status(400).json({ error: 'Partner not found.' });
     }
 
     if (email && email !== partner.email) {
@@ -112,9 +112,18 @@ class PartnerController {
       }
     }
 
-    const partnertUpdated = await partner.update(request.body);
+    const { name, company_name, rg, cpf, cnpj } = await partner.update(
+      request.body
+    );
 
-    return response.json(partnertUpdated);
+    return response.json({
+      email,
+      name,
+      company_name,
+      rg,
+      cpf,
+      cnpj,
+    });
   }
 
   async delete(request, response) {
@@ -138,7 +147,7 @@ class PartnerController {
     const partner = await Partner.findByPk(partnerID);
 
     if (!partner) {
-      return response.status(400).json({ error: 'Client not found.' });
+      return response.status(400).json({ error: 'Partner not found.' });
     }
 
     await partner.destroy();

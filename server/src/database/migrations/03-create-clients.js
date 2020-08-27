@@ -40,7 +40,6 @@ module.exports = {
       },
       // code: {
       //   type: Sequelize.STRING,
-      //   allowNull: true,
       // },
       // codeUUID: {
       //   type: Sequelize.UUID,

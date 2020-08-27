@@ -2,14 +2,12 @@ import Admin from '../../models/Admin';
 
 class AdminController {
   async store(request, response) {
-    const adminExists = await Admin.findOne({
-      where: {
-        email: request.body.email,
-      },
-    });
+    const adminExists = await Admin.count();
 
-    if (adminExists) {
-      return response.status(400).json({ error: 'Admin already exists.' });
+    if (adminExists >= 1) {
+      return response
+        .status(400)
+        .json({ error: 'Admin already exists, impossible to create another.' });
     }
 
     const { id, email, name } = await Admin.create(request.body);

@@ -17,7 +17,7 @@ class ListClientIDController {
       where: {
         code,
       },
-      attributes: ['email', 'firstname', 'lastname', 'status'],
+      attributes: ['firstname', 'lastname', 'code', 'status'],
     });
 
     if (!client) {
