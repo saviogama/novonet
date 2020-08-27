@@ -65,6 +65,10 @@ export default StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
     },
+    qrcode: {
+        width: 10,
+        height: 10
+    },
     buttonText: {
         color: "#FFFFFF",
         fontSize: 16

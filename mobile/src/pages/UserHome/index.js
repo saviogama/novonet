@@ -1,19 +1,55 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { View, Image, Text, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../contexts/auth';
+import jwt_decode from 'jwt-decode';
+import api from '../../services/api';
+import { View, Image, Text, TouchableOpacity, Modal, Linking } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
 import Carteirinha from '../../components/Carteirinha';
 import styles from './styles';
 
 export default function UserHome() {
     const [modalVisible, setModalVisible] = useState(false);
-    const navigation = useNavigation();
+    const [client, setClient] = useState('');
+    const [active, setActive] = useState('');
+    const [image, setImage] = useState(null);
+    const { user, signOut } = useContext(AuthContext);
+
+    var decoded = jwt_decode(user);
 
     function navigateToLogin() {
-        navigation.navigate('PartnerLogin');
+        signOut();
     }
+
+    useEffect(() => {
+        (async () => {
+            await api.get(`clients/${decoded.id}`, {
+                headers: {
+                    Authorization: `Bearer ${user}`
+                }
+            }).then(response => {
+                setClient(response.data);
+                if (response.data.status === true) {
+                    setActive('Ativo');
+                } else {
+                    setActive('Inativo');
+                }
+            });
+        })();
+    }, [setClient]);
+
+    
+    useEffect(() => {
+        (async () => {
+            await api.get(`clients/${decoded.id}/card`, {
+                headers: {
+                    Authorization: `Bearer ${user}`
+                }
+            }).then(response => {
+                setImage(response.data);
+            });
+        })();
+    }, [setImage]);
 
     return (
         <View style={styles.view}>
@@ -25,9 +61,9 @@ export default function UserHome() {
                         <Feather name="log-out" size={14} color="#737380" />
                     </TouchableOpacity>
                 </View>
-                <Text style={styles.title}>Olá, Cliente</Text>
-                <Text style={styles.description}>Seu status é: Ativo</Text>
-                <Carteirinha />
+                <Text style={styles.title}>Olá, {client.firstname}</Text>
+                <Text style={styles.description}>Seu status é: {active}</Text>
+                <Carteirinha name={client.firstname} lastname={client.lastname} code={client.code} status={active} />
                 <Text style={styles.observation}>
                     Observação: É obrigatório a apresentação de um documento com foto comprovando a titularidade.
                 </Text>
@@ -38,7 +74,7 @@ export default function UserHome() {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <AntDesign name="qrcode" size={250} color="#00524A" />
+                            
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => { setModalVisible(!modalVisible) }}
@@ -55,10 +91,10 @@ export default function UserHome() {
                     <Text style={styles.buttonText} >Exibir QR Code</Text>
                 </TouchableOpacity>
                 <View style={styles.footer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.instagram.com/novonetoficial/') }}>
                         <Entypo style={styles.footerIcon} name="instagram-with-circle" size={36} color="#00524A" />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.facebook.com/novonetbandalarga') }}>
                         <Entypo style={styles.footerIcon} name="facebook-with-circle" size={36} color="#00524A" />
                     </TouchableOpacity>
                 </View>
