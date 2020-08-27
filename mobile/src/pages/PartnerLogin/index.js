@@ -51,6 +51,7 @@ export default function PartnerLogin() {
                 />
                 <TextInput
                     style={styles.input}
+                    secureTextEntry={true}
                     onChangeText={text => setPassword_Entry(text)}
                     value={password_entry}
                     placeholder="Senha"

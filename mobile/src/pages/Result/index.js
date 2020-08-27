@@ -27,7 +27,7 @@ export default function Result({ route, navigation }) {
 
     useEffect(() => {
         (async () => {
-            await api.get('clients/data', data, {
+            await api.post('clients/data', data, {
                 headers: {
                     Authorization: `Bearer ${user}`
                 }
@@ -38,6 +38,8 @@ export default function Result({ route, navigation }) {
                 } else {
                     setActive('Inativo');
                 }
+            }).catch(function (error) {
+                console.log(error);
             });
         })();
     }, [setClient]);

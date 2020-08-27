@@ -3,6 +3,7 @@ import AuthContext from '../../contexts/auth';
 import jwt_decode from 'jwt-decode';
 import api from '../../services/api';
 import { View, Image, Text, TouchableOpacity, Modal, Linking } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import Carteirinha from '../../components/Carteirinha';
@@ -74,7 +75,7 @@ export default function UserHome() {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            
+                            <QRCode value={client.code} size={200} />
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => { setModalVisible(!modalVisible) }}

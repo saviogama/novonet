@@ -11,7 +11,7 @@ import styles from './styles';
 
 export default function PartnerHome() {
     const [partner, setPartner] = useState('');
-    const [codigo, setCodigo] = useState('3d491234d8ba44b39bacba0089c7f5aa');
+    const [codigo, setCodigo] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const { user, signOut } = useContext(AuthContext);
     const navigation = useNavigation();
