@@ -17,10 +17,12 @@ const Routes = () => {
         )
     }
     else if (signed) {
-        return (<PartnerRoutes />)
-    }
-    else if (signed) {
-        return (<UserRoutes />)
+        var decoded = jwt_decode(user);
+        if (decoded.partner_type) {
+            return (<PartnerRoutes />)
+        } else {
+            return (<UserRoutes />)
+        }
     }
     else {
         return (<AuthRoutes />)

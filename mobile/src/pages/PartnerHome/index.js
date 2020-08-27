@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../contexts/auth';
 import { useNavigation } from '@react-navigation/native';
-import { View, Image, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { View, Image, Text, TextInput, TouchableOpacity, Modal, Linking } from 'react-native';
 import jwt_decode from 'jwt-decode';
 import api from '../../services/api';
 import { Feather } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import styles from './styles';
 
 export default function PartnerHome() {
     const [partner, setPartner] = useState('');
-    const [codigo, setCodigo] = useState('');
+    const [codigo, setCodigo] = useState('3d491234d8ba44b39bacba0089c7f5aa');
     const [modalVisible, setModalVisible] = useState(false);
     const { user, signOut } = useContext(AuthContext);
     const navigation = useNavigation();
@@ -23,17 +23,23 @@ export default function PartnerHome() {
     }
 
     function navigateToResult() {
-        navigation.navigate('Result');
+        navigation.navigate('Result', { code: codigo });
+    }
+
+    function navigateToScanner() {
+        navigation.navigate('CodeScanner');
     }
 
     useEffect(() => {
-        api.get(`partners/${decoded.id}`, {
-            headers: {
-                Authorization: `Bearer ${user}`
-            }
-        }).then(response => {
-            setPartner(response.data);
-        });
+        (async () => {
+            await api.get(`partners/${decoded.id}`, {
+                headers: {
+                    Authorization: `Bearer ${user}`
+                }
+            }).then(response => {
+                setPartner(response.data);
+            });
+        })();
     }, [setPartner]);
 
     return (
@@ -85,17 +91,17 @@ export default function PartnerHome() {
                         <Text style={styles.optionsText}>DIGITAR</Text>
                         <Text style={styles.optionsText}>CÓDIGO</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionsButton}>
+                    <TouchableOpacity style={styles.optionsButton} onPress={navigateToScanner}>
                         <AntDesign name="qrcode" size={50} color="#E4FF23" />
                         <Text style={styles.optionsText}>LER</Text>
                         <Text style={styles.optionsText}>QR CODE</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.footer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.instagram.com/novonetoficial/') }}>
                         <Entypo style={styles.footerIcon} name="instagram-with-circle" size={36} color="#00524A" />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.facebook.com/novonetbandalarga') }}>
                         <Entypo style={styles.footerIcon} name="facebook-with-circle" size={36} color="#00524A" />
                     </TouchableOpacity>
                 </View>

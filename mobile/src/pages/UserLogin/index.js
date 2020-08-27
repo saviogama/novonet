@@ -5,7 +5,7 @@ import AuthContext from '../../contexts/auth';
 import styles from './styles';
 
 export default function UserLogin() {
-    const [cpf, setCpf] = useState('');
+    const [code, setCode] = useState('3d491234d8ba44b39bacba0089c7f5aa');
     const { setToken } = useContext(AuthContext);
 
     async function handleLogin(e) {
@@ -13,7 +13,7 @@ export default function UserLogin() {
         e.preventDefault();
 
         const data = {
-            cpf
+            code
         };
 
         try {
@@ -35,8 +35,8 @@ export default function UserLogin() {
             <View>
                 <TextInput
                     style={styles.input}
-                    onChangeText={text => setCpf(text)}
-                    value={cpf}
+                    onChangeText={text => setCode(text)}
+                    value={code}
                     placeholder="Digite seu código"
                     placeholderTextColor="#00524A99"
                 />
