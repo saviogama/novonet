@@ -36,6 +36,13 @@ export default (props) => {
     props.setStateModal(false);
   };
 
+  function statusSelection(status){
+    if(status === true){
+        return 'Ativo'
+    }else{
+        return 'Inativo'
+    }
+  }
 
   const body = () => {
       if(props.partner){
@@ -54,11 +61,50 @@ export default (props) => {
                       </div>
                       <div className="row2">
                         <h2 className="h2-styled-branco">Status:</h2>
-                        <h2 className="h2-modal" id="content">{props.modalProfile.status}</h2>
+                        <h2 className="h2-modal" id="content">{statusSelection(props.modalProfile.status)}</h2>
                       </div>
                   </div>
               </div>
             </div>
+          );
+      }else if(props.partnersProfile){
+          return(
+            <div style={modalStyle} className={classes.paper}>
+            <div className="container-modal">
+                <div className="column1">
+
+                  <h2 className="h2-nome">{props.modalProfile.name}</h2>
+
+                  <div className="row1" id="margin">
+                    <h2 className="h2-styled-branco">Email: </h2>
+                    <h2 className="h2-modal" id="content">{props.modalProfile.email}</h2>
+                  </div>
+
+                  <div className="row2">
+                    <h2 className="h2-styled-branco">RG: </h2>
+                    <h2 className="h2-modal" id="content">{props.modalProfile.rg}</h2>
+                  </div>
+
+                  <div className="row3">
+                    <h2 className="h2-styled-branco">CPF: </h2>
+                    <h2 className="h2-modal" id="content">{props.modalProfile.cpf}</h2>
+                  </div>
+
+                  <div className="row4">
+                    <h2 className="h2-styled-branco">Company:</h2>
+                      <h2 className="h2-modal" id="content">{props.modalProfile.company_name}</h2>
+                  </div>
+
+                  <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
+                </div>
+                <div className="column2">
+                    <div className="row1">
+                      <h2 className="h2-styled-branco">CNPJ:</h2>
+                      <h2 className="h2-modal" id="content">{props.modalProfile.cnpj}</h2>
+                    </div>
+                </div>
+            </div>
+          </div>
           );
       }else{
           return(
@@ -93,7 +139,7 @@ export default (props) => {
                       </div>
                       <div className="row2">
                         <h2 className="h2-styled-branco">Status:</h2>
-                        <h2 className="h2-modal" id="content">{props.modalProfile.status}</h2>
+                        <h2 className="h2-modal" id="content">{statusSelection(props.modalProfile.status)}</h2>
                       </div>
                   </div>
               </div>

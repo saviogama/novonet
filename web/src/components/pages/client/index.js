@@ -39,6 +39,15 @@ export default () => {
         signOut();
     }
 
+    function statusSelection(status){
+        if(status === true){
+            return 'Ativo'
+        }else{
+            return 'Inativo'
+        }
+      }
+    
+
     return(
         <div className="container-client">
             <header>
@@ -61,21 +70,6 @@ export default () => {
                                 <h2 className="h2-nome">{clientData.firstname}</h2>
                                 <h2 className="h2-styled">{clientData.lastname}</h2>
 
-                                <div className="row1" id="margin">
-                                    <h2 className="h2-styled-branco" id="email">Email:</h2>
-                                    <h2 className="h2-modal" id="content">{clientData.email}</h2>
-                                </div>
-
-                                <div className="row2">
-                                    <h2 className="h2-styled-branco">RG:</h2> 
-                                    <h2 className="h2-modal" id="content">{clientData.rg}</h2>
-                                </div>
-
-                                <div className="row3">
-                                    <h2 className="h2-styled-branco">CPF:</h2>
-                                    <h2 className="h2-modal" id="content">{clientData.cpf}</h2>
-                                </div>
-
                                 <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
                             </div>
                             <div className="column2">
@@ -85,7 +79,7 @@ export default () => {
                                 </div>
                                 <div className="row2">
                                     <h2 className="h2-styled-branco">Status:</h2>
-                                    <h2 className="h2-modal" id="content">Ativo</h2>
+                                    <h2 className="h2-modal" id="content">{statusSelection(clientData.status)}</h2>
                                 </div>
                             </div>
                         </div>
