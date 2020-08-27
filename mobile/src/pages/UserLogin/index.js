@@ -5,7 +5,7 @@ import AuthContext from '../../contexts/auth';
 import styles from './styles';
 
 export default function UserLogin() {
-    const [code, setCode] = useState('3d491234d8ba44b39bacba0089c7f5aa');
+    const [code, setCode] = useState('');
     const { setToken } = useContext(AuthContext);
 
     async function handleLogin(e) {
