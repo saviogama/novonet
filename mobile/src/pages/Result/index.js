@@ -24,6 +24,7 @@ export default function Result({ route, navigation }) {
     const data = {
         code
     }
+    console.log(data.code)
 
     useEffect(() => {
         (async () => {
