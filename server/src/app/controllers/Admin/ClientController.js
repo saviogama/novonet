@@ -114,9 +114,18 @@ class ClientController {
       }
     }
 
-    const clientUpdated = await client.update(request.body);
+    const { fisrtname, lastname, rg, cpf, status } = await client.update(
+      request.body
+    );
 
-    return response.json(clientUpdated);
+    return response.json({
+      email,
+      fisrtname,
+      lastname,
+      rg,
+      cpf,
+      status,
+    });
   }
 
   async delete(request, response) {

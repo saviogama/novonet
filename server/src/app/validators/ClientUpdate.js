@@ -8,6 +8,7 @@ export default async (request, response, next) => {
       lastname: Yup.string().min(5),
       rg: Yup.string().min(8),
       cpf: Yup.string().min(11),
+      status: Yup.boolean(),
     });
 
     await schema.validate(request.body, { abortEarly: false });

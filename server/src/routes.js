@@ -1,10 +1,7 @@
 import { Router } from 'express';
 
-// import Brute from 'express-brute';
-// import BruteRedis from 'express-brute-redis';
-
-import multer from 'multer';
-import uploadConfig from './config/upload';
+import Brute from 'express-brute';
+import BruteRedis from 'express-brute-redis';
 
 import AdminController from './app/controllers/Admin/AdminController';
 import PartnerController from './app/controllers/Admin/PartnerController';
@@ -22,7 +19,6 @@ import UpdatePartnerPasswordController from './app/controllers/Admin/UpdatePartn
 
 import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
 import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
-import ImportFileController from './app/controllers/Admin/ImportFileController';
 
 import validateAdminStore from './app/validators/AdminStore';
 import validateAdminSessionStore from './app/validators/AdminSessionStore';
@@ -38,37 +34,34 @@ import validateListClientID from './app/validators/ListClientID';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
-const upload = multer(uploadConfig);
-// const bruteStore = new BruteRedis({
-//   host: process.env.REDIS_HOST,
-//   port: process.env.REDIS_PORT,
-// });
-// const bruteForce = new Brute(bruteStore);
+const bruteStore = new BruteRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
+const bruteForce = new Brute(bruteStore);
 
 routes.post('/access-admin', validateAdminStore, AdminController.store);
 
 routes.post(
   '/access-admin-session',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validateAdminSessionStore,
   AdminSessionController.store
 );
 routes.post(
   '/partners-session',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validatePartnerSessionStore,
   PartnerSessionController.store
 );
 routes.post(
   '/clients-session',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validateClientSessionStore,
   ClientSessionController.store
 );
 
 routes.use(authMiddleware);
-
-routes.post('/admin/import', upload.single('file'), ImportFileController.store);
 
 routes.post('/partners', validatePartnerStore, PartnerController.store);
 routes.post('/clients', validateClientStore, ClientController.store);

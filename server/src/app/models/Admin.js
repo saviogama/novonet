@@ -6,7 +6,6 @@ class Admin extends Model {
     super.init(
       {
         email: Sequelize.STRING,
-        name: Sequelize.STRING,
         password_entry: Sequelize.VIRTUAL,
         password: Sequelize.STRING,
         admin_type: Sequelize.BOOLEAN,
