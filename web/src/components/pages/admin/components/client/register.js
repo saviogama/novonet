@@ -38,7 +38,7 @@ export default () => {
     return(
         <div className="container">
 
-            <form className="form-container" onSubmit={handleSubmit}>
+            <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
                 <div className="inputs-container">
                     <div className="inputs-coluna">
                         <input className="input-nome" type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)}/>

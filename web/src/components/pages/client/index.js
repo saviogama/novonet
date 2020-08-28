@@ -33,7 +33,8 @@ export default () => {
         }catch(err){
             signOut();
         }
-    }, [clientData]);
+        
+    }, []);
 
     const exitFromTheSystem = () =>{
         signOut();

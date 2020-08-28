@@ -28,7 +28,7 @@ export default () =>{
     
                 <div className="form-container-login">
     
-                    <form className="form" onSubmit={handleSubmitRegisteAdmin}>
+                    <form className="form" onSubmit={(e) => handleSubmitRegisteAdmin(e)}>
     
                         <input className="input-email" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
     
