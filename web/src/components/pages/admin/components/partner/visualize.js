@@ -53,7 +53,7 @@ export default () => {
     async function changePassword(){
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
-            await api.put(`/partners/password/${partners[indexChangePass].id}`, {"password": password})
+            await api.put(`/partners/password/${partners[indexChangePass].id}`, {"password_entry": password})
             alert('Senha atualizada com sucesso!')
             setModal(false);
         }catch(err){
