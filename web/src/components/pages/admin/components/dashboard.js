@@ -53,7 +53,7 @@ export default () => {
         <div className="container-dashboard">
             <div className="client-data">
                 <div className="titles-dashboard">
-                    <h2 id="title-clients">Clientes</h2>
+                    <h2 id="title-clients">Usuários do sistema</h2>
                     <h2 id="title-actions">Ações Rápidas</h2>
                 </div>
                 <div className="client-fields">

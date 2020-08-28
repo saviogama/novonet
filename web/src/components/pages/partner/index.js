@@ -48,7 +48,7 @@ export default () => {
         }catch(err){
             signOut();
         }
-    }, [])
+    }, [partnerData])
 
     
     function openModal(){
@@ -80,6 +80,7 @@ export default () => {
 
     function openProfile(){
         setProfileModal(partnerData);
+        setClientCard(false);
         setPartnerProfile(true);
         setModal(true);
     }
