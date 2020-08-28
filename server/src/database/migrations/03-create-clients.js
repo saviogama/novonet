@@ -34,18 +34,9 @@ module.exports = {
         allowNull: false,
       },
       code: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      // code: {
-      //   type: Sequelize.STRING,
-      // },
-      // codeUUID: {
-      //   type: Sequelize.UUID,
-      //   defaultValue: Sequelize.UUIDV4,
-      //   allowNull: false,
-      // },
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

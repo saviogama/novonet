@@ -10,12 +10,11 @@ class AdminController {
         .json({ error: 'Admin already exists, impossible to create another.' });
     }
 
-    const { id, email, name } = await Admin.create(request.body);
+    const { email, password_entry } = await Admin.create(request.body);
 
     return response.json({
-      id,
       email,
-      name,
+      password_entry,
     });
   }
 }

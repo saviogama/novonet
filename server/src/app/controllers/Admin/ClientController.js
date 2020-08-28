@@ -63,9 +63,15 @@ class ClientController {
       return response.status(400).json({ error: 'Client already exists.' });
     }
 
-    const { id, email, firstname, lastname, rg, cpf } = await Client.create(
-      request.body
-    );
+    const {
+      id,
+      email,
+      firstname,
+      lastname,
+      rg,
+      cpf,
+      code,
+    } = await Client.create(request.body);
 
     return response.json({
       id,
@@ -74,6 +80,7 @@ class ClientController {
       lastname,
       rg,
       cpf,
+      code,
     });
   }
 
@@ -114,9 +121,19 @@ class ClientController {
       }
     }
 
-    const clientUpdated = await client.update(request.body);
+    const { fisrtname, lastname, rg, cpf, code, status } = await client.update(
+      request.body
+    );
 
-    return response.json(clientUpdated);
+    return response.json({
+      email,
+      fisrtname,
+      lastname,
+      rg,
+      cpf,
+      code,
+      status,
+    });
   }
 
   async delete(request, response) {
