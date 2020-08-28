@@ -29,6 +29,8 @@ export default () => {
             setClientsActives(response.data.clientsAtivos);
             setClientsInactives(response.data.clientsInativos)
         })
+
+        console.log(true);
     }, [setClientsTotal, setPartnersTotal, setClientsActives, setClientsInactives])
 
     const data = [

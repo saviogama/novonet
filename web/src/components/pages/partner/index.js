@@ -48,7 +48,7 @@ export default () => {
         }catch(err){
             signOut();
         }
-    }, [partnerData])
+    }, [])
 
     
     function openModal(){
@@ -69,9 +69,14 @@ export default () => {
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
             const response = await api.post('/clients/data', {"code": codeSearch});
-            setProfileModal(response.data)
-            setClientCard(true);
-            setModal(true)
+
+            if(response.data){
+                setProfileModal(response.data)
+                setClientCard(true);
+                setModal(true)
+            }else{
+                alert('Nenhum usuário encontrado!');
+            }
 
         }catch(err){
             alert('Falha na busca, tente outro Código');
