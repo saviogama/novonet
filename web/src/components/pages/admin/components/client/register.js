@@ -41,13 +41,13 @@ export default () => {
                     <div className="inputs-coluna">
                         <input className="input-nome" type="text" placeholder="Nome (Min. 5)" value={name} onChange={e => setName(e.target.value)}/>
 
-                        <input className="input-rg" type="text" placeholder="RG" value={rg} onChange={e => setRG(e.target.value)}/>
+                        <input className="input-lastName" type="text" placeholder="Sobrenome (Min. 6)" value={lastName} onChange={e => setLastName(e.target.value)}/>
 
                         <input className="input-email" type="email" placeholder="Email (Min. 10)" value={email} onChange={e => setEmail(e.target.value)}/>
                     </div>
 
                     <div className="inputs-coluna">
-                        <input className="input-lastName" type="text" placeholder="Sobrenome (Min. 6)" value={lastName} onChange={e => setLastName(e.target.value)}/>
+                        <input className="input-rg" type="text" placeholder="RG" value={rg} onChange={e => setRG(e.target.value)}/>
 
                         <input className="input-cpf" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)}/>
                     </div>

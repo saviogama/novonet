@@ -54,6 +54,7 @@ export default () => {
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
             await api.put(`/partners/password/${partners[indexChangePass].id}`, {"password": password})
+            alert('Senha atualizada com sucesso!')
             setModal(false);
         }catch(err){
             alert('Erro ao mudar a senha, tente novamente');
