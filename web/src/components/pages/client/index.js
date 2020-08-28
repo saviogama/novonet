@@ -60,7 +60,7 @@ export default () => {
             </header>
             <main id="main-client">
                 <div className="container-title">
-                    <h1 className="h1-title">Seja bem-vindo, confira suas informações e status:</h1>
+                    <h1 className="h1-title">Seja bem-vindo {clientData.firstname}, confira suas informações e status:</h1>
                 </div>
                 <div className="container-content">
                     <div className="client-card">

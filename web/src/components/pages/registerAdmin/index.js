@@ -13,7 +13,7 @@ export default () =>{
     async function handleSubmitRegisteAdmin(e){
         e.preventDefault()
         try{
-            await api.post('/access-admin', {"email": email, "name": "admin", "password_entry": password})
+            await api.post('/access-admin', {"email": email, "password_entry": password})
             alert('Cadastro realizado com sucesso!')
             history.push('/');
         }catch(err){

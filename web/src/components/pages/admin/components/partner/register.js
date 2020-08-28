@@ -48,22 +48,22 @@ export default () => {
 
                     <div className="inputs-coluna">
 
-                        <input className="input-nome" type="text" placeholder="Nome (Min. 5)" value={name} onChange={e => setName(e.target.value)} min="5" max="50"/>
+                        <input className="input-nome" type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)}/>
 
-                        <input className="input-email" type="mail" placeholder="Email (Min. 10)" value={email} onChange={e => setEmail(e.target.value)} min="10" max="100"/>
+                        <input className="input-email" type="mail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
 
-                        <input className="input-password" type="text" placeholder="Senha (Min. 6)" value={password} onChange={e => setPassword(e.target.value)} min="6" max="100"/>
+                        <input className="input-password" type="text" placeholder="Senha (Min. 6)" value={password} onChange={e => setPassword(e.target.value)}/>
 
-                        <input className="input-email" type="text" placeholder="Company" value={company} onChange={e => setCompany(e.target.value)} max="50"/>
+                        <input className="input-email" type="text" placeholder="Company" value={company} onChange={e => setCompany(e.target.value)}/>
 
                     </div>
 
                     <div className="inputs-coluna">
-                        <input className="input-cnpj" type="text" placeholder="RG" value={rg} onChange={e => setRG(e.target.value)} min="7" max="10"/>
+                        <input className="input-cnpj" type="text" placeholder="RG" value={rg} onChange={e => setRG(e.target.value)}/>
 
-                        <input className="input-address" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)} min="11" max="15"/>
+                        <input className="input-address" type="text" placeholder="CPF" value={cpf} onChange={e => setCPF(e.target.value)}/>
 
-                        <input className="input-phone" type="text" placeholder="CNPJ" value={cnpj} onChange={e => setCNPJ(e.target.value)} min="12" max="50"/>
+                        <input className="input-phone" type="text" placeholder="CNPJ" value={cnpj} onChange={e => setCNPJ(e.target.value)}/>
                     </div>
                 </div>
 
