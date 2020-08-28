@@ -6,12 +6,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 export default function CodeScanner() {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-    const [codigo, setCodigo] = useState(null);
     const navigation = useNavigation();
-
-    function navigateToResult() {
-        navigation.navigate('Result', { code: codigo });
-    }
 
     useEffect(() => {
         (async () => {
@@ -22,8 +17,8 @@ export default function CodeScanner() {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        setCodigo(data);
-        navigateToResult();
+        console.log(data);
+        navigation.navigate('Result', { code: data });
     };
 
     if (hasPermission === null) {
