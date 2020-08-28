@@ -1,5 +1,4 @@
 import Sequelize, { Model } from 'sequelize';
-import { v4 } from 'uuid';
 
 class Client extends Model {
   static init(sequelize) {
@@ -10,9 +9,7 @@ class Client extends Model {
         lastname: Sequelize.STRING,
         rg: Sequelize.STRING,
         cpf: Sequelize.STRING,
-        code: Sequelize.UUID,
-        // code: Sequelize.STRING,
-        // codeUUI: Sequelize.UUID,
+        code: Sequelize.STRING,
         status: Sequelize.BOOLEAN,
         client_type: Sequelize.BOOLEAN,
       },
@@ -20,10 +17,6 @@ class Client extends Model {
         sequelize,
       }
     );
-
-    this.addHook('beforeSave', (client) => {
-      client.code = v4();
-    });
 
     return this;
   }
