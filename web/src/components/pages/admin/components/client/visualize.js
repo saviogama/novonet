@@ -64,7 +64,7 @@ export default () => {
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
             console.log(clients[indexTableEdit].id)
-            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "status": statusEditable})
+            await api.put(`/clients/${clients[indexTableEdit].id}`, {"email": emailEditable, "firstname": nameEditable, "lastname": lastNameEditable, "rg": rgEditable, "cpf":cpfEditable, "code": codeEditable, "status": statusEditable})
 
             cancelEdit();
             window.location.reload();
@@ -158,7 +158,7 @@ export default () => {
                     <td><input className="input-edit-row"type="text"  value={emailEditable} onChange={e => setEmailEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={rgEditable} onChange={e => setRgEditable(e.target.value)}></input></td>
                     <td><input className="input-edit-row"type="text"  value={cpfEditable} onChange={e => setCpfEditable(e.target.value)}></input></td>
-                    <td><input className="input-edit-row"type="text"  value={codeEditable} onChange={e => setCodeEditable(e.target.value)} disabled></input></td>
+                    <td><input className="input-edit-row"type="text"  value={codeEditable} onChange={e => setCodeEditable(e.target.value)}></input></td>
                     <td><select onChange={e => setStatusEditable(e.target.value)}>
                         <option></option>
                         <option value={true}>Ativo</option>
