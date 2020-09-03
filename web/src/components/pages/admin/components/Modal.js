@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Logo_Branco from '../../../../assets/Logo_Branco.png'
+import background from '../../../../assets/carteirinha/frente/fundo-1.svg'
+import Logo_Carteira from '../../../../assets/carteirinha/frente/empresa.png'
+import Grupo_Direita from '../../../../assets/carteirinha/frente/grupo direita.svg'
+import Grupo_Esquerda from '../../../../assets/carteirinha/frente/Grupo esquerda.svg'
 import '../components/Modal.css'
 
 function getModalStyle() {
@@ -20,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     width: 580,
     height: 350,
-    background: 'linear-gradient(90deg, rgba(0,82,74,1) 0%, rgba(0,145,129,1) 100%)',
+    backgroundImage: `url(${background})`,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 0, 0),
+    padding: theme.spacing(0, 0, 0),
   },
 }));
 
@@ -49,12 +52,14 @@ export default (props) => {
           return(
             <div style={modalStyle} className={classes.paper}>
               <div className="container-modal">
+                <img src={Grupo_Esquerda} className="grupo_esquerda" alt="Linhas verticais"/>
                   <div className="column1">
                     <h2 className="h2-nome">{props.modalProfile.firstname}</h2>
                     <h2 className="h2-styled">{props.modalProfile.lastname}</h2>
-                    <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
+                    <img src={Logo_Carteira} className="logo_carteira" alt="Novo Net"/>
                   </div>
                   <div className="column2">
+                  <img src={Grupo_Direita} className="grupo_direita" alt="Linhas horizontais"/>
                       <div className="row1">
                         <h2 className="h2-styled-branco">Cod:</h2>
                         <h2 className="h2-modal" id="content">{props.modalProfile.code}</h2>
@@ -71,13 +76,14 @@ export default (props) => {
           return(
             <div style={modalStyle} className={classes.paper}>
             <div className="container-modal">
+              <img src={Grupo_Esquerda} className="grupo_esquerda" alt="Linhas verticais"/>
                 <div className="column1">
 
                   <h2 className="h2-nome">{props.modalProfile.name}</h2>
 
                   <div className="row1" id="margin">
                     <h2 className="h2-styled-branco">Email: </h2>
-                    <h2 className="h2-modal" id="content">{props.modalProfile.email}</h2>
+                    <h2 className="h2-modal" id="email">{props.modalProfile.email}</h2>
                   </div>
 
                   <div className="row2">
@@ -92,12 +98,13 @@ export default (props) => {
 
                   <div className="row4">
                     <h2 className="h2-styled-branco">Company:</h2>
-                      <h2 className="h2-modal" id="content">{props.modalProfile.company_name}</h2>
+                      <h2 className="h2-modal" id="email">{props.modalProfile.company_name}</h2>
                   </div>
 
-                  <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
+                  <img src={Logo_Carteira} className="logo_carteira" alt="Novo Net"/>
                 </div>
                 <div className="column2">
+                  <img src={Grupo_Direita} className="grupo_direita" alt="Linhas horizontais"/>
                     <div className="row1">
                       <h2 className="h2-styled-branco">CNPJ:</h2>
                       <h2 className="h2-modal" id="content">{props.modalProfile.cnpj}</h2>
@@ -119,6 +126,7 @@ export default (props) => {
           return(
             <div style={modalStyle} className={classes.paper}>
               <div className="container-modal">
+              <img src={Grupo_Esquerda} className="grupo_esquerda" alt="Linhas verticais"/>
                   <div className="column1">
 
                     <h2 className="h2-nome">{props.modalProfile.firstname}</h2>
@@ -126,7 +134,7 @@ export default (props) => {
 
                     <div className="row1" id="margin">
                       <h2 className="h2-styled-branco">Email: </h2>
-                      <h2 className="h2-modal" id="content">{props.modalProfile.email}</h2>
+                      <h2 className="h2-modal" id="email">{props.modalProfile.email}</h2>
                     </div>
 
                     <div className="row2">
@@ -139,9 +147,10 @@ export default (props) => {
                       <h2 className="h2-modal" id="content">{props.modalProfile.cpf}</h2>
                     </div>
 
-                    <img src={Logo_Branco} className="logo_modal" alt="Novo Net"/>
+                    <img src={Logo_Carteira} className="logo_carteira" alt="Novo Net"/>
                   </div>
                   <div className="column2">
+                    <img src={Grupo_Direita} className="grupo_direita" alt="Linhas horizontais"/>
                       <div className="row1">
                         <h2 className="h2-styled-branco">Cod:</h2>
                         <h2 className="h2-modal" id="content">{props.modalProfile.code}</h2>

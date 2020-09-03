@@ -122,7 +122,7 @@ export default () => {
     
                     <form className="form" onSubmit={(e) => handleSubmitClient(e)}>
     
-                        <input className="input-code" type="text" placeholder="Código" value={codeClient} onChange={e => setCodeClient(e.target.value)}/>
+                        <input className="input-codeLogin" type="text" placeholder="Código" value={codeClient} onChange={e => setCodeClient(e.target.value)}/>
     
                         <button className="button" type="submit">Entrar</button>
                         
