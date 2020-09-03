@@ -3,24 +3,29 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    background-image: url('../../../../assets/Logo_Recorte_Branco.png');
+    background-image: url('../../../../assets/carteirinha/frente/logo.svg');
     background-repeat: no-repeat;
-    background-size: 40%;
-    background-position-x: 347px;
-    background-position-y: 115px;
+    background-size: 38%;
+    background-position-x: 357px;
+    background-position-y: 166px;
+    overflow: hidden;
 }
 
 .column1{
     width: 60%;
+    padding-top: 16px;
     color: #FFFFFF;
     display: flex;
     flex-direction: column;
     padding-left: 3%;
     padding-bottom: 3%;
+    overflow: hidden;
+    padding-right: 15px;
 }
 
 .column2{
     width: 40%;
+    padding-top: 16px;
     height: fit-content;
     color: #FFFFFF;
     display: flex;
@@ -82,6 +87,12 @@
 
 .h2-modal#content{
     padding: 7px;
+    max-height: 50px;
+}
+
+.h2-modal#email{
+    padding: 7px;
+    padding-top: 10px;
     max-height: 50px;
 }
 
