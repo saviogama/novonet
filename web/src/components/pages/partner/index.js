@@ -42,7 +42,6 @@ export default () => {
                 setPartnerData(response.data);
             });
 
-
             setToken(token);
 
         }catch(err){
@@ -94,10 +93,11 @@ export default () => {
         <div className="container-partner">
             <header>
                 <img src={Logo_Branco} className="logo_header" alt="NovoNet"/>
+                <h2 className="bemvindo">Bem-vindo, {partnerData.name}!</h2>
                 <div className="exitButton-container">
-                    <IconButton className={classes.icons} onClick={openProfile}>
+                    {/*<IconButton className={classes.icons} onClick={openProfile}>
                         <AccountBox fontSize="large"/>
-                    </IconButton>
+                    </IconButton>*/}
                     <IconButton className={classes.icons} onClick={exitFromTheSystem}>
                         <ExitToApp fontSize="large"/>
                     </IconButton>
