@@ -38,7 +38,9 @@ const bruteStore = new BruteRedis({
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
 });
-const bruteForce = new Brute(bruteStore);
+const bruteForce = new Brute(bruteStore, {
+  freeRetries: 10,
+});
 
 routes.post('/access-admin', validateAdminStore, AdminController.store);
 
