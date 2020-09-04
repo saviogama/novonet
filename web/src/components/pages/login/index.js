@@ -12,6 +12,7 @@ export default () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [codeClient, setCodeClient] = useState('');
+    const [passwordClient, setPasswordClient] = useState('');
     const [clientLoginForm, setClientLoginForm] = useState(false);
     const [partnerLoginForm, setPartnerLoginForm] = useState(false);
     const [adminLoginForm, setAdminLoginForm] = useState(true);
@@ -47,7 +48,7 @@ export default () => {
     async function handleSubmitClient(e){
         e.preventDefault();
         try{
-            const responseClient = await api.post('/clients-session', {"code": codeClient});
+            const responseClient = await api.post('/clients-session', {"code": codeClient, "password_entry": passwordClient});
             setTokenClient(responseClient.data.token);
             history.push('/cliente');
             
@@ -123,6 +124,8 @@ export default () => {
                     <form className="form" onSubmit={(e) => handleSubmitClient(e)}>
     
                         <input className="input-codeLogin" type="text" placeholder="Código" value={codeClient} onChange={e => setCodeClient(e.target.value)}/>
+
+                        <input className="input-password" type="password" placeholder="Senha" value={passwordClient} onChange={e => setPasswordClient(e.target.value)}/>
     
                         <button className="button" type="submit">Entrar</button>
                         

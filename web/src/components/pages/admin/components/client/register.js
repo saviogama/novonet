@@ -11,6 +11,7 @@ export default () => {
     const [rg, setRG] = useState('');
     const [cpf, setCPF] = useState('');
     const [code, setCode] = useState('');
+    const [password, setPassword] = useState('');
 
     const token = JSON.parse(tokenAdmin());
 
@@ -18,7 +19,7 @@ export default () => {
         e.preventDefault();
         try{
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf, "code": code})
+            await api.post('/clients', {"email": email, "firstname": name, "lastname": lastName, "rg": rg, "cpf":cpf, "code": code, "password_entry": password})
 
             resetFields();
             alert('Cadastro de cliente concluido!');
@@ -30,6 +31,7 @@ export default () => {
     function resetFields(){
         setName('');
         setLastName('');
+        setPassword('');
         setEmail('');
         setRG('');
         setCPF('');
@@ -46,6 +48,8 @@ export default () => {
                         <input className="input-lastName" type="text" placeholder="Sobrenome" value={lastName} onChange={e => setLastName(e.target.value)}/>
 
                         <input className="input-email" type="email" placeholder="Email (Min. 10)" value={email} onChange={e => setEmail(e.target.value)}/>
+
+                        <input className="input-password" type="text" placeholder="Senha (Min. 6)" value={password} onChange={e => setPassword(e.target.value)}/>
                     </div>
 
                     <div className="inputs-coluna">
