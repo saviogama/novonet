@@ -16,6 +16,7 @@ import ProfileClientController from './app/controllers/ProfileClientController';
 
 import ListClientIDController from './app/controllers/ListClientIDController';
 import UpdatePartnerPasswordController from './app/controllers/Admin/UpdatePartnerPasswordController';
+import UpdateClientPasswordController from './app/controllers/Admin/UpdateClientPasswordController';
 
 import ListSystemUsersController from './app/controllers/Admin/ListSystemUsersController';
 import ListClientsStatusController from './app/controllers/Admin/ListClientsStatusController';
@@ -24,11 +25,12 @@ import validateAdminStore from './app/validators/AdminStore';
 import validateAdminSessionStore from './app/validators/AdminSessionStore';
 import validatePartnerStore from './app/validators/PartnerStore';
 import validatePartnerUpdate from './app/validators/PartnerUpdate';
+import validateUpdatePartnerPassword from './app/validators/UpdatePartnerPassword';
 import validatePartnerSessionStore from './app/validators/PartnerSessionStore';
 import validateClientStore from './app/validators/ClientStore';
 import validateClientUpdate from './app/validators/ClientUpdate';
-import validateUpdatePartnerPassword from './app/validators/UpdatePartnerPassword';
 import validateClientSessionStore from './app/validators/ClientSessionStore';
+import validateUpdateClientPassword from './app/validators/UpdateClientPassword';
 import validateListClientID from './app/validators/ListClientID';
 
 import authMiddleware from './app/middlewares/auth';
@@ -89,6 +91,11 @@ routes.put(
   '/partners/password/:id',
   validateUpdatePartnerPassword,
   UpdatePartnerPasswordController.update
+);
+routes.put(
+  '/clients/password/:id',
+  validateUpdateClientPassword,
+  UpdateClientPasswordController.update
 );
 
 export default routes;
