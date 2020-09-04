@@ -6,6 +6,7 @@ import styles from './styles';
 
 export default function UserLogin() {
     const [code, setCode] = useState('');
+    const [password_entry, setPassword_Entry] = useState('');
     const { setToken } = useContext(AuthContext);
 
     async function handleLogin(e) {
@@ -13,7 +14,8 @@ export default function UserLogin() {
         e.preventDefault();
 
         const data = {
-            code
+            code,
+            password_entry
         };
 
         try {
@@ -25,7 +27,7 @@ export default function UserLogin() {
             Alert.alert('Login', `Código inválido.`);
         }
     }
-    
+
     return (
         <View style={styles.container}>
             <Image
@@ -38,6 +40,14 @@ export default function UserLogin() {
                     onChangeText={text => setCode(text)}
                     value={code}
                     placeholder="Digite seu código"
+                    placeholderTextColor="#00524A99"
+                />
+                <TextInput
+                    style={styles.input}
+                    secureTextEntry={true}
+                    onChangeText={text => setPassword_Entry(text)}
+                    value={password_entry}
+                    placeholder="Senha"
                     placeholderTextColor="#00524A99"
                 />
                 <TouchableOpacity
