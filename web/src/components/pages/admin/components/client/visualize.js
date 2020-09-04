@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Create, Delete, Done, Close, AccountBox} from '@material-ui/icons'
+import {Create, Delete, Done, Close, AccountBox, VpnKey} from '@material-ui/icons'
 import {IconButton} from '@material-ui/core'
 import {AutoSizer, List} from 'react-virtualized';
 import StoreContext from '../../../../store/Context'
@@ -18,6 +18,7 @@ export default () => {
     const [nameSearch, setNameSearch] = useState('');
 
     const [indexTableEdit, setIndexTableEdit] = useState('');
+    const [indexChangePass, setIndexChangePass] = useState('');
     const [nameEditable, setNameEditable] = useState('');
     const [lastNameEditable, setLastNameEditable] = useState('');
     const [emailEditable, setEmailEditable] = useState('');
@@ -25,8 +26,10 @@ export default () => {
     const [cpfEditable, setCpfEditable] = useState('');
     const [codeEditable, setCodeEditable] = useState('');
     const [statusEditable, setStatusEditable] = useState(false);
+    const [password, setPassword] = useState('');
 
     const [modal, setModal] = useState(false);
+    const [modalPassword, setModalPassword] = useState(false);
     const [clientModal, setClientModal] = useState('');
 
     const token = JSON.parse(tokenAdmin());
@@ -60,6 +63,14 @@ export default () => {
         }
     }
 
+    function openModalPassword(){
+        if(modalPassword){
+            return(
+                <Modal stateModal={modalPassword} setStateModal={(bool) => setModalPassword(bool)} partner={false} changePassword={true} password = {password} setPassword= {setPassword} changePasswordFunc={() => changePassword()}/>
+            )
+        }
+    }
+
     async function confirmEdit(){
         api.defaults.headers.Authorization = `Bearer ${token}`;
         try{
@@ -71,6 +82,22 @@ export default () => {
         }catch(err){
             alert('Falha na tentativa de editar cliente');
         }
+    }
+
+    async function changePassword(){
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        try{
+            await api.put(`/clients/password/${clients[indexChangePass].id}`, {"password_entry": password})
+            alert('Senha atualizada com sucesso!')
+            setModalPassword(false);
+        }catch(err){
+            alert('Erro ao mudar a senha, tente novamente');
+        }
+    }
+
+    function getIndexChangePass(index){
+        setIndexChangePass(index);
+        setModalPassword(true)
     }
 
     function openEditTablesIndex(index){
@@ -180,6 +207,11 @@ export default () => {
                             <AccountBox/>
                         </IconButton>
                     </td>
+                    <td className="icon">
+                        <IconButton onClick={() => getIndexChangePass(index)}>
+                            <VpnKey/>
+                        </IconButton>
+                    </td>
                 </tr>
 
             );
@@ -206,6 +238,11 @@ export default () => {
                     <td className="icon">
                         <IconButton onClick={() => getDataAndOpenModal(index)}>
                             <AccountBox/>
+                        </IconButton>
+                    </td>
+                    <td className="icon">
+                        <IconButton onClick={() => getIndexChangePass(index)}>
+                            <VpnKey/>
                         </IconButton>
                     </td>
                 </tr>
@@ -248,6 +285,7 @@ export default () => {
                 </AutoSizer>
             </div>
             {openModal()}
+            {openModalPassword()}
         </div>
     );
 
