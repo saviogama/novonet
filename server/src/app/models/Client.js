@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 class Client extends Model {
   static init(sequelize) {
@@ -11,6 +12,8 @@ class Client extends Model {
         cpf: Sequelize.STRING,
         code: Sequelize.STRING,
         status: Sequelize.BOOLEAN,
+        password_entry: Sequelize.VIRTUAL,
+        password: Sequelize.STRING,
         client_type: Sequelize.BOOLEAN,
       },
       {
@@ -18,7 +21,17 @@ class Client extends Model {
       }
     );
 
+    this.addHook('beforeSave', async (partner) => {
+      if (partner.password_entry) {
+        partner.password = await bcrypt.hash(partner.password_entry, 8);
+      }
+    });
+
     return this;
+  }
+
+  checkPassword(p) {
+    return bcrypt.compare(p, this.password);
   }
 }
 
